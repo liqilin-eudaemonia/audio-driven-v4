@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-07",
+  "model": "Qwen2.5-Omni-3B",
+  "cpu_tests": {"passed": 19, "seconds": 8.39, "scope": "unit tests, real small model classes, local feature and VAE contracts"},
+  "omni_gpu": {"passed": true, "record": "../outputs/omni_gate_003/completed.json"},
+  "full_pretrained_ltx_gpu": {"passed": null, "reason": "All eight GPUs occupied by other tasks after Omni verification; idle-device check refuses launch."},
+  "formal_training_started": false,
+  "generation_quality_passed": null
+}
