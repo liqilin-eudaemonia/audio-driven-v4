@@ -1,5 +1,7 @@
 # 当前P2训练GitHub备份（2026-10-08）
 
+代码快照提交：[05e6489](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/05e64892daa1d8abd0e4e696a496368a37926271)（详细中文提交说明）；后续文档提交仅登记该固定代码版本。
+
 分支：[backup/p2-no-time-frozen-dit-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-no-time-frozen-dit-20261008)。基于此前备份`9732ad3`，保留main和旧备份历史。本分支归档当前P2方案及其配对验证工具，P3独立工作不纳入本次备份。
 
 ## 当前实际训练结构

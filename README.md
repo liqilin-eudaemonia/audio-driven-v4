@@ -1,6 +1,6 @@
 # Audio driven v4 总索引
 
-**当前 P2 训练代码备份（2026-10-08）**：[backup/p2-no-time-frozen-dit-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-no-time-frozen-dit-20261008)。包含无时间提示缓存刷新、原子保存修复、三机训练及GT／Omni整份计划验证代码。当前结构为 **Gemma文本条件与Connector输出U拼接 → 原有text cross-attention；LTX全部冻结，仅训练Connector与辅助decoder**。没有启用独立Omni attention或P2 text cross-attention LoRA。运行配置、启动源码哈希对应关系、验证范围和复现见[备份说明](docs/P2_NO_TIME_GITHUB_BACKUP_20261008.md)及[启动溯源](docs/P2_NO_TIME_LAUNCH_PROVENANCE_20261008.json)。
+**当前 P2 训练代码备份（2026-10-08）**：[backup/p2-no-time-frozen-dit-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-no-time-frozen-dit-20261008)。包含无时间提示缓存刷新、原子保存修复、三机训练及GT／Omni整份计划验证代码。当前结构为 **Gemma文本条件与Connector输出U拼接 → 原有text cross-attention；LTX全部冻结，仅训练Connector与辅助decoder**。没有启用独立Omni attention或P2 text cross-attention LoRA。运行配置、启动源码哈希对应关系、验证范围和复现见[备份说明](docs/P2_NO_TIME_GITHUB_BACKUP_20261008.md)及[启动溯源](docs/P2_NO_TIME_LAUNCH_PROVENANCE_20261008.json)。 代码快照提交：[05e6489](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/05e64892daa1d8abd0e4e696a496368a37926271)（详细中文提交说明）；后续文档提交仅登记该固定代码版本。
 
 
 **GT／Omni 整份计划验证代码已准备（2026-10-08）**：固定Dev48，共96个待生成视频；两组均重新走训练同一hidden提取路径，Gemma与hidden使用同一份计划，固定原尺寸/帧数/seed。71项CPU测试及真实清单准备通过；未运行GPU生成，不打断当前训练。入口、命令和验证边界见[配对验证说明](docs/P2_FULL_PLAN_VALIDATION_20261008.md)。

@@ -1,5 +1,7 @@
 # 无时间提示缓存：三机24卡1000步训练（2026-10-08）
 
+代码快照提交：[05e6489](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/05e64892daa1d8abd0e4e696a496368a37926271)（详细中文提交说明）；后续文档提交仅登记该固定代码版本。
+
 用户要求使用新缓存开始训练，已于2026-10-08 08:38 UTC启动。当前正在运行，不能将目标1000步解释为已完成1000步。最新实际进度以逐rank日志和TensorBoard为准。
 
 - Train91,009，缓存：`/public/2_CKPT/0_WM/llq/p2_full91009_dev48_no_time_cache_20261008/train/cache_index.json`；启动前核对完整审计、索引SHA256及当前prompt contract。

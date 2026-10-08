@@ -2,6 +2,8 @@
 
 ## 2026-10-08 当前P2训练完整备份：无时间提示、冻结DiT
 
+代码快照提交：[05e6489](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/05e64892daa1d8abd0e4e696a496368a37926271)（详细中文提交说明）；后续文档提交仅登记该固定代码版本。
+
 分支：[backup/p2-no-time-frozen-dit-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-no-time-frozen-dit-20261008)，继承`9732ad3`，保留main和此前备份历史。新增全量缓存准备/刷新、损坏缓存恢复保护、无时间prompt契约、GT/Omni整份计划配对验证入口与CPU测试。当前训练使用Train91,009、三机24卡/global batch72、1000步目标、每100步保存、关闭Dev验证，保留原720p-area形状。
 
 原有text cross-attention读取拼接后的Gemma/U条件，完整LTX冻结，仅训练Connector和两路辅助decoder；P2 text cross-attention LoRA尚未实现或启用。训练启动快照哈希与本分支对应关系、原始命令及外部数据依赖见[备份说明](docs/P2_NO_TIME_GITHUB_BACKUP_20261008.md)。配对验证仅完成CPU测试/清单准备，未运行96段GPU生成，不宣称生成质量达标。
