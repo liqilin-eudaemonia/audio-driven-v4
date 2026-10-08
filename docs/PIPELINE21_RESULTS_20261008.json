@@ -1,0 +1,63 @@
+{
+  "recorded_at": "2026-10-08T11:45:43.829242+00:00",
+  "pipeline": "2.1",
+  "checkpoint_version": "p21_text_attention_lora_v1",
+  "tests": {
+    "command": "CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 /private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python -m pytest -q",
+    "passed": 90,
+    "skipped": 0,
+    "seconds": 20.24,
+    "p21_test_cases": 10,
+    "ddp_backend": "gloo",
+    "ddp_world_size": 2,
+    "native_ltx_small_model": true,
+    "full_pretrained_gpu_test": false
+  },
+  "checks": {
+    "ruff_F_E9": "passed",
+    "git_diff_check": "passed",
+    "p2_training_source_matches_launch": true,
+    "p2_last_observed_step": 104,
+    "p2_step100_save_complete": true,
+    "p2_training_interrupted": false
+  },
+  "real_ltx23_header": {
+    "blocks": 48,
+    "target_linear_projections": 384,
+    "rank": 8,
+    "adapter_parameters": 18874368,
+    "full_weights_loaded": false
+  },
+  "defaults": {
+    "lora_rank": 8,
+    "lora_alpha": 8,
+    "lora_learning_rate": 1e-05,
+    "extractor_learning_rate": 0.0001
+  },
+  "validation_suite": {
+    "path": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p21_dev48_full_plan_validation_20261008/suite.json",
+    "sha256": "a9daec125217a0c9b874367e0ab5b3f09c0f62c5dc816d81815b0317d5fc29cd",
+    "cases": 48,
+    "planned_generations": 96,
+    "generated": false
+  },
+  "source_sha256": {
+    "scripts/pipeline21_cluster.py": "2e5ff4799a1ce8e75424bfda5268e9528d7dd8b3c5ecd4308b477c10a6f3e5a0",
+    "scripts/pipeline21_parallel.py": "f15826d90479ade4450620f408cfce9d0b9d038b714af67a87d92f02b5ac6125",
+    "scripts/pipeline21_validate.py": "efed4dadcdf86de07c4b4358efe2e6edd7497db1565dc95b03a91585288d997d",
+    "src/omni_av_p21/__init__.py": "5c8aa653b3e3ef5b9bb899b46b29c4edf9d5409e246d55e77c34dc03bd791bd2",
+    "src/omni_av_p21/checkpoint.py": "4fcbcd80bfa47cd8bb4370267e01413df29c7980ea0487d589927bcc448a8fc2",
+    "src/omni_av_p21/config.py": "a598b48fe85b17e45d70d27f1faa65dcd8448921867c067fd39c263f3c84c025",
+    "src/omni_av_p21/distributed.py": "aa478b8e0ba79e05d86b2fd8b0fc506bdc8d0771e924f334fd5d069629f3f7bd",
+    "src/omni_av_p21/lora.py": "41f64f1e7fca03dcf6908c451a34f414937dd677043551cea6685976cfe76cc3",
+    "src/omni_av_p21/model.py": "3b403714de7f1717dc98c3093cb0f907f2d5933042c36cfa9a5cd55df255f0ad",
+    "src/omni_av_p21/paired_validation.py": "84a8f9676843b9d4eb1245c11a2f062bc429fa39d503ff95ad037bdbe5d74b12",
+    "src/omni_av_p21/validation.py": "157b7e108f569733c03e13dd7ed0d0541c02a2df44d3f8ba800cd019e096c347",
+    "tests/test_p21.py": "5c594e4f5f175ec7d8d781b8a06d0a9837b0531fb669e79ad9ed065f0baa014e"
+  },
+  "pending": [
+    "完整预训练22B GPU更新与峰值显存",
+    "三机24卡P2.1联合训练与吞吐",
+    "GT/Omni配对实际生成及效果对照"
+  ]
+}
