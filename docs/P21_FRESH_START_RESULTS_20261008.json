@@ -64,9 +64,175 @@
     "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
     "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
   },
-  "phase": "CPU ready; full GPU gate pending",
+  "phase": "three-node 24-GPU fresh training running; startup step3 checkpoint verified",
   "training_target_steps": 1000,
   "save_every": 100,
   "startup_safety_checkpoint_step": 3,
-  "validation_enabled": false
+  "validation_enabled": false,
+  "updated_at": "2026-10-08T14:45:27.108717+00:00",
+  "gpu4_gate": {
+    "checked_at": "2026-10-08T14:29:31.833086+00:00",
+    "host": "172.29.104.194",
+    "gpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "initial": {
+      "training_completed_steps": 2,
+      "world_size": 4,
+      "global_batch": 12,
+      "checkpoints": [
+        "/public/2_CKPT/0_WM/llq/p21_gpu4_gate_20261008_1415/initial/checkpoints/extractor_step_000002.pt"
+      ],
+      "validations": [],
+      "frozen_renderer_base": true,
+      "text_attention_lora": true,
+      "ranks_identical": true,
+      "parameter_sha256": "cf87ef16c114860dcd6213bc47014a3d59994a5a94d345c1736b12f56fdbbb79",
+      "step_seconds": [
+        80.55261742323637,
+        103.66579587757587
+      ],
+      "steady_step_seconds": 103.66579587757587,
+      "steady_samples_per_second": 0.11575659935289939,
+      "elapsed_including_save_s": 193.7789664119482,
+      "peak_allocated_gb": [
+        97.186967552,
+        94.164898816,
+        94.050052096,
+        91.04534784
+      ],
+      "stopped": false,
+      "quality_pass": null
+    },
+    "resume": {
+      "training_completed_steps": 1,
+      "world_size": 4,
+      "global_batch": 12,
+      "checkpoints": [
+        "/public/2_CKPT/0_WM/llq/p21_gpu4_gate_20261008_1415/resume/checkpoints/extractor_step_000003.pt"
+      ],
+      "validations": [],
+      "frozen_renderer_base": true,
+      "text_attention_lora": true,
+      "ranks_identical": true,
+      "parameter_sha256": "bcb9b68811ee621810dc5143a8da388e4a327250135eedd874922d8d66ad1dde",
+      "step_seconds": [
+        129.3101627752185
+      ],
+      "steady_step_seconds": 129.3101627752185,
+      "steady_samples_per_second": 0.09280013065067247,
+      "elapsed_including_save_s": 138.66065488755703,
+      "peak_allocated_gb": [
+        114.017266688,
+        97.1170432,
+        92.504339456,
+        81.958770176
+      ],
+      "stopped": false,
+      "quality_pass": null
+    },
+    "optimizer_step_values": [
+      3
+    ],
+    "full_deployment_equal": true,
+    "p2_weights_loaded": false,
+    "fresh_initial_extractor_sha256": "12e4514e2bb0af062d9be47f9f5a659fbcac96c04a62d678a9dda8b9a41ba982",
+    "all_384_lora_b_updated": true,
+    "checkpoint_version": "p21_text_attention_lora_v1",
+    "quality_pass": null
+  },
+  "startup_checkpoint": {
+    "checked_at": "2026-10-08T14:44:00.277832+00:00",
+    "step": 3,
+    "world_size": 24,
+    "rank_rng_states": 24,
+    "full_deployment_equal": true,
+    "all_model_optimizer_finite": true,
+    "all_384_lora_b_updated": true,
+    "optimizer_step": 3,
+    "all_ranks_reported_identical_loss": true,
+    "first_step_matches_p2_baseline": true,
+    "step3_metrics": {
+      "step": 3,
+      "rank": 0,
+      "seconds": 114.07822006754577,
+      "loss": 6.279040482309129,
+      "av": 0.6904079479475815,
+      "video_feature": 4.259955998924043,
+      "audio_feature": 1.328676543302006,
+      "av_video": 0.30234227639933425,
+      "av_audio": 0.3880656715482473,
+      "grad_norm": 0.6715993881225586,
+      "layer_gradient_norms": {
+        "8": 2.0698887965409085e-05,
+        "18": 2.067987406917382e-05,
+        "28": 2.4557521101087332e-05,
+        "35": 3.409001146792434e-05
+      },
+      "lora_grad_norm": 0.006683040875941515,
+      "connector_grad_norm": 0.09765508025884628,
+      "forward_seconds": 24.795026000976563,
+      "backward_including_sync_seconds": 89.03257568359375,
+      "sample_ids": [
+        "V02_S3223_I00000135_00001153_00001861_turn_P4117",
+        "V03_S1097_I00000046_00008392_00008551_turn_P5354",
+        "V03_S0712_I00000183_00004002_00004126_turn_P1718"
+      ],
+      "noise_seeds": [
+        244,
+        232,
+        243
+      ],
+      "video_latent_shapes": [
+        [
+          1,
+          128,
+          89,
+          39,
+          23
+        ],
+        [
+          1,
+          128,
+          20,
+          46,
+          19
+        ],
+        [
+          1,
+          128,
+          16,
+          37,
+          24
+        ]
+      ],
+      "peak_allocated_gb": 114.684298752
+    },
+    "checkpoint": "/public/2_CKPT/0_WM/llq/p21_fresh_3n24g_1000step_20261008/attempt_000/checkpoints/extractor_step_000003.pt",
+    "p2_weights_loaded": false
+  },
+  "p2_step200_audit": {
+    "checked_at": "2026-10-08T14:34:47.960640+00:00",
+    "step": 200,
+    "world_size": 24,
+    "full_checkpoint": "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/checkpoints/extractor_step_000200.pt",
+    "connector_checkpoint": "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/checkpoints/extractor_step_000200_connector.pt",
+    "all_tensors_finite": true,
+    "connector_matches_full": true,
+    "optimizer_steps": [
+      200
+    ],
+    "ranks_identical": true,
+    "rank_rng_states": 24,
+    "p21_initialization": "independent; do not load this P2 checkpoint"
+  },
+  "monitor_followup_tests_passed": 11,
+  "monitor_followup_overlaps_initial_tests": true,
+  "monitor_current_sha256": "11fd703225b019ebc5aa9cc67746d75e4130fb8250064d4f029590bbc5cb8363",
+  "source_sha256_note": "Original CPU regression snapshot; monitor was subsequently updated, current hash above.",
+  "runtime_root": "/public/2_CKPT/0_WM/llq/p21_fresh_3n24g_1000step_20261008",
+  "github_branch": "experiment/p21-text-lora-fresh-20261008"
 }

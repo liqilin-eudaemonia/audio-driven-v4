@@ -32,7 +32,7 @@
 - `--init-p2`可从同契约、同recipe的完整P2 checkpoint加载Extractor；LoRA为零增量、优化器新建、步数从0开始。这是显式初始化，不是无缝续训；不接受P2 Connector-only导出，与`--resume`互斥。
 - `pipeline21_validate.py`复用P2 Dev48观测/整份计划提取协议，要求P2.1 Connector+LoRA一同加载；漏LoRA、投影名单不符、Train/Dev重叠均拒绝。GT/Omni两组都使用相同LoRA，不用默认冻结LTX替代。
 
-## 启动示例（尚未执行）
+## 独立训练启动示例
 
 在三机GPU空闲后，于仓库目录执行。使用新的run-id与输出目录；命令不传validation-cache，故关闭周期Dev loss和验证集推理。
 
@@ -49,7 +49,7 @@
   --save-every 100 --cache-samples 3 --seed 45 --allow-terminal-trim --tensorboard
 ```
 
-若从已有P2第100步分支初始化，在上述命令追加`--init-p2 /public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/checkpoints/extractor_step_000100.pt`，并确认保存完成标志存在。不能将该文件传给P2.1的`--resume`。
+本次正式P2.1必须独立初始化，不传`--init-p2`或P2的`--resume`；旧P2权重仅作为基线保留。实际三机运行命令与路径见[独立训练记录](P21_FRESH_3NODE_TRAIN_20261008.md)。
 
 配对验证在GPU空闲、保存完成后执行；已有P2准备的`suite.json`可直接复用，因为观测和计划协议未改变：
 
@@ -69,4 +69,4 @@ TensorBoard在新运行的`training/tensorboard/`，新增`train/lora_grad_norm`
 
 测试包括精确注入名单、零增量等价、AV loss向Connector和两路LoRA回传、冻结底座不变、梯度重计算、BF16底座/FP32 adapter、LTX2.3 gated attention + text AdaLN路径、双进程累积对照、保存/恢复与部署输出一致、旧P2显式初始化、LoRA漏载拒绝、固定噪声Dev/RNG恢复、多机入口与忙卡保护。结果见[测试记录](PIPELINE21_RESULTS_20261008.json)。
 
-当前GPU被P2训练使用，未停止它来跑P2.1。完整预训练22B的GPU更新、三机24卡P2.1吞吐、峰值显存和实际生成质量均尚未验证；不能据CPU测试声称这些检查已经通过。首次上线应先做短GPU门禁，再决定长训。
+后续验证：105项CPU回归通过；监控功耗检查修改后11项监控回归通过（与前者重叠，不相加）。172.29.104.194的0–3卡完整22B模型完成2步独立训练、保存、加载并续训至第3步；LoRA梯度、冻结底座、四rank参数一致、部署权重与完整权重一致均通过。三机24卡已于14:34 UTC独立启动，最新进度与checkpoint审计见[运行记录](P21_FRESH_3NODE_TRAIN_20261008.md)。Dev生成质量仍未验证。

@@ -44,6 +44,13 @@ def test_stall_unreachable_and_nonfinite_are_distinct():
     assert supervision.health_issues(training(0, completed=True), gpu(0), [gpu(0)] * 5, 2000, 0, 1) == []
 
 
+def test_high_util_low_power_can_expose_communication_wait():
+    value = gpu()
+    value['nodes'][0]['gpus'][0]['watts'] = 130
+    issues = supervision.health_issues(training(), value, [value] * 5, 2000, 0, 1)
+    assert kinds(issues) == {'sustained_high_util_low_power'}
+
+
 @pytest.mark.parametrize('message,expected', [
     ('torch.distributed.DistBackendError: ncclSystemError', True),
     ('Connection reset by peer', True),

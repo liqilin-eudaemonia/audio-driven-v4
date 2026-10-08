@@ -1,0 +1,72 @@
+{
+  "migration": {
+    "rank_rng_mapping": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "global_batch": 72,
+    "bitwise_equivalent": false,
+    "noise_policy": "unchanged per-global-sample ordinal seed",
+    "source": "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/checkpoints/extractor_step_000200.pt",
+    "source_sha256": "5e91497abc6b4430a15b5d49b6c64a06970415f254dabb3144ecdb49e95a7686",
+    "output": "/public/2_CKPT/0_WM/llq/p2_resume200_gpu4_20261008/migration/extractor_step_000200_4gpu.pt",
+    "step": 200,
+    "new_world_size": 4,
+    "new_accumulation": 18,
+    "model_and_optimizer_exactly_equal": true
+  },
+  "launch": {
+    "command": [
+      "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+      "-u",
+      "/private/liqi_workspace/project_code/audio-driven-v4/scripts/pipeline2_parallel.py",
+      "--gpus",
+      "0,1,2,3",
+      "--cache",
+      "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_no_time_cache_20261008/train/cache_index.json",
+      "--output",
+      "/public/2_CKPT/0_WM/llq/p2_resume200_gpu4_20261008/training",
+      "--checkpoint-dir",
+      "/public/2_CKPT/0_WM/llq/p2_resume200_gpu4_20261008/checkpoints",
+      "--resume",
+      "/public/2_CKPT/0_WM/llq/p2_resume200_gpu4_20261008/migration/extractor_step_000200_4gpu.pt",
+      "--recipe",
+      "joint",
+      "--steps",
+      "800",
+      "--accumulation",
+      "18",
+      "--balance-workload",
+      "--save-every",
+      "100",
+      "--cache-samples",
+      "3",
+      "--checkpoint-every",
+      "1",
+      "--seed",
+      "45",
+      "--allow-terminal-trim",
+      "--tensorboard",
+      "--master-port",
+      "29861",
+      "--run-id",
+      "p2_resume200_gpu4_20261008"
+    ],
+    "host": "172.29.104.194",
+    "gpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_step": 200,
+    "target_step": 1000,
+    "global_batch": 72,
+    "validation": false
+  },
+  "tests_passed": 2,
+  "phase": "resumed training in first update201",
+  "validation_enabled": false
+}

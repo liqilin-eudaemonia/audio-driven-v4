@@ -113,6 +113,13 @@ def health_issues(training, snapshot, history, now, started, world, stale_second
                     if len(values) == 5 and statistics.mean(values) < 70:
                         issues.append(dict(kind='sustained_low_utilization', node=node['node'],
                                            gpu=int(gpu['index']), mean_util=statistics.mean(values)))
+                    powers = [g['watts'] for s in list(history)[-5:] for n in s['nodes']
+                              if n['ok'] and n['node'] == node['node'] for g in n['gpus']
+                              if g['index'] == gpu['index']]
+                    if len(powers) == 5 and statistics.mean(values) >= 90 and statistics.mean(powers) < 200:
+                        issues.append(dict(kind='sustained_high_util_low_power', node=node['node'],
+                            gpu=int(gpu['index']), mean_watts=statistics.mean(powers),
+                            hint='Possible communication spin/wait; utilization alone is not useful compute'))
     return issues
 
 

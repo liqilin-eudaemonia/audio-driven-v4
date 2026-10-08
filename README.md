@@ -1,18 +1,14 @@
 # Audio driven v4 总索引
 
-**P2 → P2.1 切换任务（2026-10-08）**：P2到第200步保存后停止；P2.1使用原始LTX-2.3与新初始化Extractor/LoRA独立训练，**不加载P2权重**。24卡、global batch72、目标1000步、每100步保存、不推理Dev；新增每15分钟三机GPU/进度检查、当前任务告警和受限checkpoint恢复。[运行与监控记录](docs/P21_FRESH_3NODE_TRAIN_20261008.md) · [检查结果](docs/P21_FRESH_START_RESULTS_20261008.json)。实际是否启动以运行根目录state.json为准。
+**P2 → P2.1 切换任务（2026-10-08）**：P2到第200步保存后停止；P2.1使用原始LTX-2.3与新初始化Extractor/LoRA独立训练，**不加载P2权重**。24卡、global batch72、目标1000步、每100步保存、不推理Dev；新增每15分钟三机GPU/进度检查、当前任务告警和受限checkpoint恢复。[运行与监控记录](docs/P21_FRESH_3NODE_TRAIN_20261008.md) · [检查结果](docs/P21_FRESH_START_RESULTS_20261008.json)。14:34 UTC已在原三机24卡启动；四卡完整模型更新/恢复测试已通过。[GitHub实验分支](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p21-text-lora-fresh-20261008)，初始实现提交`b07988d`。P2第200步完整保存后，按后续指示迁至172.29.104.194的0–3卡续训，见[四卡续训记录](docs/P2_RESUME_4GPU_20261008.md)。
 
-**Pipeline 3 四卡实验已完成（2026-10-08）**：[加速与实验报告](docs/PIPELINE3_FOUR_GPU_20261008.md) · [数值证据](docs/PIPELINE3_FOUR_GPU_RESULTS_20261008.json)。0–3卡并行完成Train16续训及Train2条件检查，四组均到2000步；实测加速2.21×/2.98×。LoRA已学到训练条件依赖，但Dev泛化尚未建立；下一步扩大规划数据和细分条件消融。
-
-**Pipeline 2.1（2026-10-08）**：新增 **Connector + 原生 text cross-attention LoRA**，仅开放视频`attn2`与音频`audio_attn2`的Q/K/V/输出投影增量；其余DiT参数冻结。独立训练/三机/配对验证入口、adapter与Connector共同保存恢复，复用当前P2缓存。默认rank8，尚未启动GPU训练；P2冻结版继续运行。[实现与命令](docs/PIPELINE21_IMPLEMENTATION.md) · [测试记录](docs/PIPELINE21_RESULTS_20261008.json)。
+**Pipeline 2.1（2026-10-08）**：新增 **Connector + 原生 text cross-attention LoRA**，仅开放视频`attn2`与音频`audio_attn2`的Q/K/V/输出投影增量；其余DiT参数冻结。独立训练/三机/配对验证入口、adapter与Connector共同保存恢复，复用当前P2缓存。默认rank8，完整四卡训练/保存/恢复门禁通过，三机24卡独立训练已启动；P2冻结版另在四卡续训。[实现与命令](docs/PIPELINE21_IMPLEMENTATION.md) · [测试记录](docs/PIPELINE21_RESULTS_20261008.json)。
 
 **当前 P2 训练代码备份（2026-10-08）**：[backup/p2-no-time-frozen-dit-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-no-time-frozen-dit-20261008)。包含无时间提示缓存刷新、原子保存修复、三机训练及GT／Omni整份计划验证代码。当前结构为 **Gemma文本条件与Connector输出U拼接 → 原有text cross-attention；LTX全部冻结，仅训练Connector与辅助decoder**。没有启用独立Omni attention或P2 text cross-attention LoRA。运行配置、启动源码哈希对应关系、验证范围和复现见[备份说明](docs/P2_NO_TIME_GITHUB_BACKUP_20261008.md)及[启动溯源](docs/P2_NO_TIME_LAUNCH_PROVENANCE_20261008.json)。 代码快照提交：[05e6489](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/05e64892daa1d8abd0e4e696a496368a37926271)（详细中文提交说明）；后续文档提交仅登记该固定代码版本。
 
-**Pipeline 3 首轮历史（200步）**：[路线方案](docs/PIPELINE3_PLAN.md) · [首轮结果](docs/PIPELINE3_FIRST_EXPERIMENT.md) · [首轮数值证据](docs/PIPELINE3_RESULTS_20261008.json)。当时两组条件利用均弱；最新2000步结论以上方四卡报告为准。基础入口 `scripts/pipeline3.py`，加速/续训入口 `scripts/pipeline3_extended.py`。
-
 **GT／Omni 整份计划验证代码已准备（2026-10-08）**：固定Dev48，共96个待生成视频；两组均重新走训练同一hidden提取路径，Gemma与hidden使用同一份计划，固定原尺寸/帧数/seed。71项CPU测试及真实清单准备通过；未运行GPU生成，不打断当前训练。入口、命令和验证边界见[配对验证说明](docs/P2_FULL_PLAN_VALIDATION_20261008.md)。
 
-**无时间提示新训练已启动（2026-10-08 08:38 UTC）**：使用新Train91,009缓存，三机24卡，目标1000步，每100步保存，关闭验证；从新初始化开始。TensorBoard选择`no_time_prompt`，实际进度和权重路径见[新训练记录](docs/P2_NO_TIME_TRAIN_1000STEP_20261008.md)。
+**无时间提示P2训练历史（2026-10-08 08:38 UTC启动）**：使用新Train91,009缓存，三机24卡，目标1000步，每100步保存，关闭验证；从新初始化开始。原三机运行已到200步保存并正常退出，后迁至四卡续训。TensorBoard原记录选择`no_time_prompt`，四卡续训选择`p2_resume_gpu4`；历史权重路径见[新训练记录](docs/P2_NO_TIME_TRAIN_1000STEP_20261008.md)。
 
 **无时间提示缓存已完成（2026-10-08 08:25 UTC）**：Omni user message 不再提供结束时间或输出时长，训练提取与推理共用。三机24卡已刷新Train91,009+Dev48的Omni条件，91,057个旧features文件及2个旧测试副本全部删除；监督特征逐项保持相等，Gemma复用，VAE未改。全量身份/布局/GT/删除审计及576条Train+48条Dev独立数值检查零失败，63项CPU回归通过；24卡已释放。新缓存、故障恢复和验证范围见[刷新记录](docs/P2_NO_TIME_CACHE_20261008.md)及[结果摘要](docs/P2_NO_TIME_CACHE_RESULTS_20261008.json)。新协议已按下方记录启动训练；未实现实时规划训练。
 
@@ -35,9 +31,9 @@
 |---|---|---|
 |Pipeline 1|Qwen2.5-Omni 连续音视频规划，文本 + hidden states 指导 LTX|已实现工程原型并备份；验证范围见下文|
 |[Pipeline 2](docs/PIPELINE2_PLAN.md)|冻结 Omni/DiT，融合 Thinker 8/18/28/35 层；最终 U 共享特征 FM 与 AV 监督|多层真实训练/自主 AV 推理工程验证通过；未做正式效果实验|
-|[Pipeline 2.1](docs/PIPELINE21_IMPLEMENTATION.md)|P2条件拼接 + 原生text cross-attention LoRA；训练Connector和辅助decoder|代码已实现，CPU/双进程测试；完整GPU训练与质量未验证|
+|[Pipeline 2.1](docs/PIPELINE21_IMPLEMENTATION.md)|P2条件拼接 + 原生text cross-attention LoRA；训练Connector和辅助decoder|完整四卡更新/恢复通过；三机24卡独立训练中，生成质量未验证|
 
-`src/omni_av` / `scripts/v4.py` 属于 **Pipeline 1**；`src/omni_av_p2` / `scripts/pipeline2.py` 属于 **Pipeline 2**。Pipeline 2.1使用`src/omni_av_p21`与`scripts/pipeline21_*`；各路线分别记录状态、缓存与验证边界。
+`src/omni_av` / `scripts/v4.py` 属于 **Pipeline 1**；`src/omni_av_p2` / `scripts/pipeline2.py` 属于 **Pipeline 2**；`src/omni_av_p21` / `scripts/pipeline21_parallel.py` 属于 **Pipeline 2.1**。各路线分别记录状态、缓存与验证边界。
 
 **版本导航**：[版本变更记录](CHANGELOG.md)集中说明 P1 → P2、P2 单层 → 多层的变化、提交链接、缓存/权重兼容性及分版本验证。P2 单层历史基线是 `4ecd091`，多层结构历史基线是 `bfc873c`；当前训练工程与性能优化在上述备份分支，继续保持多层最终 U 共享及冻结 Omni/LTX 的设计。
 

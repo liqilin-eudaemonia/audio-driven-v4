@@ -1,10 +1,10 @@
 # 版本变更记录
 
-## 2026-10-08 Pipeline 2.1：原生text cross-attention LoRA（独立工作区实现）
+## 2026-10-08 Pipeline 2.1：原生text cross-attention LoRA、独立训练与四卡门禁
 
 在P2相同的Gemma/U拼接条件上，只为每个block的视频attn2和音频audio_attn2的Q/K/V/输出投影新增可训练LoRA；原始DiT权重保持冻结。默认rank8/alpha8，LoRA学习率1e-5，Extractor仍为1e-4。新增独立P2.1多卡训练、保存恢复、固定噪声验证和GT/Omni配对推理入口；Connector和LoRA共同参与DDP，并共同写入部署权重。
 
-沿用P2无时间提示缓存，不重新提取。P2.1 checkpoint独立版本；支持显式从完整P2权重初始化Extractor，禁止把P2当作P2.1续训或漏载LoRA推理。P2冻结版源码和当前训练不改动。实现、CPU/双进程验证和未完成GPU检查见[说明](docs/PIPELINE21_IMPLEMENTATION.md)。
+沿用P2无时间提示缓存，不重新提取。P2.1 checkpoint独立版本；支持显式从完整P2权重初始化Extractor，禁止把P2当作P2.1续训或漏载LoRA推理。本次实际训练从原始LTX2.3及新Extractor/LoRA独立初始化，不载入P2。完整四卡更新/恢复门禁通过，原三机24卡已启动1000步目标；每100步保存，额外保存第3步，不运行Dev。P2到200步正常退出后另在指定四卡恢复。[运行、监控与验证范围](docs/P21_FRESH_3NODE_TRAIN_20261008.md) · [GitHub分支](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p21-text-lora-fresh-20261008)（初始实现`b07988d`）。
 
 ## 2026-10-08 当前P2训练完整备份：无时间提示、冻结DiT
 
