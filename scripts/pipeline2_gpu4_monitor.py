@@ -11,6 +11,22 @@ import time
 from pipeline21_supervise import gpu_snapshot, health_issues, training_snapshot, write_json
 
 
+def snapshot_with_retry(cluster, attempts=3):
+    """Retry telemetry transport only; preserve a persistent failure for alerts."""
+    failures = []
+    for attempt in range(attempts):
+        snapshot = gpu_snapshot(cluster)
+        errors = [dict(node=n['node'], error=n['error']) for n in snapshot['nodes'] if not n['ok']]
+        if not errors:
+            break
+        failures.append(errors)
+        if attempt + 1 < attempts:
+            time.sleep(1)
+    snapshot['probe_attempts'] = attempt + 1
+    snapshot['prior_probe_failures'] = failures
+    return snapshot
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--root', type=Path, required=True)
@@ -26,7 +42,7 @@ def main():
     write_json(a.root / 'monitor.json', dict(pid=os.getpid(), sample_seconds=15,
         check_seconds=900, stale_seconds=1800, auto_restart=False))
     while not (a.root / 'STOP_MONITOR').exists():
-        snapshot = gpu_snapshot(cluster)
+        snapshot = snapshot_with_retry(cluster)
         history.append(snapshot)
         with (a.root / 'gpu_telemetry.jsonl').open('a') as stream:
             stream.write(json.dumps(snapshot) + '\n')
