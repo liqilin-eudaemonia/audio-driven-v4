@@ -7,6 +7,8 @@
 
 `src/omni_av` / `scripts/v4.py` 属于 **Pipeline 1**；`src/omni_av_p2` / `scripts/pipeline2.py` 属于 **Pipeline 2**。两条路线分别记录状态，保留 Pipeline 1 的基线与验证边界。
 
+**版本导航**：[版本变更记录](CHANGELOG.md)集中说明 P1 → P2、P2 单层 → 多层的变化、提交链接、缓存/权重兼容性及分版本验证。P2 单层实现基线是 `4ecd091`，当前多层实现基线是 `bfc873c`；后续文档提交不改变这两个代码基线。
+
 **Pipeline 1 仓库与基线**：私密仓库 [liqilin-eudaemonia/audio-driven-v4](https://github.com/liqilin-eudaemonia/audio-driven-v4)，分支 `main`。初始代码备份为 [9a36c02](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/9a36c02c3771889d95eb199d021420ac1caa81f7)（2026-10-07）；此提交固定记录 Pipeline 1 初始版本，不表示后续最新提交。
 
 Pipeline 1 使用同一个 Qwen2.5-Omni-3B：原生回复阶段关闭规划 LoRA，连续规划和渲染条件阶段开启规划 LoRA。Gemma 文本条件与 Omni hidden states 共同指导 LTX。
