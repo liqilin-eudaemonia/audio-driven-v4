@@ -1,6 +1,6 @@
 # Audio driven v4 总索引
 
-**最新备份（2026-10-08）**：[backup/p2-3n24g-balanced-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)，从 [51e18fe](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/51e18fe22c58cab79b6abd5001ad5caa9af46e5d) 分出，包含 Bernini 审计修复、数据与多机训练能力、三机24卡负载均衡优化及验证记录。原有 `main` 历史保留。
+**最新备份（2026-10-08）**：[backup/p2-3n24g-balanced-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)，从 [51e18fe](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/51e18fe22c58cab79b6abd5001ad5caa9af46e5d) 分出，包含 Bernini 审计修复、数据与多机训练能力、三机24卡负载均衡优化及验证记录。原有 `main` 历史保留。代码快照提交：[38ceb34](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/38ceb349657289c2c76e08ae5a5c68b3a7f57b15)（详细中文说明）；后续索引提交仅登记此固定哈希。
 
 **当前实验状态**：[完整实验说明](docs/P2_FULL_DATA_3NODE_20261008.md) · [随仓库保存的三机结果摘要](docs/P2_3NODE_RESULTS_20261008.json) · [全量实验配置](configs/p2_full91009_dev48_experiment.json)。51 项 CPU 回归通过；三台物理机器上的 NCCL、完整预训练 LTX 2.3 原尺寸 joint 训练、Dev48 周期验证、权重恢复和 TensorBoard 均已实际验证。
 

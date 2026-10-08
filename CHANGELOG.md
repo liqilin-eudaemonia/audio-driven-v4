@@ -2,7 +2,7 @@
 
 ## 2026-10-08 优化代码备份：全量清单与三机24卡验证
 
-分支：[backup/p2-3n24g-balanced-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)。基于 `51e18fe`，保留原提交历史；本次一起备份下述三个阶段的工程改动。
+分支：[backup/p2-3n24g-balanced-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)。代码快照：[38ceb34](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/38ceb349657289c2c76e08ae5a5c68b3a7f57b15)。基于 `51e18fe`，保留原提交历史；本次一起备份下述三个阶段的工程改动。
 
 51项CPU回归通过。配对单步 global batch72 的耗时由313.655秒降至162.943秒，吞吐提高1.925倍；样本/噪声/形状逐项匹配，非逐位等价。全量条件缓存和正式长训尚未完成，不据短测声称生成质量达标。机器可读证据见[三机结果摘要](docs/P2_3NODE_RESULTS_20261008.json)。
 

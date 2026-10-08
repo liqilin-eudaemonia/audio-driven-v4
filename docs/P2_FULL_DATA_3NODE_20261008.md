@@ -81,7 +81,7 @@ GitHub 可直接阅读的[三机结果摘要](P2_3NODE_RESULTS_20261008.json)包
 
 ## GitHub 备份与复现
 
-- 分支：[backup/p2-3n24g-balanced-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)，从 `51e18fe` 分出；[总索引](../README.md)与[变更记录](../CHANGELOG.md)记录版本关系。
+- 分支：[backup/p2-3n24g-balanced-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)，从 `51e18fe` 分出，代码快照为 [38ceb34](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/38ceb349657289c2c76e08ae5a5c68b3a7f57b15)；[总索引](../README.md)与[变更记录](../CHANGELOG.md)记录版本关系。
 - 本次备份覆盖源码、脚本、配置、测试、文档与精简结果，不含媒体、条件缓存、模型权重或 TensorBoard 原始事件。外部 Bernini/LTX 源码保持只读。
 - 实测解释器：`/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python`；Torch `2.9.1+cu128`、Transformers `4.57.6`、TensorBoard `2.21.0`，使用该环境已有的原生 `ltx_core/ltx_trainer`。
 - [摘要](P2_3NODE_RESULTS_20261008.json)保存各次实测的 `run.json` 参数、模型配置、数据身份和原始文件哈希；早期八卡摘要中的源码哈希只代表当时版本，不代替本轮代码。
