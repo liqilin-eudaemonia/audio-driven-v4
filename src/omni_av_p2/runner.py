@@ -93,6 +93,14 @@ def run_training(args, cfg):
                 if not all(np.isfinite(v) and v > 0 for v in required.values()):
                     raise RuntimeError(f"Missing shared-condition gradients: {grads}")
             total.backward()
+            if args.command == "gate":
+                for layer, layer_norm in zip(cfg.hidden_layers, model.connector.memory.norms):
+                    grad = layer_norm.weight.grad
+                    value = float(grad.float().norm()) if grad is not None else 0.0
+                    grads[f"total_to_layer_{layer}_norm"] = value
+                    # The zero-initialized final Connector opens the upstream path after one update.
+                    if step > step0 + 1 and (not np.isfinite(value) or value <= 0):
+                        raise RuntimeError(f"Missing layer-fusion gradient at layer {layer}: {value}")
             norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1, error_if_nonfinite=True)
             if not torch.isfinite(total):
                 raise FloatingPointError("Nonfinite loss")

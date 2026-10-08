@@ -38,7 +38,18 @@ def load_omni(cfg, device="cuda:0"):
     model.requires_grad_(False).eval()
     if model.config.text_config.hidden_size != cfg.hidden_size:
         raise ValueError("Omni hidden dimension mismatch")
+    if max(cfg.hidden_layers) >= model.config.text_config.num_hidden_layers:
+        raise ValueError("Select interior block outputs; the final returned hidden includes output normalization")
     return SimpleNamespace(thinker=model, config=cfg), processor
+
+
+def select_hidden_layers(hidden_states, layer_ids, num_layers):
+    """HF index 0 is embedding, index k<N is block k output, index N is final normalized output."""
+    if len(hidden_states) != num_layers + 1:
+        raise ValueError("Unexpected native hidden-state tuple layout")
+    if not layer_ids or any(n <= 0 or n >= num_layers for n in layer_ids):
+        raise ValueError("Requested layer is not an interior block output")
+    return torch.stack([hidden_states[n].detach() for n in layer_ids], dim=1)
 
 
 @torch.no_grad()
@@ -55,9 +66,12 @@ def extract_condition(runtime, processor, obs, plan):
     layout = make_layout(prefix, obs.output_duration_s,
                          (int(grid[1]) // merge, int(grid[2]) // merge), runtime.config)
     coords = [layout.coordinates[:, layout.modalities[0] == mod] for mod in (0, 1)]
-    data = ConditionInputs(out.hidden_states[-2].detach(), prefix["prefix_valid"], coords[0], coords[1],
+    hidden = select_hidden_layers(out.hidden_states, runtime.config.hidden_layers,
+                                  model.config.text_config.num_hidden_layers)
+    data = ConditionInputs(hidden, prefix["prefix_valid"], coords[0], coords[1],
                            torch.ones(coords[0].shape[:2], device=coords[0].device, dtype=torch.bool),
-                           torch.ones(coords[1].shape[:2], device=coords[1].device, dtype=torch.bool))
+                           torch.ones(coords[1].shape[:2], device=coords[1].device, dtype=torch.bool),
+                           torch.tensor(runtime.config.hidden_layers, device=hidden.device, dtype=torch.long))
     data.validate()
     return data
 
@@ -140,7 +154,8 @@ def prepare_cache(args, cfg):
             gt_sha256=file_hash(example["gt_path"]), source="paired_gt_text_frozen_omni"))
         paths.append(dict(features=str(path.resolve())))
         print(json.dumps(dict(event="p2_features", sample_id=obs.sample_id,
-                              hidden=list(condition.hidden.shape), video=list(targets["video"].shape),
+                              hidden=list(condition.hidden.shape), layer_ids=condition.layer_ids.tolist(),
+                              video=list(targets["video"].shape),
                               audio=list(targets["audio"].shape), window=window)), flush=True)
     del runtime, processor, condition, targets
     unload()

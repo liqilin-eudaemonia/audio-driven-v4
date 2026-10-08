@@ -80,7 +80,7 @@ P 为 Listener 文字计划：实际回复台词，加上已有的 delivery、be
                              ↓
                    冻结 Qwen2.5-Omni
                              ↓
-               倒数第二层 hidden H [L,2048]
+        Thinker 第 8/18/28/35 层 H [4,L,2048]
                              ↓
               可训练融合 Connector Cψ
         目标布局 queries → 融合、提取、维度适配
@@ -103,7 +103,9 @@ H=stopgrad(F_Omni(X,P))，U=Cψ(H,Q)。Q 由已知目标布局构造，不读取
 
 - 保留原生多模态模板、位置编码和 causal attention。
 - 观测条件置于回复文本之前，使回复位置能够读取全部观测条件。
-- 起点是倒数第二层 hidden，保留文本、音频、首帧等有效位置和模态边界；先不做全局平均。
+- 当前主方案使用 Thinker 第 8、18、28、35 个 Transformer block 完成后的 hidden，保留全部有效文本、音频、首帧位置，不做全局平均。浅、中、深层可能提供互补信息，但其收益及最优层号需要消融验证。
+- 本地 Qwen2.5-Omni-3B Thinker 有 36 层；HF `hidden_states[0]` 是输入 embedding，`hidden_states[k]`（1≤k<36）是第 k 个 block 输出。因此第 35 层就是原方案的 `hidden_states[-2]`；最终第 36 项经过输出 norm，本版不选。这里不是视觉塔、音频塔或 Talker 的层号。
+- 保留单层 35 和四层可学习加权两种对照；主方案用 query attention 选择不同层、不同 token 的信息。
 - 无需 MLLM 反向，可缓存 H。但缓存必须绑定模型、模板、层号、输入媒体、文字计划、时间协议与预处理版本。
 - GT 文本 hidden 缓存只能用于对应训练/诊断；自主文本改变后必须重新提取，不能偷用 GT hidden。
 
@@ -112,12 +114,17 @@ H=stopgrad(F_Omni(X,P))，U=Cψ(H,Q)。Q 由已知目标布局构造，不读取
 Connector 包含共享融合主体和形成最终音视频条件所需的输出映射：
 
 ```text
-H → LayerNorm + 输入投影 → 作为 attention 的上下文
+各层 H → 各自 LayerNorm → 共享输入投影 → 加层身份 embedding
+       → 按层拼接 [B,4L,W]，有效 token mask 同序复制
 目标时间/空间/模态 queries → cross-attention + 必要的 self-attention/MLP
                          → 最终 Uv、Ua
 ```
 
-逐 token MLP 只能转换已有上下文表示；小型 attention 模块用于学习跨 token 选择、汇总与目标位置组织。它仍属于 Connector，不引入 MLLM LoRA。
+共享输入投影将 2048 维映射到融合宽度 W（默认 512）；各层分别归一化，避免直接混合不同层的数值尺度。层身份 embedding 让 attention 区分相同位置的不同深度表示。该投影发生在最终 U 形成之前；U 之后仍不增加分属两个 loss 的适配器。
+
+逐 token MLP 只能转换已有上下文表示；小型 attention 模块用于学习跨层、跨 token 选择、汇总与目标位置组织。它仍属于 Connector，不引入 MLLM LoRA。Omni 只需一次 forward；hidden 缓存约为单层的四倍，cross-attention 上下文增长四倍，但目标 query 数、最终 U 长度与 DiT 条件长度不变。
+
+对照中，`single` 只取第 35 层；`weighted_sum` 对四层分别归一化和共享投影后，用可学习 softmax 标量权重逐位置求和，不添加层 embedding，得到 [B,L,W] 后送同一 query 融合主体。两者配置分别见 `configs/pipeline2_single_layer.json` 和 `configs/pipeline2_weighted_layers.json`。训练与推理使用同一个选择与融合实现。
 
 queries 对应明确的目标坐标，数量随输出布局变化；不能把第 i 个文字 token 默认对齐到第 i 个目标特征，也不采用未经验证的随机全局压缩。视觉起点可沿用 2 FPS 原生采样及 temporal patch=2 后约 1 Hz 的空间网格，音频约 4 Hz；这两项是候选配置，实施前必须核对目标特征与 query 一一对应。
 
@@ -226,6 +233,20 @@ L = λv L_feature,v + λa L_feature,a + λAV L_AV
 - 缓存记录 sample ID、split、原始 GT 哈希、文本、模型版本、hidden 层号、采样率、时间窗口、网格、mask 和指纹。新缓存使用独立 P2 命名，不能覆盖 P1 产物。
 
 ## 8. 实验计划
+
+### P2-L：hidden 层融合消融
+
+主方案是四层独立 memory + query attention；它是待验证的结构假设，不预设优于单层。
+
+|配置|Omni 层|融合上下文|要回答的问题|
+|---|---|---|---|
+|`pipeline2_single_layer.json`|35|单层 [B,L,W]|沿用倒数第二层时的当前版本基线|
+|`pipeline2_weighted_layers.json`|8/18/28/35|可学习加权求和 [B,L,W]|仅融合深度信息是否有益|
+|默认配置|8/18/28/35|保留层身份的 [B,4L,W]|按目标位置选择层和 token 是否有额外收益|
+
+三者固定文本、Train/Dev 划分、数据顺序、query 布局、decoder、优化步数、种子及生成采样设置。记录不同 memory 长度的计算和显存开销，不称同 FLOPs 比较。先固定 joint loss 做层消融，再在选定结构上比较下述 E1/E2。多种子比较应控制数据和噪声；不同结构相同 seed 不表示每个参数初值逐项相同。
+
+缓存与 checkpoint 升级为 `p2_multilayer_condition_v2`，显式记录层号、顺序和融合模式；三种配置需分别准备匹配缓存。旧单层缓存/权重不能直接用于新版，历史基线保留在 Git 提交 `4ecd091` 及原运行目录中。没有覆盖旧产物。
 
 ### P2-G0：工程与梯度 gate
 

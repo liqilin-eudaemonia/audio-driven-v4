@@ -1,0 +1,4 @@
+{
+  "hidden_layers": [8, 18, 28, 35],
+  "layer_fusion": "weighted_sum"
+}

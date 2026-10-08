@@ -28,15 +28,21 @@ def bernini_projection(in_dim, out_dim, zero_init=True):
 
 @dataclass
 class ConditionInputs:
-    hidden: torch.Tensor
+    hidden: torch.Tensor  # [B, S, L, D], one explicit axis for selected Thinker layers
     hidden_valid: torch.Tensor
     video_coordinates: torch.Tensor
     audio_coordinates: torch.Tensor
     video_valid: torch.Tensor  # output-layout padding only, never GT availability
     audio_valid: torch.Tensor
+    layer_ids: torch.Tensor  # [S], one-based completed block indices; no embedding/final norm
 
     def validate(self):
-        b, n, _ = self.hidden.shape
+        if self.hidden.ndim != 4:
+            raise ValueError("Expected multi-layer hidden [B,S,L,D]; regenerate old single-layer caches")
+        b, s, n, _ = self.hidden.shape
+        if (self.layer_ids.shape != (s,) or self.layer_ids.dtype != torch.long or s == 0
+                or (self.layer_ids <= 0).any() or (self.layer_ids[1:] <= self.layer_ids[:-1]).any()):
+            raise ValueError("Invalid hidden layer IDs/order")
         if self.hidden_valid.shape != (b, n) or self.hidden_valid.dtype != torch.bool:
             raise ValueError("Invalid hidden mask")
         if not self.hidden_valid.any(-1).all() or not torch.isfinite(self.hidden).all():
@@ -79,12 +85,41 @@ class FusionBlock(nn.Module):
         return (q + self.ff(self.ff_norm(q))) * q_valid[..., None]
 
 
+class LayerMemory(nn.Module):
+    """Per-layer normalization, shared projection, explicit layer-aware memory."""
+    def __init__(self, config):
+        super().__init__()
+        self.mode = config.layer_fusion
+        self.register_buffer("layer_ids", torch.tensor(config.hidden_layers, dtype=torch.long))
+        self.norms = nn.ModuleList([nn.LayerNorm(config.hidden_size) for _ in config.hidden_layers])
+        self.projection = nn.Linear(config.hidden_size, config.fusion_width)
+        if self.mode == "attention":
+            self.layer_embedding = nn.Parameter(torch.randn(len(config.hidden_layers), config.fusion_width) * .02)
+        elif self.mode == "weighted_sum":
+            self.layer_logits = nn.Parameter(torch.zeros(len(config.hidden_layers)))
+
+    def forward(self, data):
+        if not torch.equal(data.layer_ids, self.layer_ids):
+            raise ValueError("Hidden layer IDs differ from Connector configuration")
+        values = torch.stack([self.projection(norm(data.hidden[:, i].detach()))
+                              for i, norm in enumerate(self.norms)], dim=1)
+        if self.mode == "single":
+            return values[:, 0], data.hidden_valid
+        if self.mode == "weighted_sum":
+            weights = self.layer_logits.softmax(0).to(values.dtype)
+            return (values * weights[None, :, None, None]).sum(1), data.hidden_valid
+        values = values + self.layer_embedding[None, :, None, :].to(values.dtype)
+        b, s, n, d = values.shape
+        mask = data.hidden_valid[:, None].expand(b, s, n).reshape(b, s * n)
+        return values.reshape(b, s * n, d), mask
+
+
 class FusionConnector(nn.Module):
     """Coordinate queries add fusion; final projections match Bernini for_gen topology."""
     def __init__(self, config):
         super().__init__()
         width = config.fusion_width
-        self.input = nn.Sequential(nn.LayerNorm(config.hidden_size), nn.Linear(config.hidden_size, width))
+        self.memory = LayerMemory(config)
         self.coordinate_projection = nn.Linear(3 * 2 * 16, width)
         self.modality = nn.Parameter(torch.randn(2, width) * .02)
         self.blocks = nn.ModuleList([FusionBlock(width, config.fusion_heads) for _ in range(config.fusion_depth)])
@@ -99,12 +134,12 @@ class FusionConnector(nn.Module):
 
     def forward(self, data: ConditionInputs):
         data.validate()
-        h = self.input(data.hidden.detach())
+        h, hidden_valid = self.memory(data)
         nv = data.video_coordinates.shape[1]
         q = torch.cat([self.queries(data.video_coordinates, 0), self.queries(data.audio_coordinates, 1)], 1)
         mask = torch.cat([data.video_valid, data.audio_valid], 1)
         for block in self.blocks:
-            q = block(q, h, data.hidden_valid, mask)
+            q = block(q, h, hidden_valid, mask)
         return SharedCondition(self.video_output(q[:, :nv]) * data.video_valid[..., None],
                                self.audio_output(q[:, nv:]) * data.audio_valid[..., None],
                                data.video_valid, data.audio_valid)

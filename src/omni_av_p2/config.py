@@ -8,6 +8,8 @@ class Config:
     ltx_path: str = "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors"
     gemma_path: str = "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER"
     hidden_size: int = 2048
+    hidden_layers: tuple[int, ...] = (8, 18, 28, 35)
+    layer_fusion: str = "attention"
     target_dim: int = 2048
     video_dim: int = 4096
     audio_dim: int = 2048
@@ -27,6 +29,14 @@ class Config:
     learning_rate: float = 1e-4
 
     def __post_init__(self):
+        object.__setattr__(self, "hidden_layers", tuple(self.hidden_layers))
+        if (not self.hidden_layers or any(type(n) is not int or n <= 0 for n in self.hidden_layers)
+                or tuple(sorted(set(self.hidden_layers))) != self.hidden_layers):
+            raise ValueError("hidden_layers must be positive, unique, ascending block-output indices")
+        if self.layer_fusion not in {"attention", "weighted_sum", "single"}:
+            raise ValueError("Unknown layer_fusion")
+        if self.layer_fusion == "single" and len(self.hidden_layers) != 1:
+            raise ValueError("Single-layer baseline requires exactly one hidden layer")
         for key in ("hidden_size", "target_dim", "video_dim", "audio_dim", "fusion_width",
                     "fusion_depth", "fusion_heads", "decoder_width", "decoder_depth", "diffusion_batch_mul"):
             if getattr(self, key) <= 0:
@@ -41,4 +51,6 @@ class Config:
                 raise ValueError(f"Invalid {key}")
 
     def to_dict(self):
-        return asdict(self)
+        result = asdict(self)
+        result["hidden_layers"] = list(self.hidden_layers)
+        return result

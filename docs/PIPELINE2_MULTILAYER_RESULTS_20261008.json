@@ -1,0 +1,167 @@
+{
+  "date": "2026-10-08",
+  "pipeline": 2,
+  "version": "p2_multilayer_condition_v2",
+  "hidden_layers": [
+    8,
+    18,
+    28,
+    35
+  ],
+  "layer_fusion": "attention",
+  "cpu": {
+    "passed": 32,
+    "pipeline1_existing": 19,
+    "pipeline2": 13,
+    "seconds": 8.0
+  },
+  "default_decoder": {
+    "width": 1024,
+    "depth": 16,
+    "diffusion_batch_mul": 16
+  },
+  "trainable_parameters": 223175680,
+  "preparation": {
+    "record": "outputs/p2_multilayer_prepare_001/completed.json",
+    "hidden_shape": [
+      1,
+      4,
+      414,
+      2048
+    ]
+  },
+  "default_gate": {
+    "engineering_pass": true,
+    "quality_pass": null,
+    "recipe": "joint",
+    "checkpoints": [
+      "outputs/p2_multilayer_gate_001/extractor_step_000003.pt"
+    ],
+    "frozen_renderer": true,
+    "deployment_exact": true,
+    "metrics": [
+      {
+        "step": 1,
+        "loss": 5.94805908203125,
+        "av": 0.4053073525428772,
+        "feature": {
+          "video": 4.173996925354004,
+          "audio": 1.3687546253204346
+        },
+        "grad_norm": 22.25613784790039,
+        "gradients": {
+          "av_to_u_video": 0.014668915420770645,
+          "feature_to_u_video": 0.0,
+          "av_to_u_audio": 0.028062867000699043,
+          "feature_to_u_audio": 0.0,
+          "total_to_layer_8_norm": 0.0,
+          "total_to_layer_18_norm": 0.0,
+          "total_to_layer_28_norm": 0.0,
+          "total_to_layer_35_norm": 0.0
+        },
+        "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+      },
+      {
+        "step": 2,
+        "loss": 6.40207052230835,
+        "av": 0.9403098821640015,
+        "feature": {
+          "video": 4.114084243774414,
+          "audio": 1.347676396369934
+        },
+        "grad_norm": 1.0806227922439575,
+        "gradients": {
+          "av_to_u_video": 0.00048469577450305223,
+          "feature_to_u_video": 0.0,
+          "av_to_u_audio": 0.0015891481889411807,
+          "feature_to_u_audio": 0.0,
+          "total_to_layer_8_norm": 8.704209903953597e-06,
+          "total_to_layer_18_norm": 9.827541362028569e-06,
+          "total_to_layer_28_norm": 1.2197641808597837e-05,
+          "total_to_layer_35_norm": 1.7955097064259462e-05
+        },
+        "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+      },
+      {
+        "step": 3,
+        "loss": 5.900260925292969,
+        "av": 0.5152738094329834,
+        "feature": {
+          "video": 4.0539703369140625,
+          "audio": 1.3310163021087646
+        },
+        "grad_norm": 2.089524507522583,
+        "gradients": {
+          "av_to_u_video": 0.0013188915327191353,
+          "feature_to_u_video": 5.407995922723785e-05,
+          "av_to_u_audio": 0.0010131748858839273,
+          "feature_to_u_audio": 8.208400686271489e-05,
+          "total_to_layer_8_norm": 0.00017269319505430758,
+          "total_to_layer_18_norm": 0.00016295589739456773,
+          "total_to_layer_28_norm": 0.00019995844922959805,
+          "total_to_layer_35_norm": 0.0002691753034014255
+        },
+        "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+      }
+    ],
+    "decoded": {
+      "frames": 17,
+      "height": 128,
+      "width": 128,
+      "audio_samples": 27200,
+      "audio_rate": 48000,
+      "rounding_padding_samples": 0,
+      "duration_s": 0.5666666666666667
+    },
+    "tiny": true,
+    "pretrained_models": true,
+    "peak_allocated_gb": 43.4737152
+  },
+  "uncropped_training": {
+    "training_completed_steps": 1,
+    "checkpoints": [
+      "outputs/p2_multilayer_full_latent_001/extractor_step_000001.pt"
+    ],
+    "quality_pass": null,
+    "stopped": false
+  },
+  "autonomous_inference": {
+    "engineering_pass": true,
+    "quality_pass": null,
+    "gt_access": false,
+    "text_source": "autonomous_text",
+    "decoder_loaded": false,
+    "text_only": false,
+    "zero_condition": false,
+    "sampling": "Euler without CFG; engineering baseline",
+    "decoded": {
+      "frames": 233,
+      "height": 128,
+      "width": 128,
+      "audio_samples": 372800,
+      "audio_rate": 48000,
+      "rounding_padding_samples": 1760,
+      "duration_s": 7.766666666666667
+    }
+  },
+  "media_decode": {
+    "gate": {
+      "path": "outputs/p2_multilayer_gate_001/engineering_sample.mp4",
+      "video_frames": 17,
+      "audio_frames": 27
+    },
+    "inference": {
+      "path": "outputs/p2_multilayer_infer_001/generated.mp4",
+      "video_frames": 233,
+      "audio_frames": 365
+    }
+  },
+  "ablations_cpu_tested": [
+    "single",
+    "weighted_sum",
+    "attention"
+  ],
+  "formal_training_started": false,
+  "generation_quality_passed": null,
+  "note": "GPU engineering tests use default heads and complete pretrained models. No formal layer-ablation or E1/E2 quality comparison. Previous version and artifacts retained."
+}

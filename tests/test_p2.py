@@ -2,6 +2,7 @@
 from dataclasses import replace
 import importlib.util
 from pathlib import Path
+import json
 
 import pytest
 import torch
@@ -21,11 +22,11 @@ def config():
                   decoder_depth=2, diffusion_batch_mul=2)
 
 
-def condition():
-    return ConditionInputs(torch.randn(1, 7, 32), torch.tensor([[True] * 5 + [False] * 2]),
+def condition(layer_ids=(8, 18, 28, 35)):
+    return ConditionInputs(torch.randn(1, len(layer_ids), 7, 32), torch.tensor([[True] * 5 + [False] * 2]),
         torch.tensor([[[.25, 0, 0], [.25, 0, 1], [1.25, 0, 0]]]),
         torch.tensor([[[.125, 0, 0], [.375, 0, 0]]]),
-        torch.ones(1, 3, dtype=torch.bool), torch.ones(1, 2, dtype=torch.bool))
+        torch.ones(1, 3, dtype=torch.bool), torch.ones(1, 2, dtype=torch.bool), torch.tensor(layer_ids))
 
 
 def native_ltx():
@@ -84,7 +85,7 @@ def test_p2_connector_padding_and_zero_init():
     model = FusionConnector(replace(cfg, zero_init_connector=False)).eval()
     original = model(data)
     changed = data.hidden.clone()
-    changed[:, 5:] += 10000
+    changed[:, :, 5:] += 10000
     after = model(replace(data, hidden=changed))
     torch.testing.assert_close(original.video, after.video)
     torch.testing.assert_close(original.audio, after.audio)
@@ -117,7 +118,7 @@ def test_p2_frozen_ltx_and_auxiliary_update_same_final_condition():
                 assert gf.abs().sum() > 0
         (lav + sum(losses.values())).backward()
         if step > 0:
-            assert model.connector.input[1].weight.grad.abs().sum() > 0
+            assert model.connector.memory.projection.weight.grad.abs().sum() > 0
         opt.step()
     assert all(not p.requires_grad and p.grad is None and p._version == v for p, v in zip(renderer.parameters(), versions))
 
@@ -174,3 +175,79 @@ def test_p2_native_packing_roundtrip():
     sampled = dict(video=VideoLatentPatchifier(1).patchify(video), audio=AudioPatchifier(1).patchify(audio))
     unpacked = unpack_latents(sampled, dict(latents=dict(latents=video), audio_latents=dict(latents=audio)))
     assert torch.equal(video, unpacked[0]) and torch.equal(audio, unpacked[1])
+
+
+def test_p2_native_hidden_indices_match_completed_blocks():
+    from transformers.models.qwen2_5_omni.configuration_qwen2_5_omni import Qwen2_5OmniTextConfig
+    from transformers.models.qwen2_5_omni.modeling_qwen2_5_omni import Qwen2_5OmniThinkerTextModel
+    from omni_av_p2.data import select_hidden_layers
+    cfg = Qwen2_5OmniTextConfig(vocab_size=64, hidden_size=32, intermediate_size=64,
+        num_hidden_layers=3, num_attention_heads=4, num_key_value_heads=2,
+        rope_scaling={"rope_type": "default", "mrope_section": [1, 1, 2]})
+    cfg._attn_implementation = "sdpa"
+    model = Qwen2_5OmniThinkerTextModel(cfg).eval()
+    captured = {}
+    def capture(index):
+        def hook(module, args, output):
+            captured[index] = (output[0] if isinstance(output, tuple) else output).detach().clone()
+        return hook
+    hooks = [block.register_forward_hook(capture(i + 1)) for i, block in enumerate(model.layers)]
+    try:
+        result = model(input_ids=torch.tensor([[1, 2, 3, 4]]), output_hidden_states=True, use_cache=False)
+    finally:
+        for hook in hooks:
+            hook.remove()
+    selected = select_hidden_layers(result.hidden_states, (1, 2), 3)
+    for i in (1, 2):
+        torch.testing.assert_close(selected[:, i - 1], captured[i])
+    torch.testing.assert_close(selected[:, -1], result.hidden_states[-2])
+    assert not selected.requires_grad
+    with pytest.raises(ValueError):
+        select_hidden_layers(result.hidden_states, (3,), 3)
+
+
+@pytest.mark.parametrize("mode,layers", [("attention", (8, 18, 28, 35)),
+    ("weighted_sum", (8, 18, 28, 35)), ("single", (35,))])
+def test_p2_layer_modes_keep_shared_shapes_and_train_every_selected_layer(mode, layers):
+    torch.manual_seed(2026)
+    cfg = replace(config(), hidden_layers=layers, layer_fusion=mode, zero_init_connector=False)
+    model, data = FusionConnector(cfg), condition(layers)
+    data.hidden.requires_grad_(True)
+    memory, mask = model.memory(data)
+    copies = len(layers) if mode == "attention" else 1
+    assert memory.shape == (1, 7 * copies, cfg.fusion_width)
+    assert torch.equal(mask, data.hidden_valid.repeat(1, copies))
+    out = model(data)
+    assert out.video.shape == (1, 3, cfg.video_dim) and out.audio.shape == (1, 2, cfg.audio_dim)
+    (out.video.square().mean() + out.audio.square().mean()).backward()
+    assert data.hidden.grad is None  # frozen Omni boundary
+    for norm in model.memory.norms:
+        assert norm.weight.grad.isfinite().all() and norm.weight.grad.abs().sum() > 0
+    if mode == "weighted_sum":
+        assert model.memory.layer_logits.grad.abs().sum() > 0
+    if mode == "attention":
+        assert (model.memory.layer_embedding.grad.abs().sum(-1) > 0).all()
+    for i in range(len(layers)):
+        changed = data.hidden.detach().clone()
+        changed[:, i, :5] = torch.randn_like(changed[:, i, :5])
+        assert not torch.allclose(out.video, model(replace(data, hidden=changed)).video)
+
+
+def test_p2_layer_identity_and_old_cache_rejection():
+    data, cfg = condition(), config()
+    assert Config(**json.loads(json.dumps(cfg.to_dict()))) == cfg
+    with pytest.raises(ValueError, match="layer IDs differ"):
+        FusionConnector(cfg)(replace(data, layer_ids=torch.tensor([7, 18, 28, 35])))
+    with pytest.raises(ValueError, match="regenerate"):
+        FusionConnector(cfg)(replace(data, hidden=data.hidden[:, -1]))
+    for fields in (dict(hidden_layers=[18, 8]), dict(hidden_layers=[8, 8]),
+                   dict(hidden_layers=[0]), dict(layer_fusion="single")):
+        with pytest.raises(ValueError):
+            replace(cfg, **fields)
+
+
+def test_p2_rejects_previous_checkpoint_version(tmp_path):
+    path = tmp_path / "old.pt"
+    torch.save(dict(version="p2_shared_condition_v1", identity={}), path)
+    with pytest.raises(ValueError, match="identity mismatch"):
+        load(path, FusionConnector(config()), {})
