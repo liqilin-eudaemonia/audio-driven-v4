@@ -1,0 +1,52 @@
+import random
+
+import numpy as np
+import torch
+
+from omni_av.data import save_new
+from . import VERSION
+
+
+def save(path, model, optimizer, step, identity):
+    state = np.random.get_state()
+    save_new(path, dict(version=VERSION, identity=identity, step=step,
+        model={n: t.detach().cpu().clone() for n, t in model.state_dict().items()},
+        optimizer=optimizer.state_dict(), torch_rng=torch.get_rng_state(),
+        cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
+        python_rng=random.getstate(), numpy_rng=[state[0], torch.from_numpy(state[1].astype(np.int64)), *state[2:]]))
+
+
+def load(path, model, identity, optimizer=None, connector_only=False):
+    data = torch.load(path, map_location="cpu", weights_only=True)
+    if data["version"] != VERSION or (identity is not None and data["identity"] != identity):
+        raise ValueError("P2 checkpoint identity mismatch")
+    state = data["model"]
+    if connector_only:
+        state = {n.removeprefix("connector."): t for n, t in state.items() if n.startswith("connector.")}
+    expected = model.state_dict()
+    if expected.keys() != state.keys():
+        raise ValueError("P2 checkpoint parameter keys mismatch")
+    if any(expected[n].shape != t.shape or not torch.isfinite(t).all() for n, t in state.items()):
+        raise ValueError("P2 checkpoint invalid tensor")
+    model.load_state_dict(state, strict=True)
+    if optimizer is not None:
+        optimizer.load_state_dict(data["optimizer"])
+        torch.set_rng_state(data["torch_rng"])
+        if data["cuda_rng"]:
+            torch.cuda.set_rng_state_all(data["cuda_rng"])
+        random.setstate(data["python_rng"])
+        state = data["numpy_rng"]
+        np.random.set_state((state[0], state[1].numpy().astype(np.uint32), *state[2:]))
+    return data
+
+
+def export_connector(source, target):
+    """Deployment file contains no decoder tensors or optimizer state."""
+    data = torch.load(source, map_location="cpu", weights_only=True)
+    if data["version"] != VERSION:
+        raise ValueError("Not a Pipeline 2 checkpoint")
+    state = {n: t for n, t in data["model"].items() if n.startswith("connector.")}
+    if not state or any(not torch.isfinite(t).all() for t in state.values()):
+        raise ValueError("Invalid connector state")
+    save_new(target, dict(version=VERSION, identity=data["identity"], step=data["step"],
+                          model=state, deployment_only=True))

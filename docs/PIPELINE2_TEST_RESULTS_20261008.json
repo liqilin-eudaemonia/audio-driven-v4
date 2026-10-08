@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-08",
+  "pipeline": 2,
+  "cpu": {"passed": 26, "pipeline1_existing": 19, "pipeline2_added": 7, "seconds": 8.26},
+  "bernini_reference_forward_backward_parity": true,
+  "default_decoder": {"width": 1024, "depth": 16, "diffusion_batch_mul": 16},
+  "default_gate": {
+    "record": "../outputs/p2_gate_default_001/completed.json",
+    "passed": true,
+    "steps": 3,
+    "trainable_parameters": 223161344,
+    "peak_allocated_gb": 43.46930688,
+    "frozen_renderer": true,
+    "connector_only_deployment_exact": true,
+    "last_gradients": {
+      "av_to_u_video": 0.0016583534888923168,
+      "av_to_u_audio": 0.0013412880944088101,
+      "feature_to_u_video": 0.00005470277028507553,
+      "feature_to_u_audio": 0.00008346613321918994
+    },
+    "tiny_av_latents": true
+  },
+  "uncropped_vae_training": {"passed": true, "steps": 1, "engineering_small_heads": true, "video_latent_shape": [1,128,30,41,22], "audio_latent_shape": [1,8,195,16]},
+  "autonomous_inference": {"passed": true, "gt_cache_access": false, "auxiliary_decoder_module_loaded": false, "frames": 233, "height": 128, "width": 128, "audio_rate": 48000, "sampling_steps": 3, "engineering_small_heads": true},
+  "text_only_baseline_entry": {"passed": true, "frames": 233},
+  "av_only_training_entry": {"passed": true, "steps": 1},
+  "cross_process_resume": {"passed": true, "from_step": 3, "to_step": 4},
+  "deployment_checkpoint_export": true,
+  "deployment_condition_export_in_fresh_process": true,
+  "formal_training_started": false,
+  "generation_quality_passed": null,
+  "bernini_4096_width_profile_gpu_tested": false,
+  "note": "Local output artifacts are excluded from GitHub. Engineering execution only, not evidence of an E2 quality gain over E1."
+}
