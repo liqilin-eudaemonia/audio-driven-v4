@@ -1,5 +1,6 @@
 import random
 import os
+import json
 from pathlib import Path
 
 import numpy as np
@@ -29,8 +30,29 @@ def atomic_save(path, value):
     path = Path(path)
     temp = path.with_name(path.name + f".partial.{os.getpid()}")
     try:
-        save_new(temp, value)
+        # Flush through a Python file object before publishing on shared storage.
+        # A successful pathname-based torch.save alone is not a durability barrier.
+        with temp.open('xb') as stream:
+            torch.save(value, stream)
+            stream.flush()
+            os.fsync(stream.fileno())
         os.link(temp, path)  # Publish only a complete file; refuse to overwrite.
+    finally:
+        temp.unlink(missing_ok=True)
+
+
+def atomic_json_new(path, value):
+    """Publish a complete JSON file without replacing an existing artifact."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_name(path.name + f'.partial.{os.getpid()}')
+    try:
+        with temp.open('x', encoding='utf8') as stream:
+            json.dump(value, stream, ensure_ascii=False, indent=2)
+            stream.write('\n')
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.link(temp, path)
     finally:
         temp.unlink(missing_ok=True)
 

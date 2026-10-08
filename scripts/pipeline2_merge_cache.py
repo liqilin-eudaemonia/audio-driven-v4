@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from omni_av.data import write_json_new
+from omni_av_p2.checkpoint import atomic_json_new
 
 
 def merge(indexes, manifest):
@@ -38,7 +38,7 @@ def main():
     p.add_argument('--output', type=Path, required=True)
     args = p.parse_args()
     index = merge(args.indexes, args.manifest)
-    write_json_new(args.output, index)
+    atomic_json_new(args.output, index)
     print(json.dumps(dict(split=index['split'], samples=len(index['entries']))))
 
 

@@ -10,7 +10,7 @@ import torch
 from torch.nn import functional as F
 
 from omni_av.data import Observation, TextPlan, file_hash, gt_text_plan, read_audio, save_new, select_training_examples, write_json_new
-from omni_av.omni import encode_prefix, make_layout, move_inputs, prepare_observation
+from omni_av.omni import encode_prefix, make_layout, move_inputs, observation_prompt_contract, prepare_observation
 from omni_av.ltx_runtime import NativeTextConditioner, audit_target_window, load_av_targets
 from . import VERSION
 from .connector import ConditionInputs
@@ -18,7 +18,7 @@ from .connector import ConditionInputs
 
 def contract(cfg):
     root = Path(cfg.omni_path)
-    return dict(version=VERSION, config=cfg.to_dict(),
+    return dict(version=VERSION, config=cfg.to_dict(), observation_prompt=observation_prompt_contract(),
                 omni_config_sha256=file_hash(root / "config.json"),
                 omni_index_sha256=file_hash(root / "model.safetensors.index.json"))
 

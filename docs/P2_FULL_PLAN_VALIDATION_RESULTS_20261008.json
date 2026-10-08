@@ -1,0 +1,41 @@
+{
+  "protocol": "p2_dev_full_plan_pair_v1",
+  "prepared_at": "2026-10-08T09:17:49.737417+00:00",
+  "suite": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_dev48_full_plan_validation_20261008/suite.json",
+  "suite_sha256": "a9daec125217a0c9b874367e0ab5b3f09c0f62c5dc816d81815b0317d5fc29cd",
+  "manifest_sha256": "723072f90728e71bd6c067be8636945c91fcfc1a9efe1b1649fe8ce89512f943",
+  "cases": 48,
+  "planned_generations": 96,
+  "modes": [
+    "gt",
+    "omni"
+  ],
+  "plan_fields": [
+    "reply",
+    "delivery",
+    "behavior",
+    "vocal_events"
+  ],
+  "sampling_steps": 30,
+  "sampler": "existing Euler without CFG; configurable steps, not a quality guarantee",
+  "max_plan_tokens": 512,
+  "base_seed": 1045,
+  "prompt_contract": {
+    "policy": "observation_no_time_v1",
+    "system_sha256": "2abdea07c36f17947f03739046be3e0d28365b32fa56b893f14e4583db212074",
+    "user_sha256": "0c4b030a23d4ba0713d186ad122899d272335f18d6cd1bd3be8b56fb935126f5"
+  },
+  "tests_passed": 71,
+  "cpu_dry_prepare_passed": true,
+  "busy_gpu_guard_passed": true,
+  "gpu_generation_tested": false,
+  "generated_videos": 0,
+  "automatic_validation_enabled": false,
+  "checkpoint_example": "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/checkpoints/extractor_step_000100_connector.pt",
+  "checkpoint_example_exists": false,
+  "source_sha256": {
+    "src/omni_av_p2/paired_validation.py": "01725045a27654b698f99e372b7c9eb55bd67a4357166ee939c6c53ce7167ab7",
+    "scripts/pipeline2_validate.py": "edf67069a042de7f017ddb169d53be32fb4a8703da5240a4627467b23edb7c96",
+    "tests/test_p2_paired_validation.py": "352e1e2934324feb7d25678415df938790be5a44ff6b951e7a551ef051d0f19a"
+  }
+}

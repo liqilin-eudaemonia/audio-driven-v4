@@ -1,0 +1,107 @@
+{
+  "status": "complete",
+  "cache_root": "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_no_time_cache_20261008",
+  "train_index": "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_no_time_cache_20261008/train/cache_index.json",
+  "dev_index": "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_no_time_cache_20261008/dev/cache_index.json",
+  "contract": {
+    "version": "p2_multilayer_condition_v2",
+    "config": {
+      "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+      "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+      "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+      "hidden_size": 2048,
+      "hidden_layers": [
+        8,
+        18,
+        28,
+        35
+      ],
+      "layer_fusion": "attention",
+      "target_dim": 2048,
+      "video_dim": 4096,
+      "audio_dim": 2048,
+      "fusion_width": 512,
+      "fusion_depth": 2,
+      "fusion_heads": 8,
+      "decoder_width": 1024,
+      "decoder_depth": 16,
+      "diffusion_batch_mul": 16,
+      "zero_init_connector": true,
+      "vision_fps": 2.0,
+      "audio_hz": 4.0,
+      "vision_max_pixels": 65536,
+      "feature_video_weight": 1.0,
+      "feature_audio_weight": 1.0,
+      "av_weight": 1.0,
+      "learning_rate": 0.0001
+    },
+    "observation_prompt": {
+      "policy": "observation_no_time_v1",
+      "system_sha256": "2abdea07c36f17947f03739046be3e0d28365b32fa56b893f14e4583db212074",
+      "user_sha256": "0c4b030a23d4ba0713d186ad122899d272335f18d6cd1bd3be8b56fb935126f5"
+    },
+    "omni_config_sha256": "20790f362c37a1718a3e764f597ae33dfc20177399762018dffaabf8321d4dd1",
+    "omni_index_sha256": "5b7629198e2ef80e37612a491d9bfd71639d2f212632d36d8ab086922e74e129"
+  },
+  "completion": {
+    "train": 91009,
+    "dev": 48,
+    "exact_coverage": true,
+    "old_feature_files_remaining": 0,
+    "old_deleted": true,
+    "all_new_payloads_readback_verified": true,
+    "all_teacher_tensors_equal_verified": true,
+    "gemma_text_reused_by_hardlink": true,
+    "vae_untouched": true,
+    "training_started": false,
+    "completed_utc": "2026-10-08T08:25:00Z"
+  },
+  "audit": {
+    "samples": 91009,
+    "dev_samples": 48,
+    "all_ids_unique_and_manifest_order_exact": true,
+    "train_dev_disjoint": true,
+    "metadata_window_shape_gt_text_checks": "all samples",
+    "numeric_finite_nonzero_samples": 576,
+    "complete_numeric_payload_scan": false,
+    "dev_numeric_readback_samples": 48,
+    "old_feature_files_absent_verified": true,
+    "text_hardlinks_verified": true,
+    "failures": [],
+    "train_cache_bytes": 2199537515427,
+    "seconds": 255.7306227684021,
+    "manifest_sha256": "45f10fd1c2a7c1564db88fedfea8f51a62e1c71004ede5924dfb01a7c48ba78f",
+    "index_sha256": "1874ef7b5e6d87902ccac05765e8297fb54e904149f3a03504a149764a640f97",
+    "no_gpu_extraction_or_training_performed": true,
+    "finished_time": 1791447952.4562042
+  },
+  "audit_seconds_includes_wait_for_extraction": true,
+  "gpu_release": {
+    "checked_at": "2026-10-08T08:26:20.562775+00:00",
+    "nodes": [
+      {
+        "host": "172.29.252.24",
+        "code": 0,
+        "processes": "",
+        "error": ""
+      },
+      {
+        "host": "172.29.15.126",
+        "code": 0,
+        "processes": "",
+        "error": ""
+      },
+      {
+        "host": "172.29.112.17",
+        "code": 0,
+        "processes": "",
+        "error": ""
+      }
+    ]
+  },
+  "tests_passed": 63,
+  "training_started": false,
+  "old_feature_glob_remaining": 0,
+  "old_smoke_copies_deleted": 2,
+  "interruption_recovered_without_full_reextraction": true
+}

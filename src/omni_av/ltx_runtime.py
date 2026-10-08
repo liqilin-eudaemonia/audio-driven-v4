@@ -31,6 +31,29 @@ class NativeTextConditioner:
             raise ValueError("Unexpected LTX text context dimensions")
         return output
 
+    def encode_batch(self, plans):
+        """Native tokenization and per-example processors, with a batched Gemma forward."""
+        if not plans:
+            raise ValueError('Empty text batch')
+        prompts = [plan.render_prompt() for plan in plans]
+        tokenizer = self.encoder.tokenizer
+        if any(len(tokenizer.tokenizer(p, truncation=False)['input_ids']) > 1024 for p in prompts):
+            raise ValueError('Text exceeds 1024 token native context; refusing truncation')
+        pairs = [tokenizer.tokenize_with_weights(p)['gemma'] for p in prompts]
+        device = self.encoder.model.device
+        ids = torch.tensor([[x[0] for x in row] for row in pairs], device=device)
+        mask = torch.tensor([[x[1] for x in row] for row in pairs], device=device)
+        with torch.no_grad(), torch.autocast('cuda', dtype=torch.bfloat16):
+            encoded = self.encoder.model.model(input_ids=ids, attention_mask=mask,
+                                               output_hidden_states=True)
+            result = self.processor.process_hidden_states(encoded.hidden_states, mask)
+        if result.video_encoding.shape[-1] != 4096 or result.audio_encoding.shape[-1] != 2048:
+            raise ValueError('Unexpected batched LTX text context dimensions')
+        return [dict(video=result.video_encoding[i:i+1].detach(),
+                     audio=result.audio_encoding[i:i+1].detach(),
+                     mask=result.attention_mask[i:i+1].bool(), prompt=prompt)
+                for i, prompt in enumerate(prompts)]
+
     def close(self):
         self.encoder = None
         self.processor = None

@@ -1,4 +1,5 @@
 """Native Qwen2.5-Omni perception, reply and planning-prefix preparation."""
+import hashlib
 import math
 from dataclasses import replace
 
@@ -18,6 +19,18 @@ SYSTEM = (
     "and pacing. Behavior describes visible listening and response actions. Do not explain your reasoning. "
     "Use [no main spoken reply] only if no response is appropriate. Do not invent extra speakers."
 )
+
+OBSERVATION_USER_PROMPT = (
+    "Plan a context-specific listener response based only on the provided speaker audio "
+    "and listener reference image."
+)
+
+
+def observation_prompt_contract():
+    """Changing either prompt invalidates frozen hidden caches and their checkpoints."""
+    return dict(policy="observation_no_time_v1",
+                system_sha256=hashlib.sha256(SYSTEM.encode()).hexdigest(),
+                user_sha256=hashlib.sha256(OBSERVATION_USER_PROMPT.encode()).hexdigest())
 
 
 def load_planner(config, device="cuda:0"):
@@ -52,10 +65,7 @@ def prepare_observation(processor, obs: Observation, config):
     with Image.open(obs.listener_image) as image:
         image = image.convert("RGB")
     messages = [dict(role="system", content=[dict(type="text", text=SYSTEM)]), dict(role="user", content=[
-        dict(type="image"), dict(type="audio"), dict(type="text", text=(
-            f"The observed speaker finishes at {obs.speaker_end_s:.3f} seconds after the first frame. "
-            f"The output window is {obs.output_duration_s:.3f} seconds, including listening. "
-            "Plan a context-specific listener response that fits this window."))])]
+        dict(type="image"), dict(type="audio"), dict(type="text", text=OBSERVATION_USER_PROMPT)])]
     prompt = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
     return dict(processor(text=[prompt], images=[image], audio=[audio], sampling_rate=16000,
                           return_tensors="pt", padding=True, truncation=False,

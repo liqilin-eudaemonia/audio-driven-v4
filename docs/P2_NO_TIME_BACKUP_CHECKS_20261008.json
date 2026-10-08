@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-10-08T11:27:25.436971+00:00",
+  "command": "CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 /private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python -m pytest -q",
+  "passed": 70,
+  "skipped": 1,
+  "elapsed_seconds": 17.62,
+  "skip": {
+    "test": "tests/test_artifacts.py::test_real_cache_and_paired_vae_contract",
+    "reason": "备份隔离工作树未复制outputs/omni_gate_003/features_0000.pt；测试按设计跳过本机产物检查。"
+  },
+  "diff_check_passed": true,
+  "training_modified": false,
+  "gpu_validation_executed": false
+}

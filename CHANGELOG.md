@@ -1,5 +1,19 @@
 # 版本变更记录
 
+## 2026-10-08 当前P2训练完整备份：无时间提示、冻结DiT
+
+分支：[backup/p2-no-time-frozen-dit-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-no-time-frozen-dit-20261008)，继承`9732ad3`，保留main和此前备份历史。新增全量缓存准备/刷新、损坏缓存恢复保护、无时间prompt契约、GT/Omni整份计划配对验证入口与CPU测试。当前训练使用Train91,009、三机24卡/global batch72、1000步目标、每100步保存、关闭Dev验证，保留原720p-area形状。
+
+原有text cross-attention读取拼接后的Gemma/U条件，完整LTX冻结，仅训练Connector和两路辅助decoder；P2 text cross-attention LoRA尚未实现或启用。训练启动快照哈希与本分支对应关系、原始命令及外部数据依赖见[备份说明](docs/P2_NO_TIME_GITHUB_BACKUP_20261008.md)。配对验证仅完成CPU测试/清单准备，未运行96段GPU生成，不宣称生成质量达标。
+
+## 2026-10-08 无时间 user message 与缓存契约（已纳入本次P2备份）
+
+按用户要求删除Omni user message中的说话结束时间和输出窗口时长，统一使用固定观测提示；训练条件提取和推理共用。P2 contract新增`observation_prompt`及system/user文本哈希，旧时间提示缓存、旧协议checkpoint不能直接混用。结构版本仍为`p2_multilayer_condition_v2`，提示协议为`observation_no_time_v1`。
+
+重提范围为Train91,009与Dev48的Omni hidden/mask；逐项核对输出布局后复用teacher，硬链接复用Gemma，VAE和720p-area数据保持。新文件完整回读后删除对应旧features，支持断点恢复。修补共享存储发布前flush/fsync与损坏新归档恢复保护；63项CPU回归、3条GPU提取门禁及实际故障分片恢复通过。当前运行结果与新索引路径见[刷新记录](docs/P2_NO_TIME_CACHE_20261008.md)。
+
+原1000步训练已按授权在29步停止，保留权重与TensorBoard。本改动只取消显式时间提示，未增加Omni规划训练、未将完整音频输入改为实时任意前缀，不能据此声称自主轮次预测已实现。本次P2备份包含这些修改；旧备份分支保留历史版本。
+
 ## 2026-10-08 优化代码备份：全量清单与三机24卡验证
 
 分支：[backup/p2-3n24g-balanced-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)。代码快照：[38ceb34](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/38ceb349657289c2c76e08ae5a5c68b3a7f57b15)。基于 `51e18fe`，保留原提交历史；本次一起备份下述三个阶段的工程改动。

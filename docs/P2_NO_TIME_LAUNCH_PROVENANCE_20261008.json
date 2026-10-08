@@ -1,0 +1,345 @@
+{
+  "recorded_at": "2026-10-08T11:24:38.884828+00:00",
+  "branch": "backup/p2-no-time-frozen-dit-20261008",
+  "launch": {
+    "command": [
+      "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+      "-u",
+      "/private/liqi_workspace/project_code/audio-driven-v4/scripts/pipeline2_cluster.py",
+      "--cluster",
+      "/private/liqi_workspace/project_code/audio-driven-v4/configs/p2_three_nodes.json",
+      "--log-dir",
+      "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/agents",
+      "--",
+      "--cache",
+      "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_no_time_cache_20261008/train/cache_index.json",
+      "--output",
+      "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/training",
+      "--checkpoint-dir",
+      "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/checkpoints",
+      "--network-config",
+      "/private/liqi_workspace/project_code/audio-driven-v4/configs/p2_roce.json",
+      "--run-id",
+      "p2_no_time_full91009_3n24g_1000step_20261008_0838",
+      "--recipe",
+      "joint",
+      "--steps",
+      "1000",
+      "--accumulation",
+      "3",
+      "--balance-workload",
+      "--save-every",
+      "100",
+      "--cache-samples",
+      "3",
+      "--seed",
+      "45",
+      "--allow-terminal-trim",
+      "--tensorboard"
+    ],
+    "requested_steps": 1000,
+    "save_every": 100,
+    "validation_enabled": false,
+    "world_size": 24,
+    "global_batch": 72,
+    "train_samples": 91009,
+    "cache_index_sha256": "1874ef7b5e6d87902ccac05765e8297fb54e904149f3a03504a149764a640f97",
+    "start_from": "fresh Connector and auxiliary decoders; frozen pretrained LTX2.3",
+    "prompt_policy": "observation_no_time_v1",
+    "started_utc": "2026-10-08T08:38:45.333562+00:00",
+    "code_commit": "9732ad32fcf0a3f7d23d83e0171ac9ee91fdee74",
+    "source_sha256": {
+      "src/omni_av/checkpoint.py": "66b7fa39ba14f621c5c48eb0e0a5eacfc563b78d45cb45cf3c6f854f531a207b",
+      "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+      "src/omni_av/flow.py": "b8043d0cc3de4492073a921faf367990383f273ddd45182e13062e1d0fa280c5",
+      "src/omni_av/ltx_gate.py": "e67da37c88c27fb2a6b36a7b4ef8a57b2aad59895953c4cdf6a03c96e25b3f50",
+      "src/omni_av/planner.py": "99626ee269b362b7287f73a06f2d9cb55d5ea7ddb4256e7256c1f87c572e37b6",
+      "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+      "src/omni_av/config.py": "232e0b5241b4920d29c191fdc5f57fb713d46ce76d475cf9bbc3442374f60fdc",
+      "src/omni_av/training.py": "aba2ab83db39917949b0a0a44ec2cdf4fba8f6851f15e3276ae463630a550ace",
+      "src/omni_av/runner.py": "37f4765f258bf607ddf4aec1845adc88f96455e6de73c0c73db58f3d90b9208c",
+      "src/omni_av/__init__.py": "412a9493c2ca3f4d6dc59d711e04ad5c593ded3baa3ecee297b4134a45e408c5",
+      "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+      "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+      "src/omni_av/renderer.py": "00e895449b836a28073fcafc23504f2be82e5b4ec985db5ee55ef46e5d948375",
+      "src/omni_av/ltx_runtime.py": "33cf34e96cb493fa5ff67c66920b22bf9e484631da426476890a2fd66c03c125",
+      "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+      "src/omni_av_p2/inference.py": "4c9866a935d9065d600417c0008b5c04ef7900258cae633e499878029de96a31",
+      "src/omni_av_p2/validation.py": "ae7b58885dc6bb52d25afc80b802e5682865bfb9615cbb8f4f6585a5bfa6303d",
+      "src/omni_av_p2/model.py": "39b32f9a7065838dae5902cb6060519ad2efaa7f7d5a3880a78bf76ab60a82c5",
+      "src/omni_av_p2/cache_refresh.py": "5a1db210888b7894bf5ad7ff69164e9c935e522addd3a588c8cb39a464c23cf3",
+      "src/omni_av_p2/distributed.py": "5ea2f5687d1bf8fe68f67765e4480768ebca19ddc2bb889fbe35de95000d3904",
+      "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+      "src/omni_av_p2/runner.py": "75dd51f9463ec25d056684e6cbb7c7a352c2c94da48fa4ed15876f3b04801171",
+      "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+      "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+      "src/omni_av_p2/__init__.py": "db764150d6bcd88d2182552d1ed851200f1eb41e09e12d7d69999ac755776931",
+      "src/omni_av_p2/ltx.py": "608341d49ccfdf97d63fbcf2c506625a36bd51a152b8131ae4f89b3e62b157a8",
+      "src/omni_av_p2/performance.py": "190c01cf2a55d80129735a69095e250e998bb149dd472ff3758a15967dca290f",
+      "src/omni_av_p2/config.py": "d7755801a6637a073ff8c883884e4217aba6891c480ca3c985ee4e1493d881c8",
+      "src/omni_av_p2/probe.py": "e06ad1935365f91ba2074efb39f08dcd8e908093b894c6043e2b35f6b92999ab",
+      "src/omni_av_p2/data.py": "29703ff19cc1c3ee55342ff738884c95e07aaaa8eb8d3a5e963937f2dccf1173",
+      "src/omni_av_p2/cache_prepare.py": "c8a3a956d674c82d99448a860063e87446c101f15c2c543b0df890fa82b96fe4",
+      "scripts/inspect_environment.py": "ba0101183e08d316eef6539be2e079df777ab97505af1a19d41c4244cdde5672",
+      "scripts/v4.py": "a3de3cca1a47f9fd81c8783070aae81094c378efcdd65f19bc1c8d7c47b0e973",
+      "scripts/pipeline2_refresh_cache.py": "c44809c1a4517df8169bd96b963bfbf5f5dd28280a06c8cbb679760095317a3c",
+      "scripts/pipeline2.py": "d007fba7b7a4e9e21ab6ae653a9720ba6a9fe88fab8df5bcc943dedcd8e26216",
+      "scripts/pipeline2_cluster.py": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+      "scripts/pipeline2_parallel.py": "f8f9c50a634b487eb5248970bd60d7e2058ee33845fa20b27ba990fbcd6486be",
+      "scripts/pipeline2_merge_cache.py": "5fcfedbc379243e49e2527936af06e97969abba907a9261fe491aec28a31deb4",
+      "scripts/pipeline2_cache_cluster.py": "02501b729338ff3e6c7dc42f35b9bbcc7ce258191b64e8e6fe1905f619e4834f",
+      "scripts/pipeline2_dataset.py": "3c9a9d5134434ca4ffe9bc8e5278bee35a55ef63a3c385cfb697d88b565cec27",
+      "scripts/pipeline2_cache_assist.py": "1d9716adc919675abd964b1f0ae09b1a5b48192f4287c334866858e1c5976577",
+      "configs/p2_three_nodes.json": "0978b14c7140d6b2c6dd2bb9ab737045583ac11a2adfa3f0213f873543d22538",
+      "configs/p2_roce.json": "c44f50a88344bcbd5acab338e15c62f640682c4599cf12e62d6b116f55fd3919",
+      "configs/p2_full91009_dev48_experiment.json": "42799e76cbc856de8db205a1135297cd0cdc173864f7d0df074014f104146b96",
+      "configs/pipeline2_bernini_scale.json": "df666aff9d23d2350377e90dc0f2e0514b90614c043b54ee2d393e72e3af4b97",
+      "configs/pipeline2_weighted_layers.json": "3700b4fc355cea3d79bac6b3bae8ab60d77fe12edcff6ff28caddc1042cf54c2",
+      "configs/pipeline2_single_layer.json": "ce693b79090e2238e263c646d8ebaa5a9cccd4caf130e687cad4e6c6ba6bc629"
+    }
+  },
+  "source_snapshot": "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/source_snapshot",
+  "files": {
+    "src/omni_av/checkpoint.py": {
+      "launch_sha256": "66b7fa39ba14f621c5c48eb0e0a5eacfc563b78d45cb45cf3c6f854f531a207b",
+      "backup_sha256": "66b7fa39ba14f621c5c48eb0e0a5eacfc563b78d45cb45cf3c6f854f531a207b",
+      "matches_launch": true
+    },
+    "src/omni_av/data.py": {
+      "launch_sha256": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+      "backup_sha256": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+      "matches_launch": true
+    },
+    "src/omni_av/flow.py": {
+      "launch_sha256": "b8043d0cc3de4492073a921faf367990383f273ddd45182e13062e1d0fa280c5",
+      "backup_sha256": "b8043d0cc3de4492073a921faf367990383f273ddd45182e13062e1d0fa280c5",
+      "matches_launch": true
+    },
+    "src/omni_av/ltx_gate.py": {
+      "launch_sha256": "e67da37c88c27fb2a6b36a7b4ef8a57b2aad59895953c4cdf6a03c96e25b3f50",
+      "backup_sha256": "e67da37c88c27fb2a6b36a7b4ef8a57b2aad59895953c4cdf6a03c96e25b3f50",
+      "matches_launch": true
+    },
+    "src/omni_av/planner.py": {
+      "launch_sha256": "99626ee269b362b7287f73a06f2d9cb55d5ea7ddb4256e7256c1f87c572e37b6",
+      "backup_sha256": "99626ee269b362b7287f73a06f2d9cb55d5ea7ddb4256e7256c1f87c572e37b6",
+      "matches_launch": true
+    },
+    "src/omni_av/lora.py": {
+      "launch_sha256": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+      "backup_sha256": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+      "matches_launch": true
+    },
+    "src/omni_av/config.py": {
+      "launch_sha256": "232e0b5241b4920d29c191fdc5f57fb713d46ce76d475cf9bbc3442374f60fdc",
+      "backup_sha256": "232e0b5241b4920d29c191fdc5f57fb713d46ce76d475cf9bbc3442374f60fdc",
+      "matches_launch": true
+    },
+    "src/omni_av/training.py": {
+      "launch_sha256": "aba2ab83db39917949b0a0a44ec2cdf4fba8f6851f15e3276ae463630a550ace",
+      "backup_sha256": "aba2ab83db39917949b0a0a44ec2cdf4fba8f6851f15e3276ae463630a550ace",
+      "matches_launch": true
+    },
+    "src/omni_av/runner.py": {
+      "launch_sha256": "37f4765f258bf607ddf4aec1845adc88f96455e6de73c0c73db58f3d90b9208c",
+      "backup_sha256": "37f4765f258bf607ddf4aec1845adc88f96455e6de73c0c73db58f3d90b9208c",
+      "matches_launch": true
+    },
+    "src/omni_av/__init__.py": {
+      "launch_sha256": "412a9493c2ca3f4d6dc59d711e04ad5c593ded3baa3ecee297b4134a45e408c5",
+      "backup_sha256": "412a9493c2ca3f4d6dc59d711e04ad5c593ded3baa3ecee297b4134a45e408c5",
+      "matches_launch": true
+    },
+    "src/omni_av/omni.py": {
+      "launch_sha256": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+      "backup_sha256": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+      "matches_launch": true
+    },
+    "src/omni_av/masking.py": {
+      "launch_sha256": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+      "backup_sha256": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+      "matches_launch": true
+    },
+    "src/omni_av/renderer.py": {
+      "launch_sha256": "00e895449b836a28073fcafc23504f2be82e5b4ec985db5ee55ef46e5d948375",
+      "backup_sha256": "00e895449b836a28073fcafc23504f2be82e5b4ec985db5ee55ef46e5d948375",
+      "matches_launch": true
+    },
+    "src/omni_av/ltx_runtime.py": {
+      "launch_sha256": "33cf34e96cb493fa5ff67c66920b22bf9e484631da426476890a2fd66c03c125",
+      "backup_sha256": "33cf34e96cb493fa5ff67c66920b22bf9e484631da426476890a2fd66c03c125",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/launch.py": {
+      "launch_sha256": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+      "backup_sha256": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/inference.py": {
+      "launch_sha256": "4c9866a935d9065d600417c0008b5c04ef7900258cae633e499878029de96a31",
+      "backup_sha256": "4c9866a935d9065d600417c0008b5c04ef7900258cae633e499878029de96a31",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/validation.py": {
+      "launch_sha256": "ae7b58885dc6bb52d25afc80b802e5682865bfb9615cbb8f4f6585a5bfa6303d",
+      "backup_sha256": "ae7b58885dc6bb52d25afc80b802e5682865bfb9615cbb8f4f6585a5bfa6303d",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/model.py": {
+      "launch_sha256": "39b32f9a7065838dae5902cb6060519ad2efaa7f7d5a3880a78bf76ab60a82c5",
+      "backup_sha256": "39b32f9a7065838dae5902cb6060519ad2efaa7f7d5a3880a78bf76ab60a82c5",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/cache_refresh.py": {
+      "launch_sha256": "5a1db210888b7894bf5ad7ff69164e9c935e522addd3a588c8cb39a464c23cf3",
+      "backup_sha256": "5a1db210888b7894bf5ad7ff69164e9c935e522addd3a588c8cb39a464c23cf3",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/distributed.py": {
+      "launch_sha256": "5ea2f5687d1bf8fe68f67765e4480768ebca19ddc2bb889fbe35de95000d3904",
+      "backup_sha256": "5ea2f5687d1bf8fe68f67765e4480768ebca19ddc2bb889fbe35de95000d3904",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/checkpoint.py": {
+      "launch_sha256": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+      "backup_sha256": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/runner.py": {
+      "launch_sha256": "75dd51f9463ec25d056684e6cbb7c7a352c2c94da48fa4ed15876f3b04801171",
+      "backup_sha256": "75dd51f9463ec25d056684e6cbb7c7a352c2c94da48fa4ed15876f3b04801171",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/connector.py": {
+      "launch_sha256": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+      "backup_sha256": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/decoder.py": {
+      "launch_sha256": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+      "backup_sha256": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/__init__.py": {
+      "launch_sha256": "db764150d6bcd88d2182552d1ed851200f1eb41e09e12d7d69999ac755776931",
+      "backup_sha256": "db764150d6bcd88d2182552d1ed851200f1eb41e09e12d7d69999ac755776931",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/ltx.py": {
+      "launch_sha256": "608341d49ccfdf97d63fbcf2c506625a36bd51a152b8131ae4f89b3e62b157a8",
+      "backup_sha256": "608341d49ccfdf97d63fbcf2c506625a36bd51a152b8131ae4f89b3e62b157a8",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/performance.py": {
+      "launch_sha256": "190c01cf2a55d80129735a69095e250e998bb149dd472ff3758a15967dca290f",
+      "backup_sha256": "190c01cf2a55d80129735a69095e250e998bb149dd472ff3758a15967dca290f",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/config.py": {
+      "launch_sha256": "d7755801a6637a073ff8c883884e4217aba6891c480ca3c985ee4e1493d881c8",
+      "backup_sha256": "d7755801a6637a073ff8c883884e4217aba6891c480ca3c985ee4e1493d881c8",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/probe.py": {
+      "launch_sha256": "e06ad1935365f91ba2074efb39f08dcd8e908093b894c6043e2b35f6b92999ab",
+      "backup_sha256": "e06ad1935365f91ba2074efb39f08dcd8e908093b894c6043e2b35f6b92999ab",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/data.py": {
+      "launch_sha256": "29703ff19cc1c3ee55342ff738884c95e07aaaa8eb8d3a5e963937f2dccf1173",
+      "backup_sha256": "29703ff19cc1c3ee55342ff738884c95e07aaaa8eb8d3a5e963937f2dccf1173",
+      "matches_launch": true
+    },
+    "src/omni_av_p2/cache_prepare.py": {
+      "launch_sha256": "c8a3a956d674c82d99448a860063e87446c101f15c2c543b0df890fa82b96fe4",
+      "backup_sha256": "c8a3a956d674c82d99448a860063e87446c101f15c2c543b0df890fa82b96fe4",
+      "matches_launch": true
+    },
+    "scripts/inspect_environment.py": {
+      "launch_sha256": "ba0101183e08d316eef6539be2e079df777ab97505af1a19d41c4244cdde5672",
+      "backup_sha256": "ba0101183e08d316eef6539be2e079df777ab97505af1a19d41c4244cdde5672",
+      "matches_launch": true
+    },
+    "scripts/v4.py": {
+      "launch_sha256": "a3de3cca1a47f9fd81c8783070aae81094c378efcdd65f19bc1c8d7c47b0e973",
+      "backup_sha256": "a3de3cca1a47f9fd81c8783070aae81094c378efcdd65f19bc1c8d7c47b0e973",
+      "matches_launch": true
+    },
+    "scripts/pipeline2_refresh_cache.py": {
+      "launch_sha256": "c44809c1a4517df8169bd96b963bfbf5f5dd28280a06c8cbb679760095317a3c",
+      "backup_sha256": "c44809c1a4517df8169bd96b963bfbf5f5dd28280a06c8cbb679760095317a3c",
+      "matches_launch": true
+    },
+    "scripts/pipeline2.py": {
+      "launch_sha256": "d007fba7b7a4e9e21ab6ae653a9720ba6a9fe88fab8df5bcc943dedcd8e26216",
+      "backup_sha256": "d007fba7b7a4e9e21ab6ae653a9720ba6a9fe88fab8df5bcc943dedcd8e26216",
+      "matches_launch": true
+    },
+    "scripts/pipeline2_cluster.py": {
+      "launch_sha256": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+      "backup_sha256": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+      "matches_launch": true
+    },
+    "scripts/pipeline2_parallel.py": {
+      "launch_sha256": "f8f9c50a634b487eb5248970bd60d7e2058ee33845fa20b27ba990fbcd6486be",
+      "backup_sha256": "f8f9c50a634b487eb5248970bd60d7e2058ee33845fa20b27ba990fbcd6486be",
+      "matches_launch": true
+    },
+    "scripts/pipeline2_merge_cache.py": {
+      "launch_sha256": "5fcfedbc379243e49e2527936af06e97969abba907a9261fe491aec28a31deb4",
+      "backup_sha256": "5fcfedbc379243e49e2527936af06e97969abba907a9261fe491aec28a31deb4",
+      "matches_launch": true
+    },
+    "scripts/pipeline2_cache_cluster.py": {
+      "launch_sha256": "02501b729338ff3e6c7dc42f35b9bbcc7ce258191b64e8e6fe1905f619e4834f",
+      "backup_sha256": "02501b729338ff3e6c7dc42f35b9bbcc7ce258191b64e8e6fe1905f619e4834f",
+      "matches_launch": true
+    },
+    "scripts/pipeline2_dataset.py": {
+      "launch_sha256": "3c9a9d5134434ca4ffe9bc8e5278bee35a55ef63a3c385cfb697d88b565cec27",
+      "backup_sha256": "3c9a9d5134434ca4ffe9bc8e5278bee35a55ef63a3c385cfb697d88b565cec27",
+      "matches_launch": true
+    },
+    "scripts/pipeline2_cache_assist.py": {
+      "launch_sha256": "1d9716adc919675abd964b1f0ae09b1a5b48192f4287c334866858e1c5976577",
+      "backup_sha256": "1d9716adc919675abd964b1f0ae09b1a5b48192f4287c334866858e1c5976577",
+      "matches_launch": true
+    },
+    "configs/p2_three_nodes.json": {
+      "launch_sha256": "0978b14c7140d6b2c6dd2bb9ab737045583ac11a2adfa3f0213f873543d22538",
+      "backup_sha256": "0978b14c7140d6b2c6dd2bb9ab737045583ac11a2adfa3f0213f873543d22538",
+      "matches_launch": true
+    },
+    "configs/p2_roce.json": {
+      "launch_sha256": "c44f50a88344bcbd5acab338e15c62f640682c4599cf12e62d6b116f55fd3919",
+      "backup_sha256": "c44f50a88344bcbd5acab338e15c62f640682c4599cf12e62d6b116f55fd3919",
+      "matches_launch": true
+    },
+    "configs/p2_full91009_dev48_experiment.json": {
+      "launch_sha256": "42799e76cbc856de8db205a1135297cd0cdc173864f7d0df074014f104146b96",
+      "backup_sha256": "30a29f429169a0c4d50026cc4f99d46b39982f3a3493a20013ae2c0365f318f3",
+      "matches_launch": false
+    },
+    "configs/pipeline2_bernini_scale.json": {
+      "launch_sha256": "df666aff9d23d2350377e90dc0f2e0514b90614c043b54ee2d393e72e3af4b97",
+      "backup_sha256": "df666aff9d23d2350377e90dc0f2e0514b90614c043b54ee2d393e72e3af4b97",
+      "matches_launch": true
+    },
+    "configs/pipeline2_weighted_layers.json": {
+      "launch_sha256": "3700b4fc355cea3d79bac6b3bae8ab60d77fe12edcff6ff28caddc1042cf54c2",
+      "backup_sha256": "3700b4fc355cea3d79bac6b3bae8ab60d77fe12edcff6ff28caddc1042cf54c2",
+      "matches_launch": true
+    },
+    "configs/pipeline2_single_layer.json": {
+      "launch_sha256": "ce693b79090e2238e263c646d8ebaa5a9cccd4caf130e687cad4e6c6ba6bc629",
+      "backup_sha256": "ce693b79090e2238e263c646d8ebaa5a9cccd4caf130e687cad4e6c6ba6bc629",
+      "matches_launch": true
+    }
+  },
+  "differences_explained": {
+    "configs/p2_full91009_dev48_experiment.json": "运行登记配置在启动后补充新训练目录/首步验证；实际启动命令未传--config，训练模型参数采用Config默认值。"
+  },
+  "latest_observed_step": 93,
+  "checkpoint_complete_markers": [],
+  "validation_generation_executed": false
+}

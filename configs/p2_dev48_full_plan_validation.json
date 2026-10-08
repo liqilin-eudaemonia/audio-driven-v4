@@ -1,0 +1,22 @@
+{
+  "protocol": "p2_dev_full_plan_pair_v1",
+  "suite": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_dev48_full_plan_validation_20261008/suite.json",
+  "manifest": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_20261008/dev.json",
+  "cluster": "/private/liqi_workspace/project_code/audio-driven-v4/configs/p2_three_nodes.json",
+  "checkpoint_example": "/public/2_CKPT/0_WM/llq/p2_no_time_full91009_3n24g_1000step_20261008_0838/checkpoints/extractor_step_000100_connector.pt",
+  "modes": [
+    "gt",
+    "omni"
+  ],
+  "plan_fields": [
+    "reply",
+    "delivery",
+    "behavior",
+    "vocal_events"
+  ],
+  "sampling_steps": 30,
+  "max_plan_tokens": 512,
+  "seed": 1045,
+  "automatic_validation_enabled": false,
+  "gpu_generation_tested": false
+}

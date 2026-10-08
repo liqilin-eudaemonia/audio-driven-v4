@@ -1,0 +1,135 @@
+{
+  "summary": {
+    "cache_started_utc": "2026-10-08T06:12:11Z",
+    "cache_completed_utc": "2026-10-08T06:58:03.181054+00:00",
+    "wall_seconds": 2752.1810536384583,
+    "train_samples": 91009,
+    "dev_samples": 48,
+    "train_bytes": 2237901403299,
+    "all_metadata_gt_text_window_checks_passed": true,
+    "numeric_samples": 576,
+    "regeneration_required": false,
+    "training_started": false
+  },
+  "audit": {
+    "samples": 91009,
+    "dev_samples": 48,
+    "all_ids_unique_and_manifest_order_exact": true,
+    "train_dev_disjoint": true,
+    "metadata_window_shape_gt_text_checks": "all samples",
+    "numeric_finite_nonzero_samples": 576,
+    "complete_numeric_payload_scan": false,
+    "failures": [],
+    "train_cache_bytes": 2237901403299,
+    "seconds": 54.15036678314209,
+    "manifest_sha256": "45f10fd1c2a7c1564db88fedfea8f51a62e1c71004ede5924dfb01a7c48ba78f",
+    "index_sha256": "4141240fed6eacaeb0e0e8ca09e70a53fdc57fdfc7f42baab2e490833bc63d86",
+    "no_gpu_extraction_or_training_performed": true,
+    "finished_time": 1791442832.4912934
+  },
+  "cache_root": "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_cache_20261008",
+  "run": {
+    "manifest": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_20261008/train.json",
+    "samples": 91009,
+    "manifest_sha256": "45f10fd1c2a7c1564db88fedfea8f51a62e1c71004ede5924dfb01a7c48ba78f",
+    "base_commit": "9732ad32fcf0a3f7d23d83e0171ac9ee91fdee74",
+    "nodes": [
+      {
+        "name": "node12",
+        "host": "172.29.252.24",
+        "local": true,
+        "gpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "name": "node17",
+        "host": "172.29.15.126",
+        "gpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "name": "node16",
+        "host": "172.29.112.17",
+        "gpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "workers_per_gpu": 6,
+    "shards": 192,
+    "started_utc": "2026-10-08T06:31:26Z",
+    "output": "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_cache_20261008",
+    "train_cache": "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_cache_20261008/train/cache_index.json",
+    "training_started": false,
+    "preparation_only": true,
+    "text_batch_size": 4,
+    "max_gemma_processes_per_gpu": 2,
+    "generation": "1791441084452935829"
+  },
+  "text_batch_benchmark": [
+    {
+      "batch": 1,
+      "seconds": 3.9733120715245605,
+      "samples_per_second": 4.026867185859075,
+      "peak_allocated_gb": 33.868821504,
+      "max_relative_l2": 0.0,
+      "mask_and_prompt_match": true
+    },
+    {
+      "batch": 2,
+      "seconds": 3.0953171774744987,
+      "samples_per_second": 5.16909870059086,
+      "peak_allocated_gb": 36.963920896,
+      "max_relative_l2": 0.0023420341312885284,
+      "mask_and_prompt_match": true
+    },
+    {
+      "batch": 4,
+      "seconds": 2.562265759333968,
+      "samples_per_second": 6.244473252516561,
+      "peak_allocated_gb": 43.13732608,
+      "max_relative_l2": 0.00515602296218276,
+      "mask_and_prompt_match": true
+    },
+    {
+      "batch": 8,
+      "seconds": 2.9622255014255643,
+      "samples_per_second": 5.401344358253629,
+      "peak_allocated_gb": 55.519788032,
+      "max_relative_l2": 0.00515602296218276,
+      "mask_and_prompt_match": true
+    },
+    {
+      "batch": 16,
+      "seconds": 2.8179517658427358,
+      "samples_per_second": 5.677882848791432,
+      "peak_allocated_gb": 80.185023488,
+      "max_relative_l2": 0.00515602296218276,
+      "mask_and_prompt_match": true
+    }
+  ],
+  "scope": "Completed cache generation and structural/numeric audit; no training or quality claim"
+}
