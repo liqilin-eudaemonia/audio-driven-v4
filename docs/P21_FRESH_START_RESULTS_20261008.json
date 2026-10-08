@@ -234,5 +234,6 @@
   "monitor_current_sha256": "11fd703225b019ebc5aa9cc67746d75e4130fb8250064d4f029590bbc5cb8363",
   "source_sha256_note": "Original CPU regression snapshot; monitor was subsequently updated, current hash above.",
   "runtime_root": "/public/2_CKPT/0_WM/llq/p21_fresh_3n24g_1000step_20261008",
-  "github_branch": "experiment/p21-text-lora-fresh-20261008"
+  "github_branch": "experiment/p21-text-lora-fresh-20261008",
+  "runtime_code_commit": "8c7dd057d844145b7281e3994adb0aab0009e14d"
 }

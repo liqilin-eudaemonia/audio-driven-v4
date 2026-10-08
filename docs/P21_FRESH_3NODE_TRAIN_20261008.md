@@ -44,6 +44,6 @@ P2原三机200步状态通过权重/优化器有限性、Connector导出逐项�
 
 TensorBoard运行于node12的`127.0.0.1:6006`；SSH端口转发后访问。选择`p21_fresh/attempt_000/training/tensorboard`查看P2.1，`no_time_prompt`查看旧P2，`p2_resume_gpu4`查看续训。
 
-GitHub分支：[experiment/p21-text-lora-fresh-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p21-text-lora-fresh-20261008)，初始实现提交`b07988d`；后续提交补充GPU证据、功耗监控和P2四卡续训。仓库仅保存源码和审计摘要，不上传模型/缓存。
+GitHub分支：[experiment/p21-text-lora-fresh-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p21-text-lora-fresh-20261008)，初始实现提交`b07988d`；后续提交[8c7dd05](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/8c7dd057d844145b7281e3994adb0aab0009e14d)补充GPU证据、功耗监控和P2四卡续训。仓库仅保存源码和审计摘要，不上传模型/缓存。
 
 14:44 UTC：24rank均已完成第4步，第3步安全checkpoint经CPU完整读取核验通过（全部模型/优化器有限、optimizer step3、24份rank RNG、384个LoRA B全部更新、部署子集与完整状态逐项相等）。审计文件`STARTUP_CHECKPOINT_VERIFIED.json`；前三步耗时110.26/120.32/114.08秒。三机最新采样24卡利用率均100%、功耗约625–687W。这是工程运行检查，不代表收敛或生成质量达标。

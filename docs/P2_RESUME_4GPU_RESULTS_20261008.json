@@ -67,6 +67,43 @@
     "validation": false
   },
   "tests_passed": 2,
-  "phase": "resumed training in first update201",
-  "validation_enabled": false
+  "phase": "running; first resumed step201 verified",
+  "validation_enabled": false,
+  "first_update": {
+    "checked_at": "2026-10-08T14:49:16.231803+00:00",
+    "step": 201,
+    "world_size": 4,
+    "global_batch": 72,
+    "all_ranks_finite": true,
+    "all_ranks_identical_loss": true,
+    "samples_and_noise_continue_without_repeat_or_skip": true,
+    "first_resume_seconds": 502.49473948031664,
+    "metrics": {
+      "step": 201,
+      "rank": 0,
+      "seconds": 502.49473948031664,
+      "loss": 3.066373156176673,
+      "av": 0.6288858147131072,
+      "video_feature": 1.7340750710831747,
+      "audio_feature": 0.7034122356110148,
+      "av_video": 0.30139282159507275,
+      "av_audio": 0.3274929931180345,
+      "grad_norm": 1.832015872001648,
+      "layer_gradient_norms": {
+        "8": 0.0012494446709752083,
+        "18": 0.000625200045760721,
+        "28": 0.0004632922646123916,
+        "35": 0.00018598574388306588
+      },
+      "forward_seconds": 117.27486389160157,
+      "backward_including_sync_seconds": 383.81952490234374,
+      "peak_allocated_gb": 112.09041152
+    },
+    "peak_allocated_gb": [
+      112.09041152,
+      109.699803136,
+      106.919145984,
+      103.643175424
+    ]
+  }
 }
