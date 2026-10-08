@@ -3,9 +3,9 @@
 |Pipeline|路线|状态|
 |---|---|---|
 |Pipeline 1|Qwen2.5-Omni 连续音视频规划，文本 + hidden states 指导 LTX|已实现工程原型并备份；验证范围见下文|
-|Pipeline 2|待定义|准备开展；尚未确定方案或编写实现|
+|[Pipeline 2](docs/PIPELINE2_PLAN.md)|冻结 Omni/DiT，训练融合 Connector；最终条件 U 共享特征 FM 与 AV 监督|结构与实验计划已记录；尚未实现或验证|
 
-当前仓库中的代码及下列方案、数据、验证文档均属于 **Pipeline 1**。后续 Pipeline 2 使用独立文档和实现入口，索引分别记录，保留 Pipeline 1 的基线与验证边界。
+当前 `src/omni_av` 和 `scripts/v4.py` 仍属于 **Pipeline 1**。Pipeline 2 使用独立方案文档，后续采用独立实现入口；两条路线分别记录状态，保留 Pipeline 1 的基线与验证边界。
 
 **Pipeline 1 仓库与基线**：私密仓库 [liqilin-eudaemonia/audio-driven-v4](https://github.com/liqilin-eudaemonia/audio-driven-v4)，分支 `main`。初始代码备份为 [9a36c02](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/9a36c02c3771889d95eb199d021420ac1caa81f7)（2026-10-07）；此提交固定记录 Pipeline 1 初始版本，不表示后续最新提交。
 
@@ -13,9 +13,10 @@ Pipeline 1 使用同一个 Qwen2.5-Omni-3B：原生回复阶段关闭规划 LoRA
 
 |文档|内容|
 |---|---|
-|[路线方案](docs/PLAN.md)|任务、模型、监督、训练与推理的确定设计|
-|[数据契约](docs/DATA.md)|GT 复用、新特征、文本与时间约定|
-|[实现和验证](docs/IMPLEMENTATION.md)|代码入口、命令、实测结果与未验证范围|
+|[Pipeline 1 路线方案](docs/PLAN.md)|任务、模型、监督、训练与推理的确定设计|
+|[Pipeline 1 数据契约](docs/DATA.md)|GT 复用、新特征、文本与时间约定|
+|[Pipeline 1 实现和验证](docs/IMPLEMENTATION.md)|代码入口、命令、实测结果与未验证范围|
+|[Pipeline 2 结构与实验计划](docs/PIPELINE2_PLAN.md)|冻结边界、最终 U 共享、decoder、梯度与训推契约、实验矩阵及推进条件|
 
 Pipeline 1 状态：规划、渲染适配、联合训练及自主规划导出入口已实现。真实 Qwen2.5-Omni-3B GPU 工程测试通过，19 项 CPU 测试通过；完整预训练 LTX GPU 联测待空卡验证。未启动正式训练，未验证生成质量。旧 v2/v3 工程、数据和权重只读复用。
 
