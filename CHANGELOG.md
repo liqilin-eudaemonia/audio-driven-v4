@@ -1,11 +1,33 @@
 # 版本变更记录
 
+## 2026-10-08 优化代码备份：全量清单与三机24卡验证
+
+分支：[backup/p2-3n24g-balanced-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)。基于 `51e18fe`，保留原提交历史；本次一起备份下述三个阶段的工程改动。
+
+51项CPU回归通过。配对单步 global batch72 的耗时由313.655秒降至162.943秒，吞吐提高1.925倍；样本/噪声/形状逐项匹配，非逐位等价。全量条件缓存和正式长训尚未完成，不据短测声称生成质量达标。机器可读证据见[三机结果摘要](docs/P2_3NODE_RESULTS_20261008.json)。
+
+Train改为91,009、Dev扩为48并保留原24条。保留720p-area宽高，权重写入`/public/2_CKPT/0_WM/llq`独立目录。真实三机NCCL、完整LTX原尺寸joint训练、Dev48验证、checkpoint恢复及TensorBoard通过；新增按计算量平衡梯度累积任务，解决短视频节点等待长视频节点。[证据及完整范围](docs/P2_FULL_DATA_3NODE_20261008.md)。
+
+## 2026-10-08 数据、验证与多机续训（早期阶段记录，已纳入本次备份）
+
+固定 qualified 数据源与 Train128/Dev24 清单；补 Train/Dev 独立缓存、每100步 Dev loss、TensorBoard、分片准备与合并、多节点 torchrun、逐 rank RNG、原子 checkpoint；修复 GT null prosody。当时49项CPU回归和同机双agent四rank训练/恢复通过，跨机器NCCL及新增功能完整GPU复测尚未执行；后续三机实测结果见上节。[命令、证据和边界](docs/P2_DATA_MULTINODE_20261008.md)。
+
+## 2026-10-08 Bernini 审计与八卡验证（早期阶段记录，已纳入本次备份）
+
+- 修复原尺寸 VAE 整段解码 OOM，改用原生时空分块并检查完整输出尺寸。
+- 准备/读取缓存时检查 GT 外部预算、哈希、sample ID 与匹配文字。
+- 新增八卡 DDP、等效单卡累积、有限样本 device cache、运行耗时/显存和跨 rank 参数一致性检查；保持大模型冻结及最终 U 共享。
+- 41 项 CPU 测试；三种融合原尺寸训练/解码、八卡恢复、Bernini-scale tiny gate、P1 完整 LTX tiny gate 通过。同 global batch=8 的短测速约 7.76×。
+- 不改变 v2 条件/Connector 权重格式；DDP 训练 checkpoint 带独立的 world size/累积恢复契约。原失败产物保留，仍无正式生成质量或辅助监督收益结论。
+- 详细证据、数值误差及复现：[审计报告](docs/BERNINI_AUDIT_20261008.md)、[结果摘要](docs/BERNINI_AUDIT_RESULTS_20261008.json)。
+
 本文件区分研究路线、代码版本和工程验证。`audio-driven-v4` 是项目名；Pipeline 1 / Pipeline 2 是两条研究路线；下文 P2 单层版 / 多层版是 Pipeline 2 内部的实现版本，不对应旧项目 `audio-driven-v2/v3`。这些提交不是正式训练效果或模型发布版本。
 
 ## 版本导航
 
 |日期|版本 / 提交|主要变化|验证范围|
 |---|---|---|---|
+|2026-10-08|[P2 优化备份分支](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-3n24g-balanced-20261008)|Bernini审计修复、Train91,009/Dev48、多机保存/验证/TensorBoard、计算量均衡|51项CPU回归；三机24卡原尺寸门禁/恢复；同global batch72短测1.925×，未开展正式效果实验|
 |2026-10-07|[Pipeline 1 初始实现 · 9a36c02](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/9a36c02c3771889d95eb199d021420ac1caa81f7)|Qwen2.5-Omni 音视频连续规划；规划 LoRA、特征预测及渲染适配入口|19 项 CPU 测试及真实 Omni 工程检查；完整预训练 LTX 联测未完成|
 |2026-10-07|[索引分流 · 0cbf62b](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/0cbf62b204cdc7325576925a04b2db160a11b6eb)|将既有路线标为 Pipeline 1，记录私密仓库与基线，预留 Pipeline 2|文档变更|
 |2026-10-08|[Pipeline 2 设计 · 2ead931](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/2ead931defef0ee2e6072547deebb02c97bc5a6c)|确定冻结 Omni/DiT、融合 Connector、最终 U 共享两类监督|设计与实验计划；不是 P2 代码完成点|
@@ -23,7 +45,7 @@
 |生成端训练|渲染适配及联合阶段训练 LoRA / 新增分支|冻结 LTX、Gemma、VAE；训练 Connector，joint 配方另训 decoder|
 |代码入口|`src/omni_av`、`scripts/v4.py`|`src/omni_av_p2`、`scripts/pipeline2.py`|
 
-两条路线均保留文字条件和 Listener 首帧。Pipeline 2 没有替换或删除 Pipeline 1；P2 的验证结果也不代表 P1 的完整 LTX 联测已完成。
+两条路线均保留文字条件和 Listener 首帧。Pipeline 2 没有替换或删除 Pipeline 1；P2 的验证结果不替代 P1 验证；本轮另测的 P1 完整 LTX tiny gate 见审计报告，仍不是 P1 自主完整 AV 或正式效果实验。
 
 ## P2 单层 → 多层：实现变化
 
@@ -50,7 +72,7 @@ Omni 仍只需一次 forward。保存的 hidden 张量约为单层四倍，主�
 - 新版的 `pipeline2_single_layer.json` 是当前代码中的单层消融，不是旧 checkpoint 的兼容加载模式。要复现旧实现，应使用 `4ecd091` 对应代码和旧版产物。
 - 新版单层与加权模式分别使用 [单层配置](configs/pipeline2_single_layer.json)、[加权配置](configs/pipeline2_weighted_layers.json)。`prepare`、`train/gate`、`infer/export-condition` 应传相同配置；当前完整配置纳入契约，各模式分别准备缓存。
 - 旧运行目录、缓存和权重保留。GitHub 只备份代码、配置、文档和测试摘要；`outputs/`、模型及数据不上传。
-- 本次文档补充只集中整理已有版本事实，不改变代码、权重版本或训练设置，也不改写已推送的 Git 历史。
+- 历史 `51e18fe` 文档提交只集中整理已有版本事实，不改变代码、权重版本或训练设置，也不改写已推送的 Git 历史。
 
 ### 验证证据与边界
 

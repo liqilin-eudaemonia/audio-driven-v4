@@ -1,5 +1,11 @@
 # Pipeline 2 实现与验证
 
+**最新更新**：[Train91,009 / Dev48、720p-area尺寸审计、三机24卡实际验证与负载均衡](P2_FULL_DATA_3NODE_20261008.md)。以下旧小集和“GPU尚未验证”描述保留为历史记录。
+
+**早期数据与训练记录（2026-10-08）**：[qualified Train/Dev/Test、周期验证、TensorBoard、多机启动与实测边界](P2_DATA_MULTINODE_20261008.md)。该阶段完成 CPU 分布式验证，当时 GPU 复测尚未执行；现已完成的三机 GPU 测试见上面的最新报告。
+
+**后续审计更新**：本页以下保留原始分版本记录；最新 41 项回归、三种融合原尺寸验证、4096 宽 decoder 的 tiny GPU gate、分块解码修复及八卡 DDP（约 7.76× 吞吐）见 [Bernini 对照与八卡验证](BERNINI_AUDIT_20261008.md)。新增入口 `scripts/pipeline2_parallel.py`；缓存/Connector 参数格式仍为 v2。性能配置和 DDP 恢复契约详见审计文档。
+
 日期：2026-10-08。独立代码位于 `src/omni_av_p2`，入口为 `scripts/pipeline2.py`。Pipeline 1 源码未改动。已完成真实模型工程验证，未启动正式实验训练，未评定生成质量。
 
 当前多层实现基线为 `bfc873c`，旧单层实现基线为 `4ecd091`。本文件第 1–5 节描述当前实现，第 6 节保留旧单层验证，第 7 节记录多层验证；跨版本结构、兼容性及提交链接见 [版本变更记录](../CHANGELOG.md)。

@@ -80,7 +80,7 @@ def gt_text_plan(payload, sample_id):
         raise ValueError("Present reply has no transcript")
     human = lambda s: str(s).lower().replace("_", " ")
     delivery = [f"{human(sem[k])} {k.replace('_', ' ')}" for k in ("tone", "primary_emotion") if sem.get(k)]
-    delivery += [f"{human(v)} {k}" for k, v in response.get("prosody", {}).items() if v]
+    delivery += [f"{human(v)} {k}" for k, v in (response.get("prosody") or {}).items() if v]
     vocals = []
     for event in plan.get("vocal_track", []):
         if event.get("state") not in {None, "SILENCE", "REPLY_SPEECH"}:

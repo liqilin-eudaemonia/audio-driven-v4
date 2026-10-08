@@ -29,9 +29,9 @@ def build_config(args):
     return cfg
 
 
-def gradient_norm(loss, tensor):
-    value = torch.autograd.grad(loss, tensor, retain_graph=True, allow_unused=True)[0]
-    return 0.0 if value is None else float(value.float().norm())
+def gradient_norms(loss, tensors):
+    values = torch.autograd.grad(loss, tensors, retain_graph=True, allow_unused=True)
+    return [0.0 if value is None else float(value.float().norm()) for value in values]
 
 
 def run_training(args, cfg):
@@ -85,11 +85,19 @@ def run_training(args, cfg):
                     total = total + cfg.feature_video_weight * feature["video"] + cfg.feature_audio_weight * feature["audio"]
             grads = {}
             if args.command == "gate":
-                for mod in ("video", "audio"):
-                    grads["av_to_u_" + mod] = gradient_norm(lav, getattr(u, mod))
-                    if feature:
-                        grads["feature_to_u_" + mod] = gradient_norm(feature[mod], getattr(u, mod))
-                required = {k: v for k, v in grads.items() if k.startswith("av_") or step > step0 + 2}
+                norms = [norm.weight for norm in model.connector.memory.norms]
+                # One DiT backward traversal audits both U tensors and every selected layer.
+                values = gradient_norms(lav, [u.video, u.audio, *norms])
+                grads.update(zip(("av_to_u_video", "av_to_u_audio"), values[:2]))
+                grads.update({f"av_to_layer_{layer}": value for layer, value in zip(cfg.hidden_layers, values[2:])})
+                for mod, loss in feature.items():
+                    values = gradient_norms(loss, [getattr(u, mod), *norms])
+                    grads["feature_to_u_" + mod] = values[0]
+                    grads.update({f"feature_{mod}_to_layer_{layer}": value
+                                  for layer, value in zip(cfg.hidden_layers, values[1:])})
+                required = {k: v for k, v in grads.items()
+                            if k.startswith("av_to_u_") or (k.startswith("av_to_layer_") and step > step0 + 1)
+                            or step > step0 + 2}
                 if not all(np.isfinite(v) and v > 0 for v in required.values()):
                     raise RuntimeError(f"Missing shared-condition gradients: {grads}")
             total.backward()

@@ -2,17 +2,15 @@
 import gc
 import json
 import math
-from dataclasses import asdict
 from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
 import torch
-from PIL import Image
 from torch.nn import functional as F
 
 from omni_av.data import Observation, TextPlan, file_hash, gt_text_plan, read_audio, save_new, select_training_examples, write_json_new
-from omni_av.omni import encode_prefix, generate_reply, make_layout, move_inputs, prepare_observation
+from omni_av.omni import encode_prefix, make_layout, move_inputs, prepare_observation
 from omni_av.ltx_runtime import NativeTextConditioner, audit_target_window, load_av_targets
 from . import VERSION
 from .connector import ConditionInputs
@@ -109,19 +107,22 @@ def extract_teacher(runtime, processor, condition, example, aligned_duration):
     coords = condition.video_coordinates[0]
     patch = processor.image_processor.patch_size * processor.image_processor.merge_size
     size = (int(coords[:, 2].max() + 1) * patch, int(coords[:, 1].max() + 1) * patch)
-    frames = sample_target_frames(example["target_video"], budget, aligned_duration, cfg.vision_fps, size)
+    # VAE frame-grid rounding may extend up to one frame beyond real media.
+    # Keep teacher supervision inside real GT support; budget padding stays masked.
+    support_duration = min(aligned_duration, example["duration_s"])
+    frames = sample_target_frames(example["target_video"], budget, support_duration, cfg.vision_fps, size)
     inputs = processor.video_processor(videos=[frames], return_tensors="pt", do_sample_frames=False, do_resize=False)
     inputs = move_inputs(dict(inputs), device)
     video = model.get_video_features(inputs["pixel_values_videos"], inputs["video_grid_thw"])[None]
-    wave = read_audio(example["target_audio"], end_s=aligned_duration)
+    wave = read_audio(example["target_audio"], end_s=support_duration)
     wave = np.pad(wave, (0, round(budget * 16000) - len(wave)))
     audio = processor.feature_extractor(wave, sampling_rate=16000, return_tensors="pt",
                                         return_attention_mask=True, padding="max_length")
     audio = model.get_audio_features(audio["input_features"].to(device, torch.bfloat16), audio["attention_mask"].to(device))
     audio = F.adaptive_avg_pool1d(audio.float().T[None], condition.audio_coordinates.shape[1]).transpose(1, 2).to(video.dtype)
     # Full temporal support must lie within the aligned GT. Layout validity stays independent.
-    vvalid = condition.video_coordinates[..., 0] + .5 / cfg.vision_fps < aligned_duration
-    avalid = condition.audio_coordinates[..., 0] + .5 / cfg.audio_hz <= aligned_duration
+    vvalid = condition.video_coordinates[..., 0] + .5 / cfg.vision_fps < support_duration
+    avalid = condition.audio_coordinates[..., 0] + .5 / cfg.audio_hz <= support_duration
     if video.shape != (*condition.video_valid.shape, cfg.target_dim) or audio.shape != (*condition.audio_valid.shape, cfg.target_dim):
         raise ValueError("Teacher feature/query grid mismatch")
     if not vvalid.any() or not avalid.any():
@@ -131,28 +132,34 @@ def extract_teacher(runtime, processor, condition, example, aligned_duration):
 
 def prepare_cache(args, cfg):
     examples = json.loads(args.manifest.read_text()) if args.manifest else select_training_examples(args.data_root, args.samples, args.budget)
-    if not examples or any(x["split"] != "train" for x in examples):
-        raise ValueError("Preparation currently requires nonempty Train examples")
+    if not examples or len({x["split"] for x in examples}) != 1 or examples[0]["split"] not in {"train", "dev"}:
+        raise ValueError("Prepare one nonempty Train or Dev split; Test is held out")
+    split = examples[0]["split"]
     ids = [x["observation"]["sample_id"] for x in examples]
     if len(set(ids)) != len(ids):
         raise ValueError("Duplicate IDs")
+    examples = examples[getattr(args, "shard_index", 0)::getattr(args, "shards", 1)]
+    if not examples:
+        raise ValueError("Empty preparation shard")
     runtime, processor = load_omni(cfg)
     paths = []
     for i, example in enumerate(examples):
         obs, plan = Observation(**example["observation"]), TextPlan(**example["text_plan"])
+        if not math.isfinite(example["duration_s"]) or not 0 < example["duration_s"] <= obs.output_duration_s:
+            raise ValueError("GT must fit the external budget; re-bucket instead of truncating")
         gt = json.loads(Path(example["gt_path"]).read_text())
         if plan != gt_text_plan(gt, obs.sample_id):
             raise ValueError("Text differs from paired GT")
-        _, metadata = load_av_targets(args.data_root, obs.sample_id, device="cpu")
+        _, metadata = load_av_targets(args.data_root, obs.sample_id, device="cpu", split=split)
         window = audit_target_window(dict(example=example), metadata)
         condition = extract_condition(runtime, processor, obs, plan)
         targets = extract_teacher(runtime, processor, condition, example, window["renderer_target_duration_s"])
         path = args.output / f"features_{i:04d}.pt"
-        save_new(path, dict(contract=contract(cfg), split="train", sample_id=obs.sample_id, example=example,
+        save_new(path, dict(contract=contract(cfg), split=split, sample_id=obs.sample_id, example=example,
             condition={k: v.cpu() for k, v in vars(condition).items()},
             targets={k: v.cpu() for k, v in targets.items()}, window=window,
             gt_sha256=file_hash(example["gt_path"]), source="paired_gt_text_frozen_omni"))
-        paths.append(dict(features=str(path.resolve())))
+        paths.append(dict(features=str(path.resolve()), sample_id=obs.sample_id, split=split))
         print(json.dumps(dict(event="p2_features", sample_id=obs.sample_id,
                               hidden=list(condition.hidden.shape), layer_ids=condition.layer_ids.tolist(),
                               video=list(targets["video"].shape),
@@ -169,15 +176,18 @@ def prepare_cache(args, cfg):
             print(json.dumps(dict(event="p2_text", index=i, video=list(text["video"].shape), audio=list(text["audio"].shape))), flush=True)
     finally:
         text_runtime.close()
-    index = dict(contract=contract(cfg), entries=paths)
+    index = dict(contract=contract(cfg), entries=paths, split=split)
     write_json_new(args.output / "cache_index.json", index)
     return index
 
 
-def read_sample(entry, cfg, device="cuda:0"):
+def read_sample(entry, cfg, device="cuda:0", split="train"):
     payload = torch.load(entry["features"], map_location="cpu", weights_only=True)
-    if payload["contract"] != contract(cfg) or payload["split"] != "train":
+    if split not in {"train", "dev"} or payload["contract"] != contract(cfg) or payload["split"] != split:
         raise ValueError("P2 training cache identity mismatch")
+    validate_cached_example(payload, split)
+    if entry.get("sample_id", payload["sample_id"]) != payload["sample_id"] or entry.get("split", split) != split:
+        raise ValueError("Cache index/payload mismatch")
     condition = ConditionInputs(**payload["condition"]).to(device)
     condition.validate()
     targets = {k: v.to(device) for k, v in payload["targets"].items()}
@@ -185,3 +195,19 @@ def read_sample(entry, cfg, device="cuda:0"):
     if text["prompt"] != TextPlan(**payload["example"]["text_plan"]).render_prompt():
         raise ValueError("Text/hidden plan mismatch")
     return condition, targets, text, payload
+
+
+def validate_cached_example(payload, split="train"):
+    """A stored hash is not protection unless it is checked before training."""
+    example = payload["example"]
+    obs = Observation(**example["observation"])
+    if split not in {"train", "dev"} or payload["sample_id"] != obs.sample_id or example["split"] != split:
+        raise ValueError("Cached sample/observation identity mismatch")
+    if file_hash(example["gt_path"]) != payload["gt_sha256"]:
+        raise ValueError("GT changed after preparation; regenerate P2 cache")
+    plan = TextPlan(**example["text_plan"])
+    if plan != gt_text_plan(json.loads(Path(example["gt_path"]).read_text()), obs.sample_id):
+        raise ValueError("Cached text differs from paired GT")
+    duration = example["duration_s"]
+    if not math.isfinite(duration) or not 0 < duration <= obs.output_duration_s:
+        raise ValueError("GT exceeds external output budget")

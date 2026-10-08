@@ -1,0 +1,1091 @@
+{
+  "date": "2026-10-08",
+  "project_base": "51e18fe22c58cab79b6abd5001ad5caa9af46e5d",
+  "bernini_reference": "e6c2cf11843470b08491745947abcba9c3c6b079",
+  "source_state": "uncommitted audit fixes on project base",
+  "cpu": {
+    "passed": 41,
+    "seconds": 12.5
+  },
+  "runs": {
+    "full_joint": {
+      "training_completed_steps": 6,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/full_joint/extractor_step_000006.pt"
+      ],
+      "quality_pass": null,
+      "stopped": false
+    },
+    "full_av": {
+      "training_completed_steps": 6,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/full_av/extractor_step_000006.pt"
+      ],
+      "quality_pass": null,
+      "stopped": false
+    },
+    "full_joint_seed46": {
+      "training_completed_steps": 6,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/full_joint_seed46/extractor_step_000006.pt"
+      ],
+      "quality_pass": null,
+      "stopped": false
+    },
+    "gate": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "recipe": "joint",
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/gate/extractor_step_000003.pt"
+      ],
+      "frozen_renderer": true,
+      "deployment_exact": true,
+      "metrics": [
+        {
+          "step": 1,
+          "loss": 5.94805908203125,
+          "av": 0.4053073525428772,
+          "feature": {
+            "video": 4.173996925354004,
+            "audio": 1.3687546253204346
+          },
+          "grad_norm": 22.262744903564453,
+          "gradients": {
+            "av_to_u_video": 0.01469465997070074,
+            "feature_to_u_video": 0.0,
+            "av_to_u_audio": 0.028016548603773117,
+            "feature_to_u_audio": 0.0,
+            "total_to_layer_8_norm": 0.0,
+            "total_to_layer_18_norm": 0.0,
+            "total_to_layer_28_norm": 0.0,
+            "total_to_layer_35_norm": 0.0
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        },
+        {
+          "step": 2,
+          "loss": 6.402451992034912,
+          "av": 0.9406914710998535,
+          "feature": {
+            "video": 4.114084243774414,
+            "audio": 1.347676396369934
+          },
+          "grad_norm": 1.0636422634124756,
+          "gradients": {
+            "av_to_u_video": 0.0004621446714736521,
+            "feature_to_u_video": 0.0,
+            "av_to_u_audio": 0.0015934592811390758,
+            "feature_to_u_audio": 0.0,
+            "total_to_layer_8_norm": 8.796582733339164e-06,
+            "total_to_layer_18_norm": 9.928658073476981e-06,
+            "total_to_layer_28_norm": 1.2328653610893525e-05,
+            "total_to_layer_35_norm": 1.8188955436926335e-05
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        },
+        {
+          "step": 3,
+          "loss": 5.89137077331543,
+          "av": 0.5063251852989197,
+          "feature": {
+            "video": 4.054017066955566,
+            "audio": 1.331028699874878
+          },
+          "grad_norm": 11.655070304870605,
+          "gradients": {
+            "av_to_u_video": 0.007994002662599087,
+            "feature_to_u_video": 5.374179454520345e-05,
+            "av_to_u_audio": 0.004115679766982794,
+            "feature_to_u_audio": 8.242610056186095e-05,
+            "total_to_layer_8_norm": 0.0005574674578383565,
+            "total_to_layer_18_norm": 0.0005277794552966952,
+            "total_to_layer_28_norm": 0.000645328254904598,
+            "total_to_layer_35_norm": 0.0008572507067583501
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        }
+      ],
+      "decoded": {
+        "frames": 17,
+        "height": 128,
+        "width": 128,
+        "audio_samples": 27200,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 0,
+        "duration_s": 0.5666666666666667
+      },
+      "tiny": true,
+      "pretrained_models": true,
+      "peak_allocated_gb": 43.4737152
+    },
+    "infer": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "gt_access": false,
+      "text_source": "autonomous_text",
+      "decoder_loaded": false,
+      "text_only": false,
+      "zero_condition": false,
+      "sampling": "Euler without CFG; engineering baseline",
+      "decoded": {
+        "frames": 233,
+        "height": 256,
+        "width": 256,
+        "audio_samples": 372800,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 1760,
+        "duration_s": 7.766666666666667
+      }
+    },
+    "single_full": {
+      "training_completed_steps": 6,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/single_full/extractor_step_000006.pt"
+      ],
+      "quality_pass": null,
+      "stopped": false
+    },
+    "weighted_full": {
+      "training_completed_steps": 6,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/weighted_full/extractor_step_000006.pt"
+      ],
+      "quality_pass": null,
+      "stopped": false
+    },
+    "multi_full_8samples": {
+      "training_completed_steps": 8,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/multi_full_8samples/extractor_step_000008.pt"
+      ],
+      "quality_pass": null,
+      "stopped": false
+    },
+    "ddp8_full": {
+      "training_completed_steps": 6,
+      "world_size": 8,
+      "global_batch": 8,
+      "checkpoints": [
+        "outputs/p2_audit_20261008_01/ddp8_full/extractor_step_000003.pt",
+        "outputs/p2_audit_20261008_01/ddp8_full/extractor_step_000006.pt"
+      ],
+      "frozen_renderer": true,
+      "ranks_identical": true,
+      "parameter_sha256": "87cacfb91897c35df4aebbe52194123a86c10a06605edc0b64d5bc9ee86abf75",
+      "step_seconds": [
+        16.42357760667801,
+        15.492303516715765,
+        15.539872226305306,
+        15.568524274043739,
+        15.556486229412258,
+        15.590584202669561
+      ],
+      "steady_step_seconds": 15.549554089829325,
+      "steady_samples_per_second": 0.5144842066714088,
+      "elapsed_including_save_s": 104.05571980215609,
+      "peak_allocated_gb": [
+        65.633814528,
+        65.873368576,
+        65.31771648,
+        66.243328512,
+        65.707388928,
+        64.964084736,
+        65.065624576,
+        65.106650112
+      ],
+      "stopped": false,
+      "quality_pass": null
+    },
+    "ddp8_resume": {
+      "training_completed_steps": 3,
+      "world_size": 8,
+      "global_batch": 8,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/ddp8_resume/extractor_step_000006.pt"
+      ],
+      "frozen_renderer": true,
+      "ranks_identical": true,
+      "parameter_sha256": "129b608daa218e8a48e438b9449c04c573d26d40eb436caaa924ed574675c5e9",
+      "step_seconds": [
+        17.473569622263312,
+        15.481108231469989,
+        15.552032180130482
+      ],
+      "steady_step_seconds": 15.516570205800235,
+      "steady_samples_per_second": 0.515577856052849,
+      "elapsed_including_save_s": 53.97169653233141,
+      "peak_allocated_gb": [
+        65.632781824,
+        65.872781824,
+        66.212635136,
+        66.245750272,
+        65.70790656,
+        64.964097024,
+        65.064387584,
+        65.104785408
+      ],
+      "stopped": false,
+      "quality_pass": null
+    },
+    "serial_batch8": {
+      "training_completed_steps": 2,
+      "world_size": 1,
+      "global_batch": 8,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/serial_batch8/extractor_step_000002.pt"
+      ],
+      "frozen_renderer": true,
+      "ranks_identical": true,
+      "parameter_sha256": "fc1997da6914c051d246bde8d3bf9b71ed11b4b899e37912885094c6f550a4c1",
+      "step_seconds": [
+        121.57786724064499,
+        120.68440648540854
+      ],
+      "steady_step_seconds": 120.68440648540854,
+      "steady_samples_per_second": 0.0662885971185287,
+      "elapsed_including_save_s": 248.09925310313702,
+      "peak_allocated_gb": [
+        66.277906944
+      ],
+      "stopped": false,
+      "quality_pass": null
+    },
+    "single_full_gate_fixed": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "recipe": "joint",
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/single_full_gate_fixed/extractor_step_000003.pt"
+      ],
+      "frozen_renderer": true,
+      "deployment_exact": true,
+      "metrics": [
+        {
+          "step": 1,
+          "loss": 5.952310562133789,
+          "av": 0.40955910086631775,
+          "feature": {
+            "video": 4.173996925354004,
+            "audio": 1.3687546253204346
+          },
+          "grad_norm": 1.7776808738708496,
+          "gradients": {
+            "av_to_u_video": 0.0002649805974215269,
+            "av_to_u_audio": 0.006285950541496277,
+            "av_to_layer_35": 0.0,
+            "feature_to_u_video": 0.0,
+            "feature_video_to_layer_35": 0.0,
+            "feature_to_u_audio": 0.0,
+            "feature_audio_to_layer_35": 0.0,
+            "total_to_layer_35_norm": 0.0
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        },
+        {
+          "step": 2,
+          "loss": 6.867012977600098,
+          "av": 0.8518926501274109,
+          "feature": {
+            "video": 4.612037181854248,
+            "audio": 1.4030835628509521
+          },
+          "grad_norm": 0.8289376497268677,
+          "gradients": {
+            "av_to_u_video": 0.0002636776480358094,
+            "av_to_u_audio": 4.3193402234464884e-05,
+            "av_to_layer_35": 7.865259249228984e-05,
+            "feature_to_u_video": 0.0,
+            "feature_video_to_layer_35": 0.0,
+            "feature_to_u_audio": 0.0,
+            "feature_audio_to_layer_35": 0.0,
+            "total_to_layer_35_norm": 7.867190288379788e-05
+          },
+          "sample_id": "V03_S1025_I00000082_00004093_00004333_turn_P2641"
+        },
+        {
+          "step": 3,
+          "loss": 5.699862003326416,
+          "av": 0.36704251170158386,
+          "feature": {
+            "video": 3.979877471923828,
+            "audio": 1.352941870689392
+          },
+          "grad_norm": 0.7697469592094421,
+          "gradients": {
+            "av_to_u_video": 1.1827723938040435e-05,
+            "av_to_u_audio": 3.730419484782033e-05,
+            "av_to_layer_35": 4.1396757296752185e-05,
+            "feature_to_u_video": 4.705756873590872e-05,
+            "feature_video_to_layer_35": 0.0002481772971805185,
+            "feature_to_u_audio": 9.438952838536352e-05,
+            "feature_audio_to_layer_35": 5.3319006838137284e-05,
+            "total_to_layer_35_norm": 0.0002591637021396309
+          },
+          "sample_id": "V02_S3073_I00000487_00002022_00002262_turn_P4042"
+        }
+      ],
+      "decoded": {
+        "frames": 233,
+        "height": 1184,
+        "width": 768,
+        "tiled_video_decode": true,
+        "audio_samples": 372800,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 0,
+        "duration_s": 7.766666666666667
+      },
+      "tiny": false,
+      "pretrained_models": true,
+      "peak_allocated_gb": 65.6364928
+    },
+    "weighted_full_gate_fixed": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "recipe": "joint",
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/weighted_full_gate_fixed/extractor_step_000003.pt"
+      ],
+      "frozen_renderer": true,
+      "deployment_exact": true,
+      "metrics": [
+        {
+          "step": 1,
+          "loss": 5.952310562133789,
+          "av": 0.40955910086631775,
+          "feature": {
+            "video": 4.173996925354004,
+            "audio": 1.3687546253204346
+          },
+          "grad_norm": 1.7713568210601807,
+          "gradients": {
+            "av_to_u_video": 0.0002652721886988729,
+            "av_to_u_audio": 0.006313446909189224,
+            "av_to_layer_8": 0.0,
+            "av_to_layer_18": 0.0,
+            "av_to_layer_28": 0.0,
+            "av_to_layer_35": 0.0,
+            "feature_to_u_video": 0.0,
+            "feature_video_to_layer_8": 0.0,
+            "feature_video_to_layer_18": 0.0,
+            "feature_video_to_layer_28": 0.0,
+            "feature_video_to_layer_35": 0.0,
+            "feature_to_u_audio": 0.0,
+            "feature_audio_to_layer_8": 0.0,
+            "feature_audio_to_layer_18": 0.0,
+            "feature_audio_to_layer_28": 0.0,
+            "feature_audio_to_layer_35": 0.0,
+            "total_to_layer_8_norm": 0.0,
+            "total_to_layer_18_norm": 0.0,
+            "total_to_layer_28_norm": 0.0,
+            "total_to_layer_35_norm": 0.0
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        },
+        {
+          "step": 2,
+          "loss": 6.8671875,
+          "av": 0.852066695690155,
+          "feature": {
+            "video": 4.612037181854248,
+            "audio": 1.4030835628509521
+          },
+          "grad_norm": 0.8289575576782227,
+          "gradients": {
+            "av_to_u_video": 0.0002658975718077272,
+            "av_to_u_audio": 4.310500662541017e-05,
+            "av_to_layer_8": 1.1046855433960445e-05,
+            "av_to_layer_18": 8.922013876144774e-06,
+            "av_to_layer_28": 9.116468390857335e-06,
+            "av_to_layer_35": 8.07434207672486e-06,
+            "feature_to_u_video": 0.0,
+            "feature_video_to_layer_8": 0.0,
+            "feature_video_to_layer_18": 0.0,
+            "feature_video_to_layer_28": 0.0,
+            "feature_video_to_layer_35": 0.0,
+            "feature_to_u_audio": 0.0,
+            "feature_audio_to_layer_8": 0.0,
+            "feature_audio_to_layer_18": 0.0,
+            "feature_audio_to_layer_28": 0.0,
+            "feature_audio_to_layer_35": 0.0,
+            "total_to_layer_8_norm": 1.1052963600377552e-05,
+            "total_to_layer_18_norm": 8.92201205715537e-06,
+            "total_to_layer_28_norm": 9.115772627410479e-06,
+            "total_to_layer_35_norm": 8.070005605986807e-06
+          },
+          "sample_id": "V03_S1025_I00000082_00004093_00004333_turn_P2641"
+        },
+        {
+          "step": 3,
+          "loss": 5.699745178222656,
+          "av": 0.36712250113487244,
+          "feature": {
+            "video": 3.9797146320343018,
+            "audio": 1.3529078960418701
+          },
+          "grad_norm": 0.7773033976554871,
+          "gradients": {
+            "av_to_u_video": 6.903627945575863e-05,
+            "av_to_u_audio": 3.67099346476607e-05,
+            "av_to_layer_8": 1.977495003302465e-06,
+            "av_to_layer_18": 1.4108776440480142e-06,
+            "av_to_layer_28": 1.5520179204031592e-06,
+            "av_to_layer_35": 1.7459839227740304e-06,
+            "feature_to_u_video": 4.691017238656059e-05,
+            "feature_video_to_layer_8": 3.741443288163282e-05,
+            "feature_video_to_layer_18": 3.984499562648125e-05,
+            "feature_video_to_layer_28": 4.360670209280215e-05,
+            "feature_video_to_layer_35": 4.815576539840549e-05,
+            "feature_to_u_audio": 9.429423516849056e-05,
+            "feature_audio_to_layer_8": 9.689814760349691e-06,
+            "feature_audio_to_layer_18": 1.1172398444614373e-05,
+            "feature_audio_to_layer_28": 1.1718801033566706e-05,
+            "feature_audio_to_layer_35": 1.4161320905259345e-05,
+            "total_to_layer_8_norm": 4.4604177674045786e-05,
+            "total_to_layer_18_norm": 4.8964455345412716e-05,
+            "total_to_layer_28_norm": 5.289371620165184e-05,
+            "total_to_layer_35_norm": 6.0383179516065866e-05
+          },
+          "sample_id": "V02_S3073_I00000487_00002022_00002262_turn_P4042"
+        }
+      ],
+      "decoded": {
+        "frames": 233,
+        "height": 1184,
+        "width": 768,
+        "tiled_video_decode": true,
+        "audio_samples": 372800,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 0,
+        "duration_s": 7.766666666666667
+      },
+      "tiny": false,
+      "pretrained_models": true,
+      "peak_allocated_gb": 65.669451776
+    },
+    "multi_full_gate_fixed": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "recipe": "joint",
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/multi_full_gate_fixed/extractor_step_000003.pt"
+      ],
+      "frozen_renderer": true,
+      "deployment_exact": true,
+      "metrics": [
+        {
+          "step": 1,
+          "loss": 5.952310562133789,
+          "av": 0.40955910086631775,
+          "feature": {
+            "video": 4.173996925354004,
+            "audio": 1.3687546253204346
+          },
+          "grad_norm": 1.763562798500061,
+          "gradients": {
+            "av_to_u_video": 0.0002655346761457622,
+            "av_to_u_audio": 0.006296677049249411,
+            "av_to_layer_8": 0.0,
+            "av_to_layer_18": 0.0,
+            "av_to_layer_28": 0.0,
+            "av_to_layer_35": 0.0,
+            "feature_to_u_video": 0.0,
+            "feature_video_to_layer_8": 0.0,
+            "feature_video_to_layer_18": 0.0,
+            "feature_video_to_layer_28": 0.0,
+            "feature_video_to_layer_35": 0.0,
+            "feature_to_u_audio": 0.0,
+            "feature_audio_to_layer_8": 0.0,
+            "feature_audio_to_layer_18": 0.0,
+            "feature_audio_to_layer_28": 0.0,
+            "feature_audio_to_layer_35": 0.0,
+            "total_to_layer_8_norm": 0.0,
+            "total_to_layer_18_norm": 0.0,
+            "total_to_layer_28_norm": 0.0,
+            "total_to_layer_35_norm": 0.0
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        },
+        {
+          "step": 2,
+          "loss": 6.866804599761963,
+          "av": 0.8517340421676636,
+          "feature": {
+            "video": 4.611996173858643,
+            "audio": 1.4030743837356567
+          },
+          "grad_norm": 0.8225241303443909,
+          "gradients": {
+            "av_to_u_video": 0.0002548983320593834,
+            "av_to_u_audio": 4.371888280729763e-05,
+            "av_to_layer_8": 1.5763511328259483e-05,
+            "av_to_layer_18": 2.067897185042966e-05,
+            "av_to_layer_28": 2.4224111257353798e-05,
+            "av_to_layer_35": 3.018876122951042e-05,
+            "feature_to_u_video": 0.0,
+            "feature_video_to_layer_8": 0.0,
+            "feature_video_to_layer_18": 0.0,
+            "feature_video_to_layer_28": 0.0,
+            "feature_video_to_layer_35": 0.0,
+            "feature_to_u_audio": 0.0,
+            "feature_audio_to_layer_8": 0.0,
+            "feature_audio_to_layer_18": 0.0,
+            "feature_audio_to_layer_28": 0.0,
+            "feature_audio_to_layer_35": 0.0,
+            "total_to_layer_8_norm": 1.57678805408068e-05,
+            "total_to_layer_18_norm": 2.068570211122278e-05,
+            "total_to_layer_28_norm": 2.4230292183347046e-05,
+            "total_to_layer_35_norm": 3.0194463761290535e-05
+          },
+          "sample_id": "V03_S1025_I00000082_00004093_00004333_turn_P2641"
+        },
+        {
+          "step": 3,
+          "loss": 5.700377464294434,
+          "av": 0.36716318130493164,
+          "feature": {
+            "video": 3.9803109169006348,
+            "audio": 1.3529034852981567
+          },
+          "grad_norm": 0.7669888734817505,
+          "gradients": {
+            "av_to_u_video": 1.6212459740927443e-05,
+            "av_to_u_audio": 3.758436650969088e-05,
+            "av_to_layer_8": 6.46210082777543e-06,
+            "av_to_layer_18": 6.875256076455116e-06,
+            "av_to_layer_28": 7.837907105567865e-06,
+            "av_to_layer_35": 9.58094278757926e-06,
+            "feature_to_u_video": 4.4342541514197364e-05,
+            "feature_video_to_layer_8": 3.4680233511608094e-05,
+            "feature_video_to_layer_18": 3.8850099372211844e-05,
+            "feature_video_to_layer_28": 4.337792779551819e-05,
+            "feature_video_to_layer_35": 5.087019599159248e-05,
+            "feature_to_u_audio": 9.496727579971775e-05,
+            "feature_audio_to_layer_8": 9.910607332130894e-06,
+            "feature_audio_to_layer_18": 1.095595052902354e-05,
+            "feature_audio_to_layer_28": 1.1620510122156702e-05,
+            "feature_audio_to_layer_35": 1.452089418307878e-05,
+            "total_to_layer_8_norm": 3.7405807233881205e-05,
+            "total_to_layer_18_norm": 4.2372372263344005e-05,
+            "total_to_layer_28_norm": 4.684006125899032e-05,
+            "total_to_layer_35_norm": 5.5890370276756585e-05
+          },
+          "sample_id": "V02_S3073_I00000487_00002022_00002262_turn_P4042"
+        }
+      ],
+      "decoded": {
+        "frames": 233,
+        "height": 1184,
+        "width": 768,
+        "tiled_video_decode": true,
+        "audio_samples": 372800,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 0,
+        "duration_s": 7.766666666666667
+      },
+      "tiny": false,
+      "pretrained_models": true,
+      "peak_allocated_gb": 65.673574912
+    },
+    "bernini_scale_gate": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "recipe": "joint",
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/bernini_scale_gate/extractor_step_000003.pt"
+      ],
+      "frozen_renderer": true,
+      "deployment_exact": true,
+      "metrics": [
+        {
+          "step": 1,
+          "loss": 5.94805908203125,
+          "av": 0.4053073525428772,
+          "feature": {
+            "video": 4.173996925354004,
+            "audio": 1.3687546253204346
+          },
+          "grad_norm": 22.313556671142578,
+          "gradients": {
+            "av_to_u_video": 0.014700226485729218,
+            "av_to_u_audio": 0.0282285213470459,
+            "av_to_layer_8": 0.0,
+            "av_to_layer_18": 0.0,
+            "av_to_layer_28": 0.0,
+            "av_to_layer_35": 0.0,
+            "feature_to_u_video": 0.0,
+            "feature_video_to_layer_8": 0.0,
+            "feature_video_to_layer_18": 0.0,
+            "feature_video_to_layer_28": 0.0,
+            "feature_video_to_layer_35": 0.0,
+            "feature_to_u_audio": 0.0,
+            "feature_audio_to_layer_8": 0.0,
+            "feature_audio_to_layer_18": 0.0,
+            "feature_audio_to_layer_28": 0.0,
+            "feature_audio_to_layer_35": 0.0,
+            "total_to_layer_8_norm": 0.0,
+            "total_to_layer_18_norm": 0.0,
+            "total_to_layer_28_norm": 0.0,
+            "total_to_layer_35_norm": 0.0
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        },
+        {
+          "step": 2,
+          "loss": 6.188385486602783,
+          "av": 0.9407103061676025,
+          "feature": {
+            "video": 3.9463882446289062,
+            "audio": 1.3012871742248535
+          },
+          "grad_norm": 1.538716197013855,
+          "gradients": {
+            "av_to_u_video": 0.0004719898570328951,
+            "av_to_u_audio": 0.00157234538346529,
+            "av_to_layer_8": 8.366097063117195e-06,
+            "av_to_layer_18": 9.409395715920255e-06,
+            "av_to_layer_28": 1.169652387034148e-05,
+            "av_to_layer_35": 1.7275242498726584e-05,
+            "feature_to_u_video": 0.0,
+            "feature_video_to_layer_8": 0.0,
+            "feature_video_to_layer_18": 0.0,
+            "feature_video_to_layer_28": 0.0,
+            "feature_video_to_layer_35": 0.0,
+            "feature_to_u_audio": 0.0,
+            "feature_audio_to_layer_8": 0.0,
+            "feature_audio_to_layer_18": 0.0,
+            "feature_audio_to_layer_28": 0.0,
+            "feature_audio_to_layer_35": 0.0,
+            "total_to_layer_8_norm": 8.388113201363012e-06,
+            "total_to_layer_18_norm": 9.435847459826618e-06,
+            "total_to_layer_28_norm": 1.1724424439307768e-05,
+            "total_to_layer_35_norm": 1.731386328174267e-05
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        },
+        {
+          "step": 3,
+          "loss": 5.416807174682617,
+          "av": 0.5094929337501526,
+          "feature": {
+            "video": 3.6635420322418213,
+            "audio": 1.2437721490859985
+          },
+          "grad_norm": 2.4185028076171875,
+          "gradients": {
+            "av_to_u_video": 0.0012266288977116346,
+            "av_to_u_audio": 0.000994645757600665,
+            "av_to_layer_8": 0.00013195570500101894,
+            "av_to_layer_18": 0.00012483017053455114,
+            "av_to_layer_28": 0.00015312246978282928,
+            "av_to_layer_35": 0.00020697627041954547,
+            "feature_to_u_video": 0.0003091782855335623,
+            "feature_video_to_layer_8": 0.0002670015092007816,
+            "feature_video_to_layer_18": 0.00024990973179228604,
+            "feature_video_to_layer_28": 0.0003068992227781564,
+            "feature_video_to_layer_35": 0.0004215377557557076,
+            "feature_to_u_audio": 0.00030268175760284066,
+            "feature_audio_to_layer_8": 2.2390724552678876e-05,
+            "feature_audio_to_layer_18": 2.110494824592024e-05,
+            "feature_audio_to_layer_28": 2.5538898626109585e-05,
+            "feature_audio_to_layer_35": 3.7207628338364884e-05,
+            "total_to_layer_8_norm": 0.000416372437030077,
+            "total_to_layer_18_norm": 0.00039115638355724514,
+            "total_to_layer_28_norm": 0.0004821809707209468,
+            "total_to_layer_35_norm": 0.0006631933501921594
+          },
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116"
+        }
+      ],
+      "decoded": {
+        "frames": 17,
+        "height": 128,
+        "width": 128,
+        "tiled_video_decode": false,
+        "audio_samples": 27200,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 0,
+        "duration_s": 0.5666666666666667
+      },
+      "tiny": true,
+      "pretrained_models": true,
+      "peak_allocated_gb": 107.539280384
+    },
+    "av_multi8": {
+      "training_completed_steps": 8,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/av_multi8/extractor_step_000008.pt"
+      ],
+      "quality_pass": null,
+      "stopped": false
+    },
+    "ddp_infer": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "gt_access": false,
+      "text_source": "provided_text",
+      "decoder_loaded": false,
+      "text_only": false,
+      "zero_condition": false,
+      "sampling": "Euler without CFG; engineering baseline",
+      "decoded": {
+        "frames": 233,
+        "height": 256,
+        "width": 256,
+        "tiled_video_decode": true,
+        "audio_samples": 372800,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 1760,
+        "duration_s": 7.766666666666667
+      }
+    },
+    "ddp_infer_zero": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "gt_access": false,
+      "text_source": "provided_text",
+      "decoder_loaded": false,
+      "text_only": false,
+      "zero_condition": true,
+      "sampling": "Euler without CFG; engineering baseline",
+      "decoded": {
+        "frames": 233,
+        "height": 256,
+        "width": 256,
+        "tiled_video_decode": true,
+        "audio_samples": 372800,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 1760,
+        "duration_s": 7.766666666666667
+      }
+    },
+    "ddp_infer_text": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "gt_access": false,
+      "text_source": "provided_text",
+      "decoder_loaded": false,
+      "text_only": true,
+      "zero_condition": false,
+      "sampling": "Euler without CFG; engineering baseline",
+      "decoded": {
+        "frames": 233,
+        "height": 256,
+        "width": 256,
+        "tiled_video_decode": true,
+        "audio_samples": 372800,
+        "audio_rate": 48000,
+        "rounding_padding_samples": 1760,
+        "duration_s": 7.766666666666667
+      }
+    },
+    "p1_ltx_gate": {
+      "engineering_pass": true,
+      "quality_pass": null,
+      "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116",
+      "zero_init_exact": true,
+      "frozen_audit_pass": true,
+      "hidden_gradients": [
+        0.0,
+        1.0327357813366689e-05
+      ],
+      "av_to_planning_lora_gradient": 0.006058630999177694,
+      "losses": [
+        {
+          "video_loss": 0.11231959611177444,
+          "audio_loss": 0.16430792212486267
+        },
+        {
+          "video_loss": 0.7619173526763916,
+          "audio_loss": 0.35139018297195435
+        }
+      ],
+      "av_metadata": {
+        "metadata": {
+          "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116",
+          "video": "/private/liqi_workspace/data/seamless/subset_300h_pure/processed_pairs_720p_area/train/V02_S5089_I00000196_00002202_00002442_turn_P5116_target.mp4",
+          "first_frame_path": "/private/liqi_workspace/data/seamless/subset_300h_pure/processed_pairs_720p_area/train/V02_S5089_I00000196_00002202_00002442_turn_P5116.jpg",
+          "sd_text": "It wasn't the nicest ride, that's for sure.",
+          "split": "train",
+          "fps": 30.0,
+          "duration_s": 8.0,
+          "target_frames": 233,
+          "target_height": 1312,
+          "target_width": 704
+        },
+        "original_shapes": {
+          "latents": [
+            1,
+            128,
+            30,
+            41,
+            22
+          ],
+          "audio_latents": [
+            1,
+            8,
+            195,
+            16
+          ]
+        },
+        "sources": {
+          "latents": "/private/liqi_workspace/data/seamless/subset_300h_pure/ltx23_precomputed_720p_area_qualified_20260920/latents/V02_S5089_I00000196_00002202_00002442_turn_P5116.pt",
+          "audio_latents": "/private/liqi_workspace/data/seamless/subset_300h_pure/ltx23_precomputed_720p_area_qualified_20260920/audio_latents/V02_S5089_I00000196_00002202_00002442_turn_P5116.pt"
+        },
+        "tiny": true
+      },
+      "target_window": {
+        "planning_target_duration_s": 8.0,
+        "renderer_target_duration_s": 7.766666666666667,
+        "terminal_trim_s": 0.2333333333333334,
+        "tiny": true
+      },
+      "sampling": "3-step Euler Oracle engineering gate; no quality conclusion",
+      "sampled_shapes": {
+        "video": [
+          1,
+          48,
+          128
+        ],
+        "audio": [
+          1,
+          24,
+          128
+        ]
+      },
+      "max_allocated_gb": 53.892381184
+    },
+    "decode_recovered": {
+      "frames": 233,
+      "height": 1184,
+      "width": 768,
+      "tiled_video_decode": true,
+      "audio_samples": 372800,
+      "audio_rate": 48000,
+      "rounding_padding_samples": 0,
+      "duration_s": 7.766666666666667
+    },
+    "perf_c1_d1": {
+      "training_completed_steps": 4,
+      "world_size": 1,
+      "global_batch": 1,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/perf_c1_d1/extractor_step_000004.pt"
+      ],
+      "frozen_renderer": true,
+      "ranks_identical": true,
+      "parameter_sha256": "1fd403548f0aace47639fa502d88dee08d2a6a00f047e3096c0a825bf5d62dcf",
+      "step_seconds": [
+        16.47745767608285,
+        14.946528729982674,
+        14.980279313400388,
+        14.994338385760784
+      ],
+      "steady_step_seconds": 14.973715476381281,
+      "steady_samples_per_second": 0.06678369183502553,
+      "elapsed_including_save_s": 67.48689242638648,
+      "peak_allocated_gb": [
+        64.74198016
+      ],
+      "stopped": false,
+      "quality_pass": null
+    },
+    "perf_c1_d0": {
+      "training_completed_steps": 4,
+      "world_size": 1,
+      "global_batch": 1,
+      "checkpoints": [
+        "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_audit_20261008_01/perf_c1_d0/extractor_step_000004.pt"
+      ],
+      "frozen_renderer": true,
+      "ranks_identical": true,
+      "parameter_sha256": "87c12c2ba79999cb1166a2596a7c356c44cd4a11c6e2c8be07ad21f38b8df3ff",
+      "step_seconds": [
+        16.53133182413876,
+        14.903915980830789,
+        14.936221051029861,
+        14.959474308416247
+      ],
+      "steady_step_seconds": 14.933203780092299,
+      "steady_samples_per_second": 0.06696486666398516,
+      "elapsed_including_save_s": 67.14719372987747,
+      "peak_allocated_gb": [
+        68.90176256
+      ],
+      "stopped": false,
+      "quality_pass": null
+    }
+  },
+  "throughput": {
+    "global_batch": 8,
+    "serial_accumulation": 8,
+    "ddp_world_size": 8,
+    "serial_steady_steps": 1,
+    "ddp_steady_steps": 5,
+    "serial_step_s": 120.68440648540854,
+    "ddp_step_s": 15.549554089829325,
+    "speedup": 7.761277641031905,
+    "note": "Short engineering benchmark; excludes startup and checkpoint writes."
+  },
+  "gpu_utilization": {
+    "sampling_interval_s": 2,
+    "ddp_complete_snapshots": 34,
+    "compute_snapshots": 33,
+    "compute_mean_utilization_per_gpu": [
+      88.03030303030303,
+      100,
+      99.87878787878788,
+      100,
+      100,
+      100,
+      100,
+      100
+    ],
+    "all_eight_at_least_95_percent_fraction": 0.8787878787878788
+  },
+  "resume_comparison": {
+    "connector.": {
+      "relative_l2": 0.00033276424287171643,
+      "max_abs": 0.00022696112864650786,
+      "rmse": 9.117164252862868e-06
+    },
+    "video_decoder.": {
+      "relative_l2": 1.1666775701874925e-05,
+      "max_abs": 4.29786741733551e-05,
+      "rmse": 2.736267578109697e-07
+    },
+    "audio_decoder.": {
+      "relative_l2": 5.2795508439751305e-06,
+      "max_abs": 1.0002360795624554e-05,
+      "rmse": 1.2487922242999008e-07
+    }
+  },
+  "media_decode": [
+    {
+      "path": "bernini_scale_gate/engineering_sample.mp4",
+      "video_decoded_frames": 17,
+      "audio_decoded_frames": 27,
+      "width": 128,
+      "height": 128,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 27648
+    },
+    {
+      "path": "ddp_infer/generated.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 256,
+      "height": 256,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    },
+    {
+      "path": "ddp_infer_text/generated.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 256,
+      "height": 256,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    },
+    {
+      "path": "ddp_infer_zero/generated.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 256,
+      "height": 256,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    },
+    {
+      "path": "decode_recovered/generated.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 768,
+      "height": 1184,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    },
+    {
+      "path": "gate/engineering_sample.mp4",
+      "video_decoded_frames": 17,
+      "audio_decoded_frames": 27,
+      "width": 128,
+      "height": 128,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 27648
+    },
+    {
+      "path": "infer/generated.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 256,
+      "height": 256,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    },
+    {
+      "path": "multi_full_gate_fixed/engineering_sample.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 768,
+      "height": 1184,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    },
+    {
+      "path": "single_full_gate_fixed/engineering_sample.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 768,
+      "height": 1184,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    },
+    {
+      "path": "text_only/generated.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 256,
+      "height": 256,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    },
+    {
+      "path": "weighted_full_gate_fixed/engineering_sample.mp4",
+      "video_decoded_frames": 233,
+      "audio_decoded_frames": 365,
+      "width": 768,
+      "height": 1184,
+      "fps": 30.0,
+      "audio_rate": 48000,
+      "audio_samples": 373760
+    }
+  ],
+  "retained_failures": {
+    "multi_full_gate": "Original monolithic video VAE decode OOM; fixed by native tiling, rerun passed.",
+    "perf_c0_d0": "No DiT checkpointing OOM at original resolution.",
+    "perf_c2_d0": "Alternating DiT checkpointing OOM at original resolution."
+  },
+  "quality_pass": null,
+  "source_sha256": {
+    "src/omni_av_p2/data.py": "48a055bdbe5f2a393c0c59ce9d44f8c7791cda2fde8149f004c526621a633f0b",
+    "src/omni_av_p2/ltx.py": "608341d49ccfdf97d63fbcf2c506625a36bd51a152b8131ae4f89b3e62b157a8",
+    "src/omni_av_p2/model.py": "39b32f9a7065838dae5902cb6060519ad2efaa7f7d5a3880a78bf76ab60a82c5",
+    "src/omni_av_p2/runner.py": "75dd51f9463ec25d056684e6cbb7c7a352c2c94da48fa4ed15876f3b04801171",
+    "src/omni_av_p2/distributed.py": "682fe4b6f0946c4e630319003fa041e0e074d72acd83d85616c8efbce9bb8e1a",
+    "src/omni_av_p2/performance.py": "32cd49e9d73bd044e1d1a474a168bcbf8026bb2bfde9bdfa6baf74be256b8479",
+    "scripts/pipeline2_parallel.py": "633baeefd562ed4dbb5b9c8be10bae1ecb9c56a81cfe96f934ff64793883cf0b",
+    "tests/test_p2_audit.py": "755706a0b531a20a1daa1762a3528947360d0028e75a1406d9d938db48b41c00"
+  }
+}

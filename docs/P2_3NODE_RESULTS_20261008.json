@@ -1,0 +1,2271 @@
+{
+  "date": "2026-10-08",
+  "branch": "backup/p2-3n24g-balanced-20261008",
+  "base_commit": "51e18fe22c58cab79b6abd5001ad5caa9af46e5d",
+  "scope": {
+    "formal_train_samples": 91009,
+    "dev_samples": 48,
+    "gate_unique_train_samples": 24,
+    "benchmark_sample_exposures": 72,
+    "benchmark_updates_per_arm": 1,
+    "full_train_cache_prepared": false,
+    "full_training_started": false,
+    "quality_pass": false,
+    "bitwise_equivalence_claimed": false,
+    "preserve_source_720p_area_shape": true
+  },
+  "evidence": {
+    "outputs/p2_3n24g_20261008/probe_v2/completed.json": {
+      "sha256": "751926067f6c8611d25a72215d8c9f9af97f9457ca3e1c7b0d0a7a7ee44d4e3d",
+      "result": {
+        "probe": true,
+        "backend": "nccl",
+        "world_size": 24,
+        "nnodes": 3,
+        "start_step": 0,
+        "end_step": 3,
+        "serial_max_abs_error": 0.0,
+        "ranks_identical": true,
+        "uneven_dev_count": 23,
+        "physical_multinode_verified": true,
+        "hosts": [
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu"
+        ],
+        "pretrained_p2_test": false
+      }
+    },
+    "outputs/p2_3n24g_20261008/probe_resume/completed.json": {
+      "sha256": "ac4ce60bd6450486905f91956d0dfd2e13876c92b0d10620ca9b2ce71c9451b3",
+      "result": {
+        "probe": true,
+        "backend": "nccl",
+        "world_size": 24,
+        "nnodes": 3,
+        "start_step": 2,
+        "end_step": 3,
+        "serial_max_abs_error": 0.0,
+        "ranks_identical": true,
+        "uneven_dev_count": 23,
+        "physical_multinode_verified": true,
+        "hosts": [
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu"
+        ],
+        "pretrained_p2_test": false
+      }
+    },
+    "outputs/p2_3n24g_20261008/full/completed.json": {
+      "sha256": "e54008e3fd934e3264aeabd6936e1d9c5e58b25071d588131ac69c946d238398",
+      "result": {
+        "training_completed_steps": 3,
+        "world_size": 24,
+        "global_batch": 24,
+        "checkpoints": [
+          "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_full/extractor_step_000002.pt",
+          "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_full/extractor_step_000003.pt"
+        ],
+        "validations": [
+          {
+            "loss": 6.165289680163066,
+            "av": 0.6537122875452042,
+            "video_feature": 4.129746655623118,
+            "audio_feature": 1.3818307518959045,
+            "av_video": 0.26296609081327915,
+            "av_audio": 0.3907461979736884,
+            "samples": 48,
+            "noise_seed": 1045,
+            "protocol": "paired_gt_text_dev_loss",
+            "step": 0
+          },
+          {
+            "loss": 6.015904396772385,
+            "av": 0.6425440832972527,
+            "video_feature": 4.0304635514815645,
+            "audio_feature": 1.3428967495759327,
+            "av_video": 0.2607459278466801,
+            "av_audio": 0.3817981568475564,
+            "samples": 48,
+            "noise_seed": 1045,
+            "protocol": "paired_gt_text_dev_loss",
+            "step": 2
+          },
+          {
+            "loss": 5.898357013861339,
+            "av": 0.6453345945725838,
+            "video_feature": 3.93715692559878,
+            "audio_feature": 1.3158655588825543,
+            "av_video": 0.26067268460368115,
+            "av_audio": 0.38466190950324136,
+            "samples": 48,
+            "noise_seed": 1045,
+            "protocol": "paired_gt_text_dev_loss",
+            "step": 3
+          }
+        ],
+        "frozen_renderer": true,
+        "ranks_identical": true,
+        "parameter_sha256": "2676392537432c6c11d3d0ca8194b0dffc30ec35e1efd2c768c606cdcf5449ba",
+        "step_seconds": [
+          105.96814592648298,
+          104.9773719208315,
+          102.43302770610899
+        ],
+        "steady_step_seconds": 103.70519981347024,
+        "steady_samples_per_second": 0.2314252327093308,
+        "elapsed_including_save_s": 367.00775325577706,
+        "peak_allocated_gb": [
+          66.166966784,
+          66.120208384,
+          65.862882816,
+          65.628923392,
+          65.596925952,
+          65.625903616,
+          66.239691776,
+          65.703243776,
+          90.367771648,
+          89.6372736,
+          89.576610816,
+          89.30108928,
+          89.471043584,
+          88.930471424,
+          88.124808192,
+          91.752370176,
+          113.240443904,
+          113.886588416,
+          113.173785088,
+          112.28030208,
+          115.699347456,
+          114.557072384,
+          109.846566912,
+          114.860281344
+        ],
+        "stopped": false,
+        "quality_pass": null
+      }
+    },
+    "outputs/p2_3n24g_20261008/full_resume/completed.json": {
+      "sha256": "0cd1329e94899e8b71b08af329dea4a9cdf1cfb310821070a96392065b5ad29b",
+      "result": {
+        "training_completed_steps": 1,
+        "world_size": 24,
+        "global_batch": 24,
+        "checkpoints": [
+          "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_full_resume/extractor_step_000003.pt"
+        ],
+        "validations": [
+          {
+            "loss": 6.015904396772385,
+            "av": 0.6425440832972527,
+            "video_feature": 4.0304635514815645,
+            "audio_feature": 1.3428967495759327,
+            "av_video": 0.2607459278466801,
+            "av_audio": 0.3817981568475564,
+            "samples": 48,
+            "noise_seed": 1045,
+            "protocol": "paired_gt_text_dev_loss",
+            "step": 2
+          },
+          {
+            "loss": 5.8985585769017534,
+            "av": 0.6455355286598206,
+            "video_feature": 3.9371572136878967,
+            "audio_feature": 1.3158657749493916,
+            "av_video": 0.2606752517943581,
+            "av_audio": 0.38486027376105386,
+            "samples": 48,
+            "noise_seed": 1045,
+            "protocol": "paired_gt_text_dev_loss",
+            "step": 3
+          }
+        ],
+        "frozen_renderer": true,
+        "ranks_identical": true,
+        "parameter_sha256": "74c99feaf11f62011ee18dd74e7e0ba62419d3cbf0dd6a1f983d2d99112358d7",
+        "step_seconds": [
+          105.55308733601123
+        ],
+        "steady_step_seconds": 105.55308733601123,
+        "steady_samples_per_second": 0.22737373776287442,
+        "elapsed_including_save_s": 133.22178180981427,
+        "peak_allocated_gb": [
+          66.164458496,
+          66.120402432,
+          65.860198912,
+          65.628706816,
+          65.595517952,
+          65.626018816,
+          66.242875904,
+          65.703246848,
+          90.363449344,
+          89.636004864,
+          89.577051648,
+          89.300260864,
+          89.47042816,
+          88.93230336,
+          88.124573696,
+          91.752199168,
+          113.237421056,
+          113.885921792,
+          113.175673344,
+          112.277313024,
+          115.69841152,
+          114.557759488,
+          109.845394944,
+          114.861184512
+        ],
+        "stopped": false,
+        "quality_pass": null
+      }
+    },
+    "outputs/p2_3n24g_20261008/full_resume_audit.json": {
+      "sha256": "fc2909069838df05b906dd9020603aadd1ffca8b71a582c37023e41a8c5be232",
+      "result": {
+        "components": {
+          "connector": {
+            "square_difference": 8.642330702917408e-07,
+            "square_reference": 27664.400847610494,
+            "max_abs": 8.451680332655087e-05,
+            "relative_l2": 5.5892663513505535e-06
+          },
+          "video_decoder": {
+            "square_difference": 1.6408158769013307e-13,
+            "square_reference": 52683.44399988903,
+            "max_abs": 7.450580596923828e-09,
+            "relative_l2": 1.7647892351146775e-09
+          },
+          "audio_decoder": {
+            "square_difference": 1.5310639742135495e-13,
+            "square_reference": 52411.24315392505,
+            "max_abs": 7.450580596923828e-09,
+            "relative_l2": 1.709166761338131e-09
+          }
+        },
+        "rank_rng_count": 24,
+        "same_step": true,
+        "same_identity": true
+      }
+    },
+    "outputs/p2_3n24g_20261008/full/tensorboard_audit.json": {
+      "sha256": "50b221e8746113d65d7191b358197f80f7558c23c83138d366c9041b939d250f",
+      "result": {
+        "train/loss": [
+          {
+            "step": 1,
+            "value": 6.324509620666504
+          },
+          {
+            "step": 2,
+            "value": 6.1779680252075195
+          },
+          {
+            "step": 3,
+            "value": 6.17950439453125
+          }
+        ],
+        "dev/loss": [
+          {
+            "step": 0,
+            "value": 6.165289878845215
+          },
+          {
+            "step": 2,
+            "value": 6.015904426574707
+          },
+          {
+            "step": 3,
+            "value": 5.898356914520264
+          }
+        ],
+        "time/step_seconds_max_rank": [
+          {
+            "step": 1,
+            "value": 105.96814727783203
+          },
+          {
+            "step": 2,
+            "value": 104.97737121582031
+          },
+          {
+            "step": 3,
+            "value": 102.43302917480469
+          }
+        ]
+      }
+    },
+    "outputs/p2_3n24g_20261008/benchmark_unbalanced/completed.json": {
+      "sha256": "341e59951932f3d5e61123c3b9a64781ce7f5411171e02768dca4e189c5b2173",
+      "result": {
+        "training_completed_steps": 1,
+        "world_size": 24,
+        "global_batch": 72,
+        "checkpoints": [
+          "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_benchmark_unbalanced/extractor_step_000001.pt"
+        ],
+        "validations": [],
+        "frozen_renderer": true,
+        "ranks_identical": true,
+        "parameter_sha256": "4b6b800ea044976ed4ce8206ae197a05e9f91c3d7cbcfe9e19d19020632cfc43",
+        "step_seconds": [
+          313.65523223765194
+        ],
+        "steady_step_seconds": 313.65523223765194,
+        "steady_samples_per_second": 0.2295514074046967,
+        "elapsed_including_save_s": 320.4728781990707,
+        "peak_allocated_gb": [
+          65.269955584,
+          65.228365824,
+          64.985901568,
+          64.736239104,
+          64.703409664,
+          64.741668864,
+          65.356207616,
+          64.81996544,
+          89.476278272,
+          88.74606592,
+          88.678784,
+          88.405751808,
+          88.578563072,
+          88.038221824,
+          87.2430848,
+          90.859502592,
+          112.34199808,
+          113.002625536,
+          112.284801536,
+          111.391339008,
+          114.806590464,
+          113.663988736,
+          108.96509952,
+          113.970023424
+        ],
+        "stopped": false,
+        "quality_pass": null
+      }
+    },
+    "outputs/p2_3n24g_20261008/benchmark_balanced/completed.json": {
+      "sha256": "ba279b10e0174972668148080729eea31dccc8a96fc6eee057a3a052c06d06a4",
+      "result": {
+        "training_completed_steps": 1,
+        "world_size": 24,
+        "global_batch": 72,
+        "checkpoints": [
+          "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_benchmark_balanced/extractor_step_000001.pt"
+        ],
+        "validations": [],
+        "frozen_renderer": true,
+        "ranks_identical": true,
+        "parameter_sha256": "ef337f851741c5c414092234e88751ed4174d6cf85e606a9095fbdc23c93f1be",
+        "step_seconds": [
+          162.9429859397933
+        ],
+        "steady_step_seconds": 162.9429859397933,
+        "steady_samples_per_second": 0.44187234930507335,
+        "elapsed_including_save_s": 169.55353906471282,
+        "peak_allocated_gb": [
+          113.910191104,
+          113.910191104,
+          113.910191104,
+          113.069737472,
+          113.069737472,
+          113.069737472,
+          112.759785472,
+          112.759785472,
+          112.759785472,
+          112.102040064,
+          112.102040064,
+          112.102040064,
+          111.382253568,
+          111.382253568,
+          111.382253568,
+          111.442673152,
+          111.442673152,
+          111.442673152,
+          110.491314688,
+          110.491314688,
+          110.491314688,
+          108.06149632,
+          108.06149632,
+          108.06149632
+        ],
+        "stopped": false,
+        "quality_pass": null
+      }
+    },
+    "outputs/p2_3n24g_20261008/performance_comparison.json": {
+      "sha256": "50f59c5489da1c9feecd8d4bb9a6f92092ebd2d37e3506178486f312a62b757e",
+      "result": {
+        "benchmark_unbalanced": {
+          "seconds": 313.65523223765194,
+          "samples_per_second": 0.2295514074046967,
+          "loss": 6.304207702477772,
+          "grad_norm": 22.475147247314453,
+          "all_ranks_identical": true,
+          "global_batch": 72,
+          "peak_allocated_gb": 114.806590464,
+          "mean_power_w_by_node": {
+            "172.29.252.24": 201.11320454545455,
+            "172.29.15.126": 363.62386363636364,
+            "172.29.112.17": 612.7341590909092
+          },
+          "measurement_start": 1791437014.9252777,
+          "measurement_end": 1791437328.58051
+        },
+        "benchmark_balanced": {
+          "seconds": 162.9429859397933,
+          "samples_per_second": 0.44187234930507335,
+          "loss": 6.304207702477773,
+          "grad_norm": 22.455509185791016,
+          "all_ranks_identical": true,
+          "global_batch": 72,
+          "peak_allocated_gb": 113.910191104,
+          "mean_power_w_by_node": {
+            "172.29.252.24": 651.4689224137932,
+            "172.29.15.126": 648.3248706896552,
+            "172.29.112.17": 630.6215086206896
+          },
+          "measurement_start": 1791437378.4078302,
+          "measurement_end": 1791437541.3508162
+        },
+        "matched_samples_noise_shapes": true,
+        "speedup": 1.9249385325094397,
+        "loss_absolute_difference": 8.881784197001252e-16,
+        "parameter_comparison": {
+          "connector": {
+            "diff2": 8.404007268378282e-05,
+            "reference2": 27664.163612423712,
+            "max_abs": 0.00019918789621442556,
+            "relative_l2": 5.5116856133700614e-05
+          },
+          "video_decoder": {
+            "diff2": 4.666903965581369e-12,
+            "reference2": 52679.33422383446,
+            "max_abs": 2.429442247375846e-08,
+            "relative_l2": 9.412268189342007e-09
+          },
+          "audio_decoder": {
+            "diff2": 1.173869095152311e-11,
+            "reference2": 52406.952458782056,
+            "max_abs": 2.244996721856296e-08,
+            "relative_l2": 1.4966332230438645e-08
+          }
+        },
+        "scope": "One matched full-model optimizer update; 24 ranks, accumulation3, 72 exposures. Includes update warmup; excludes model loading and checkpoint save. Not a long-run or quality comparison."
+      }
+    },
+    "outputs/p2_full91009_dev48_20261008/audit.json": {
+      "sha256": "f843dd17609d421fdcb8663dffa98f08a83da69ca86ce50e0e3fab0c7c4ad8b3",
+      "result": {
+        "splits": {
+          "train": {
+            "qualified": 91009,
+            "within_budget": 91009,
+            "selected": 91009
+          },
+          "dev": {
+            "qualified": 1964,
+            "within_budget": 1964,
+            "selected": 48
+          },
+          "test": {
+            "qualified": 1699,
+            "within_budget": 1699
+          }
+        },
+        "source_sha256": {
+          "/private/liqi_workspace/data/seamless/subset_300h_pure/train_gt_qualified_20260920/train_part0_manifest.json": "60b386f88761cc5614b64a8bcb96db02b8ea4cd24ae552a379de4f4ccde918f9",
+          "/private/liqi_workspace/data/seamless/subset_300h_pure/train_gt_qualified_20260920/train_part1_manifest.json": "dc00900ac2ab739faedfa325beac2034152c42ac810352591cb9b214290da492",
+          "/private/liqi_workspace/data/seamless/subset_300h_pure/ltx23_precomputed_720p_area_qualified_20260920/metadata_train.jsonl": "bb5bdaf86881a12e143db0dab792831a29a0501e83780b7b6efe44f2bfae5817",
+          "/private/liqi_workspace/data/seamless/subset_300h_pure/manifests_gt_qualified_20260920/dev_manifest.json": "8d73f8e6a3fbdf8fd8444395f85536c6a9179f466edf749de4c3f004e903fde9",
+          "/private/liqi_workspace/data/seamless/subset_300h_pure/ltx23_precomputed_720p_area_qualified_20260920/metadata_dev.jsonl": "0d94d23336188679f5afa62fef7df1dd1a2181f4a15f873c87097e41b0ac45e0",
+          "/private/liqi_workspace/data/seamless/subset_300h_pure/manifests_gt_qualified_20260920/test_manifest.json": "6729ddf0cd68094d81b862f6a1b2fd6898f946f41798965f8826c999c67bf0d7",
+          "/private/liqi_workspace/data/seamless/subset_300h_pure/ltx23_precomputed_720p_area_qualified_20260920/metadata_test.jsonl": "83b0bc9c8921c8510d5923cb726242442dbe90b35ea43b86e64d272c69d0e110"
+        },
+        "disjoint": true,
+        "budget": 24,
+        "seed": 45,
+        "selection": "sha256(seed:sample_id)",
+        "test_used_for_tuning": false,
+        "scope": "full-qualified-train",
+        "budget_policy": "ceil duration to 8/16/24 seconds; no temporal or spatial crop",
+        "retained_dev_ids": [
+          "V00_S0925_I00000520_00000811_00001044_turn_P0383",
+          "V00_S1045_I00000001_00002525_00002744_turn_P1067",
+          "V03_S0251_I00000373_00002889_00003039_turn_P1607",
+          "V00_S2021_I00001114_00000238_00000412_turn_P1277A",
+          "V00_S0700_I00000576_00001725_00001874_turn_P0844A",
+          "V01_S1881_I00000625_00002829_00002983_turn_P2767",
+          "V00_S1045_I00000009_00002577_00002753_turn_P1067",
+          "V01_S0220_I00000128_00002264_00002413_turn_P1409",
+          "V03_S0251_I00000382_00003694_00003928_turn_P1606",
+          "V00_S0731_I00000500_00005219_00005444_turn_P0500",
+          "V02_S5054_I00000238_00004611_00004844_turn_P5062",
+          "V03_S1715_I00000372_00003046_00003283_turn_P4893",
+          "V00_S0521_I00000125_00000799_00001001_turn_P0663",
+          "V00_S0700_I00000581_00003678_00003861_turn_P0852",
+          "V00_S2020_I00000687_00005299_00005502_turn_P1275A",
+          "V00_S2091_I00001103_00005425_00005593_turn_P1282A",
+          "V00_S1823_I00000275_00001626_00001851_turn_P0115",
+          "V00_S0521_I00000125_00000851_00001086_turn_P0566",
+          "V03_S1221_I00000458_00002213_00002366_turn_P3778",
+          "V03_S1568_I00000541_00008173_00008340_turn_P4045",
+          "V03_S1221_I00000459_00003987_00004171_turn_P3779",
+          "V00_S0255_I00000137_00003622_00003827_turn_P0350",
+          "V00_S0925_I00000520_00001476_00001716_turn_P0383",
+          "V00_S2021_I00001120_00002996_00003127_turn_P1276A"
+        ]
+      }
+    },
+    "outputs/p2_full91009_dev48_20261008/full_spatial_audit.json": {
+      "sha256": "91a51396605b492ca94773b891101ceb15edd21c047ce94ca70bcfa2d10f9094",
+      "result": {
+        "train": {
+          "count": 91009,
+          "all_manifest_vae_dimensions_match": true,
+          "shapes": 103,
+          "min_pixels": 860160,
+          "max_pixels": 983040,
+          "budget_counts": {
+            "16": 52358,
+            "8": 20836,
+            "24": 17815
+          }
+        },
+        "dev": {
+          "count": 48,
+          "all_manifest_vae_dimensions_match": true,
+          "shapes": 26,
+          "min_pixels": 878592,
+          "max_pixels": 962560,
+          "budget_counts": {
+            "8": 24,
+            "24": 10,
+            "16": 14
+          }
+        }
+      }
+    },
+    "outputs/p2_full91009_dev48_20261008/media_resolution_probe.json": {
+      "sha256": "024f53e606847aa27c9a5ec1645eae7d2db1693536ae72d3f5a3264264dbef6e",
+      "result": [
+        {
+          "sample_id": "V03_S0298_I00000128_00003061_00003376_turn_P1537",
+          "width": 768,
+          "height": 1184,
+          "r_frame_rate": "30/1",
+          "nb_frames": "316"
+        },
+        {
+          "sample_id": "V03_S1464_I00000422_00006972_00007393_turn_P1763",
+          "width": 288,
+          "height": 3072,
+          "r_frame_rate": "30/1",
+          "nb_frames": "422"
+        },
+        {
+          "sample_id": "V03_S0955_I00000094_00009341_00009878_turn_P1860",
+          "width": 1632,
+          "height": 576,
+          "r_frame_rate": "30/1",
+          "nb_frames": "537"
+        }
+      ]
+    }
+  },
+  "runs": {
+    "full": {
+      "source": "outputs/p2_3n24g_20261008/full/run.json",
+      "sha256": "61dfc85969e070131cd56f125cfe4867017ffa5329787c3b2aaf3e53d3f613f6",
+      "result": {
+        "config": {
+          "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+          "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+          "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+          "hidden_size": 2048,
+          "hidden_layers": [
+            8,
+            18,
+            28,
+            35
+          ],
+          "layer_fusion": "attention",
+          "target_dim": 2048,
+          "video_dim": 4096,
+          "audio_dim": 2048,
+          "fusion_width": 512,
+          "fusion_depth": 2,
+          "fusion_heads": 8,
+          "decoder_width": 1024,
+          "decoder_depth": 16,
+          "diffusion_batch_mul": 16,
+          "zero_init_connector": true,
+          "vision_fps": 2.0,
+          "audio_hz": 4.0,
+          "vision_max_pixels": 65536,
+          "feature_video_weight": 1.0,
+          "feature_audio_weight": 1.0,
+          "av_weight": 1.0,
+          "learning_rate": 0.0001
+        },
+        "identity": {
+          "contract": {
+            "version": "p2_multilayer_condition_v2",
+            "config": {
+              "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+              "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+              "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+              "hidden_size": 2048,
+              "hidden_layers": [
+                8,
+                18,
+                28,
+                35
+              ],
+              "layer_fusion": "attention",
+              "target_dim": 2048,
+              "video_dim": 4096,
+              "audio_dim": 2048,
+              "fusion_width": 512,
+              "fusion_depth": 2,
+              "fusion_heads": 8,
+              "decoder_width": 1024,
+              "decoder_depth": 16,
+              "diffusion_batch_mul": 16,
+              "zero_init_connector": true,
+              "vision_fps": 2.0,
+              "audio_hz": 4.0,
+              "vision_max_pixels": 65536,
+              "feature_video_weight": 1.0,
+              "feature_audio_weight": 1.0,
+              "av_weight": 1.0,
+              "learning_rate": 0.0001
+            },
+            "omni_config_sha256": "20790f362c37a1718a3e764f597ae33dfc20177399762018dffaabf8321d4dd1",
+            "omni_index_sha256": "5b7629198e2ef80e37612a491d9bfd71639d2f212632d36d8ab086922e74e129"
+          },
+          "recipe": "joint",
+          "entries": [
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0000.pt",
+              "sample_id": "V02_S5137_I00000730_00003258_00003498_turn_P5135",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0000.pt",
+              "sample_id": "V00_S1010_I00000197_00008314_00008554_turn_P0929",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0000.pt",
+              "sample_id": "V03_S1025_I00000082_00004093_00004333_turn_P2641",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0000.pt",
+              "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0000.pt",
+              "sample_id": "V00_S0431_I00000131_00003150_00003390_turn_P0006A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0000.pt",
+              "sample_id": "V00_S1543_I00001070_00004506_00004746_turn_P0921A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0000.pt",
+              "sample_id": "V00_S0656_I00000385_00001451_00001691_turn_P0813",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0000.pt",
+              "sample_id": "V01_S1840_I00000703_00000046_00000286_turn_P2736",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0001.pt",
+              "sample_id": "V02_S5043_I00000055_00003144_00003624_turn_P5005",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0001.pt",
+              "sample_id": "V00_S0779_I00000515_00001950_00002430_turn_P0917",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0001.pt",
+              "sample_id": "V00_S0441_I00000379_00004057_00004537_turn_P0578",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0001.pt",
+              "sample_id": "V02_S3269_I00000135_00005227_00005707_turn_P4142",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0001.pt",
+              "sample_id": "V00_S1399_I00001174_00000627_00001107_turn_P0557A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0001.pt",
+              "sample_id": "V00_S0458_I00000132_00007153_00007633_turn_P0590",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0001.pt",
+              "sample_id": "V00_S1616_I00001170_00004025_00004505_turn_P1124A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0001.pt",
+              "sample_id": "V00_S0848_I00000479_00009070_00009550_turn_P0028A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0002.pt",
+              "sample_id": "V01_S1666_I00000702_00000959_00001679_turn_P2023",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0002.pt",
+              "sample_id": "V01_S0258_I00001294_00000928_00001648_turn_P1467",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0002.pt",
+              "sample_id": "V00_S1406_I00001171_00011245_00011965_turn_P0407A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0002.pt",
+              "sample_id": "V02_S5091_I00000217_00003703_00004423_turn_P5105",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0002.pt",
+              "sample_id": "V02_S3440_I00000194_00004945_00005665_turn_P4179",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0002.pt",
+              "sample_id": "V01_S0548_I00000726_00003649_00004369_turn_P1572",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0002.pt",
+              "sample_id": "V03_S1231_I00000154_00041885_00042604_turn_P3835",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0002.pt",
+              "sample_id": "V03_S1933_I00000198_00002629_00003349_turn_P4092",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0002.pt"
+            }
+          ],
+          "tiny": false,
+          "seed": 45,
+          "world_size": 24,
+          "accumulation": 1,
+          "trainer": "p2_ddp_v1",
+          "fused_adam": true,
+          "validation_entries": [
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0000.pt",
+              "sample_id": "V00_S0925_I00000520_00000811_00001044_turn_P0383",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0000.pt",
+              "sample_id": "V00_S1045_I00000001_00002525_00002744_turn_P1067",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0000.pt",
+              "sample_id": "V03_S0251_I00000373_00002889_00003039_turn_P1607",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0000.pt",
+              "sample_id": "V00_S2021_I00001114_00000238_00000412_turn_P1277A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0000.pt",
+              "sample_id": "V00_S0700_I00000576_00001725_00001874_turn_P0844A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0000.pt",
+              "sample_id": "V01_S1881_I00000625_00002829_00002983_turn_P2767",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0000.pt",
+              "sample_id": "V00_S1045_I00000009_00002577_00002753_turn_P1067",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0000.pt",
+              "sample_id": "V01_S0220_I00000128_00002264_00002413_turn_P1409",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0001.pt",
+              "sample_id": "V03_S0251_I00000382_00003694_00003928_turn_P1606",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0001.pt",
+              "sample_id": "V00_S0731_I00000500_00005219_00005444_turn_P0500",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0001.pt",
+              "sample_id": "V02_S5054_I00000238_00004611_00004844_turn_P5062",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0001.pt",
+              "sample_id": "V03_S1715_I00000372_00003046_00003283_turn_P4893",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0001.pt",
+              "sample_id": "V00_S0521_I00000125_00000799_00001001_turn_P0663",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0001.pt",
+              "sample_id": "V00_S0700_I00000581_00003678_00003861_turn_P0852",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0001.pt",
+              "sample_id": "V00_S2020_I00000687_00005299_00005502_turn_P1275A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0001.pt",
+              "sample_id": "V00_S2091_I00001103_00005425_00005593_turn_P1282A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0002.pt",
+              "sample_id": "V00_S1823_I00000275_00001626_00001851_turn_P0115",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0002.pt",
+              "sample_id": "V00_S0521_I00000125_00000851_00001086_turn_P0566",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0002.pt",
+              "sample_id": "V03_S1221_I00000458_00002213_00002366_turn_P3778",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0002.pt",
+              "sample_id": "V03_S1568_I00000541_00008173_00008340_turn_P4045",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0002.pt",
+              "sample_id": "V03_S1221_I00000459_00003987_00004171_turn_P3779",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0002.pt",
+              "sample_id": "V00_S0255_I00000137_00003622_00003827_turn_P0350",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0002.pt",
+              "sample_id": "V00_S0925_I00000520_00001476_00001716_turn_P0383",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0002.pt",
+              "sample_id": "V00_S2021_I00001120_00002996_00003127_turn_P1276A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0003.pt",
+              "sample_id": "V03_S1869_I00000070_00005792_00006303_turn_P5265",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0003.pt",
+              "sample_id": "V01_S0108_I00000135_00001656_00001996_turn_P1203",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0003.pt",
+              "sample_id": "V03_S0871_I00000109_00003265_00003684_turn_P2966",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0003.pt",
+              "sample_id": "V03_S1568_I00000541_00011667_00012011_turn_P4544",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0003.pt",
+              "sample_id": "V02_S5054_I00000739_00000747_00001133_turn_P5063",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0003.pt",
+              "sample_id": "V00_S0696_I00000504_00005041_00005425_turn_P0847",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0003.pt",
+              "sample_id": "V00_S0731_I00000520_00001915_00002554_turn_P0879",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0003.pt",
+              "sample_id": "V00_S0809_I00000307_00004971_00005404_turn_P0383",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0004.pt",
+              "sample_id": "V01_S0283_I00000602_00001224_00001816_turn_P1604",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0004.pt",
+              "sample_id": "V00_S2022_I00001202_00005126_00005471_turn_P1277A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0004.pt",
+              "sample_id": "V00_S0648_I00000135_00001987_00002323_turn_P0299A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0004.pt",
+              "sample_id": "V03_S1605_I00000236_00000424_00000911_turn_P4591",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0004.pt",
+              "sample_id": "V00_S0922_I00000478_00008872_00009262_turn_P1020",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0004.pt",
+              "sample_id": "V00_S0305_I00000135_00001982_00002490_turn_P0116",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0004.pt",
+              "sample_id": "V01_S0158_I00000632_00004191_00004440_turn_P1289",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0004.pt",
+              "sample_id": "V00_S0948_I00000503_00001066_00001680_turn_P1041",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0005.pt",
+              "sample_id": "V01_S0220_I00000135_00000193_00000524_turn_P1409",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0005.pt",
+              "sample_id": "V00_S0255_I00000138_00001152_00001525_turn_P0351",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0005.pt",
+              "sample_id": "V03_S1232_I00000055_00000458_00000734_turn_P3836",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0005.pt",
+              "sample_id": "V03_S0203_I00000537_00003634_00004024_turn_P1436",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0005.pt",
+              "sample_id": "V03_S1662_I00000115_00005862_00006456_turn_P4768",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0005.pt",
+              "sample_id": "V00_S0152_I00000503_00007191_00007817_turn_P0217",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0005.pt",
+              "sample_id": "V01_S0223_I00000135_00005482_00006068_turn_P1506",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0005.pt",
+              "sample_id": "V01_S1650_I00000309_00003316_00003907_turn_P1514",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0005.pt"
+            }
+          ],
+          "validation_seed": 1045
+        },
+        "args": {
+          "gpus": "0,1,2,3,4,5,6,7",
+          "cache": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/cache_index.json",
+          "output": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/full",
+          "checkpoint_dir": "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_full",
+          "config": null,
+          "resume": null,
+          "recipe": "joint",
+          "steps": 3,
+          "accumulation": 1,
+          "save_every": 2,
+          "seed": 45,
+          "tiny": false,
+          "allow_terminal_trim": true,
+          "checkpoint_every": 1,
+          "decoder_checkpointing": true,
+          "fused_adam": true,
+          "cache_samples": 2,
+          "data_root": "/private/liqi_workspace/data/seamless/subset_300h_pure",
+          "validation_cache": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/cache_index.json",
+          "validate_every": 2,
+          "validation_seed": 1045,
+          "tensorboard": true,
+          "nnodes": 3,
+          "node_rank": 0,
+          "master_addr": "172.29.252.24",
+          "master_port": 29848,
+          "run_id": "p2_3n24g_full_20261008",
+          "network_config": "/private/liqi_workspace/project_code/audio-driven-v4/configs/p2_roce.json",
+          "preflight_only": false,
+          "probe": null,
+          "worker": true
+        },
+        "global_batch": 24
+      }
+    },
+    "full_resume": {
+      "source": "outputs/p2_3n24g_20261008/full_resume/run.json",
+      "sha256": "5fc89b7559f5e849c551017fda27c0efbe3485c9ea3310b35e253bbc1458f34d",
+      "result": {
+        "config": {
+          "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+          "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+          "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+          "hidden_size": 2048,
+          "hidden_layers": [
+            8,
+            18,
+            28,
+            35
+          ],
+          "layer_fusion": "attention",
+          "target_dim": 2048,
+          "video_dim": 4096,
+          "audio_dim": 2048,
+          "fusion_width": 512,
+          "fusion_depth": 2,
+          "fusion_heads": 8,
+          "decoder_width": 1024,
+          "decoder_depth": 16,
+          "diffusion_batch_mul": 16,
+          "zero_init_connector": true,
+          "vision_fps": 2.0,
+          "audio_hz": 4.0,
+          "vision_max_pixels": 65536,
+          "feature_video_weight": 1.0,
+          "feature_audio_weight": 1.0,
+          "av_weight": 1.0,
+          "learning_rate": 0.0001
+        },
+        "identity": {
+          "contract": {
+            "version": "p2_multilayer_condition_v2",
+            "config": {
+              "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+              "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+              "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+              "hidden_size": 2048,
+              "hidden_layers": [
+                8,
+                18,
+                28,
+                35
+              ],
+              "layer_fusion": "attention",
+              "target_dim": 2048,
+              "video_dim": 4096,
+              "audio_dim": 2048,
+              "fusion_width": 512,
+              "fusion_depth": 2,
+              "fusion_heads": 8,
+              "decoder_width": 1024,
+              "decoder_depth": 16,
+              "diffusion_batch_mul": 16,
+              "zero_init_connector": true,
+              "vision_fps": 2.0,
+              "audio_hz": 4.0,
+              "vision_max_pixels": 65536,
+              "feature_video_weight": 1.0,
+              "feature_audio_weight": 1.0,
+              "av_weight": 1.0,
+              "learning_rate": 0.0001
+            },
+            "omni_config_sha256": "20790f362c37a1718a3e764f597ae33dfc20177399762018dffaabf8321d4dd1",
+            "omni_index_sha256": "5b7629198e2ef80e37612a491d9bfd71639d2f212632d36d8ab086922e74e129"
+          },
+          "recipe": "joint",
+          "entries": [
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0000.pt",
+              "sample_id": "V02_S5137_I00000730_00003258_00003498_turn_P5135",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0000.pt",
+              "sample_id": "V00_S1010_I00000197_00008314_00008554_turn_P0929",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0000.pt",
+              "sample_id": "V03_S1025_I00000082_00004093_00004333_turn_P2641",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0000.pt",
+              "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0000.pt",
+              "sample_id": "V00_S0431_I00000131_00003150_00003390_turn_P0006A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0000.pt",
+              "sample_id": "V00_S1543_I00001070_00004506_00004746_turn_P0921A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0000.pt",
+              "sample_id": "V00_S0656_I00000385_00001451_00001691_turn_P0813",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0000.pt",
+              "sample_id": "V01_S1840_I00000703_00000046_00000286_turn_P2736",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0001.pt",
+              "sample_id": "V02_S5043_I00000055_00003144_00003624_turn_P5005",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0001.pt",
+              "sample_id": "V00_S0779_I00000515_00001950_00002430_turn_P0917",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0001.pt",
+              "sample_id": "V00_S0441_I00000379_00004057_00004537_turn_P0578",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0001.pt",
+              "sample_id": "V02_S3269_I00000135_00005227_00005707_turn_P4142",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0001.pt",
+              "sample_id": "V00_S1399_I00001174_00000627_00001107_turn_P0557A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0001.pt",
+              "sample_id": "V00_S0458_I00000132_00007153_00007633_turn_P0590",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0001.pt",
+              "sample_id": "V00_S1616_I00001170_00004025_00004505_turn_P1124A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0001.pt",
+              "sample_id": "V00_S0848_I00000479_00009070_00009550_turn_P0028A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0002.pt",
+              "sample_id": "V01_S1666_I00000702_00000959_00001679_turn_P2023",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0002.pt",
+              "sample_id": "V01_S0258_I00001294_00000928_00001648_turn_P1467",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0002.pt",
+              "sample_id": "V00_S1406_I00001171_00011245_00011965_turn_P0407A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0002.pt",
+              "sample_id": "V02_S5091_I00000217_00003703_00004423_turn_P5105",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0002.pt",
+              "sample_id": "V02_S3440_I00000194_00004945_00005665_turn_P4179",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0002.pt",
+              "sample_id": "V01_S0548_I00000726_00003649_00004369_turn_P1572",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0002.pt",
+              "sample_id": "V03_S1231_I00000154_00041885_00042604_turn_P3835",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0002.pt",
+              "sample_id": "V03_S1933_I00000198_00002629_00003349_turn_P4092",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0002.pt"
+            }
+          ],
+          "tiny": false,
+          "seed": 45,
+          "world_size": 24,
+          "accumulation": 1,
+          "trainer": "p2_ddp_v1",
+          "fused_adam": true,
+          "validation_entries": [
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0000.pt",
+              "sample_id": "V00_S0925_I00000520_00000811_00001044_turn_P0383",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0000.pt",
+              "sample_id": "V00_S1045_I00000001_00002525_00002744_turn_P1067",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0000.pt",
+              "sample_id": "V03_S0251_I00000373_00002889_00003039_turn_P1607",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0000.pt",
+              "sample_id": "V00_S2021_I00001114_00000238_00000412_turn_P1277A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0000.pt",
+              "sample_id": "V00_S0700_I00000576_00001725_00001874_turn_P0844A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0000.pt",
+              "sample_id": "V01_S1881_I00000625_00002829_00002983_turn_P2767",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0000.pt",
+              "sample_id": "V00_S1045_I00000009_00002577_00002753_turn_P1067",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0000.pt",
+              "sample_id": "V01_S0220_I00000128_00002264_00002413_turn_P1409",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0001.pt",
+              "sample_id": "V03_S0251_I00000382_00003694_00003928_turn_P1606",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0001.pt",
+              "sample_id": "V00_S0731_I00000500_00005219_00005444_turn_P0500",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0001.pt",
+              "sample_id": "V02_S5054_I00000238_00004611_00004844_turn_P5062",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0001.pt",
+              "sample_id": "V03_S1715_I00000372_00003046_00003283_turn_P4893",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0001.pt",
+              "sample_id": "V00_S0521_I00000125_00000799_00001001_turn_P0663",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0001.pt",
+              "sample_id": "V00_S0700_I00000581_00003678_00003861_turn_P0852",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0001.pt",
+              "sample_id": "V00_S2020_I00000687_00005299_00005502_turn_P1275A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0001.pt",
+              "sample_id": "V00_S2091_I00001103_00005425_00005593_turn_P1282A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0002.pt",
+              "sample_id": "V00_S1823_I00000275_00001626_00001851_turn_P0115",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0002.pt",
+              "sample_id": "V00_S0521_I00000125_00000851_00001086_turn_P0566",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0002.pt",
+              "sample_id": "V03_S1221_I00000458_00002213_00002366_turn_P3778",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0002.pt",
+              "sample_id": "V03_S1568_I00000541_00008173_00008340_turn_P4045",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0002.pt",
+              "sample_id": "V03_S1221_I00000459_00003987_00004171_turn_P3779",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0002.pt",
+              "sample_id": "V00_S0255_I00000137_00003622_00003827_turn_P0350",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0002.pt",
+              "sample_id": "V00_S0925_I00000520_00001476_00001716_turn_P0383",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0002.pt",
+              "sample_id": "V00_S2021_I00001120_00002996_00003127_turn_P1276A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0003.pt",
+              "sample_id": "V03_S1869_I00000070_00005792_00006303_turn_P5265",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0003.pt",
+              "sample_id": "V01_S0108_I00000135_00001656_00001996_turn_P1203",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0003.pt",
+              "sample_id": "V03_S0871_I00000109_00003265_00003684_turn_P2966",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0003.pt",
+              "sample_id": "V03_S1568_I00000541_00011667_00012011_turn_P4544",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0003.pt",
+              "sample_id": "V02_S5054_I00000739_00000747_00001133_turn_P5063",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0003.pt",
+              "sample_id": "V00_S0696_I00000504_00005041_00005425_turn_P0847",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0003.pt",
+              "sample_id": "V00_S0731_I00000520_00001915_00002554_turn_P0879",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0003.pt",
+              "sample_id": "V00_S0809_I00000307_00004971_00005404_turn_P0383",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0003.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0004.pt",
+              "sample_id": "V01_S0283_I00000602_00001224_00001816_turn_P1604",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0004.pt",
+              "sample_id": "V00_S2022_I00001202_00005126_00005471_turn_P1277A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0004.pt",
+              "sample_id": "V00_S0648_I00000135_00001987_00002323_turn_P0299A",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0004.pt",
+              "sample_id": "V03_S1605_I00000236_00000424_00000911_turn_P4591",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0004.pt",
+              "sample_id": "V00_S0922_I00000478_00008872_00009262_turn_P1020",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0004.pt",
+              "sample_id": "V00_S0305_I00000135_00001982_00002490_turn_P0116",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0004.pt",
+              "sample_id": "V01_S0158_I00000632_00004191_00004440_turn_P1289",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0004.pt",
+              "sample_id": "V00_S0948_I00000503_00001066_00001680_turn_P1041",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0004.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/features_0005.pt",
+              "sample_id": "V01_S0220_I00000135_00000193_00000524_turn_P1409",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard0_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/features_0005.pt",
+              "sample_id": "V00_S0255_I00000138_00001152_00001525_turn_P0351",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard1/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/features_0005.pt",
+              "sample_id": "V03_S1232_I00000055_00000458_00000734_turn_P3836",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard2_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/features_0005.pt",
+              "sample_id": "V03_S0203_I00000537_00003634_00004024_turn_P1436",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard3_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/features_0005.pt",
+              "sample_id": "V03_S1662_I00000115_00005862_00006456_turn_P4768",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard4/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/features_0005.pt",
+              "sample_id": "V00_S0152_I00000503_00007191_00007817_turn_P0217",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard5_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/features_0005.pt",
+              "sample_id": "V01_S0223_I00000135_00005482_00006068_turn_P1506",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard6_retry/text_0005.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/features_0005.pt",
+              "sample_id": "V01_S1650_I00000309_00003316_00003907_turn_P1514",
+              "split": "dev",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/shard7/text_0005.pt"
+            }
+          ],
+          "validation_seed": 1045
+        },
+        "args": {
+          "gpus": "0,1,2,3,4,5,6,7",
+          "cache": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/cache_index.json",
+          "output": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/full_resume",
+          "checkpoint_dir": "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_full_resume",
+          "config": null,
+          "resume": "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_full/extractor_step_000002.pt",
+          "recipe": "joint",
+          "steps": 1,
+          "balance_workload": false,
+          "accumulation": 1,
+          "save_every": 2,
+          "seed": 45,
+          "tiny": false,
+          "allow_terminal_trim": true,
+          "checkpoint_every": 1,
+          "decoder_checkpointing": true,
+          "fused_adam": true,
+          "cache_samples": 3,
+          "data_root": "/private/liqi_workspace/data/seamless/subset_300h_pure",
+          "validation_cache": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/cache_index.json",
+          "validate_every": 2,
+          "validation_seed": 1045,
+          "tensorboard": true,
+          "nnodes": 3,
+          "node_rank": 0,
+          "master_addr": "172.29.252.24",
+          "master_port": 29848,
+          "run_id": "full_resume",
+          "network_config": "/private/liqi_workspace/project_code/audio-driven-v4/configs/p2_roce.json",
+          "preflight_only": false,
+          "probe": null,
+          "worker": true
+        },
+        "global_batch": 24
+      }
+    },
+    "benchmark_unbalanced": {
+      "source": "outputs/p2_3n24g_20261008/benchmark_unbalanced/run.json",
+      "sha256": "03e0b17c2535deaab99e12ebf1ea0e737263c8746841ca942b2c7b165fc26014",
+      "result": {
+        "config": {
+          "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+          "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+          "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+          "hidden_size": 2048,
+          "hidden_layers": [
+            8,
+            18,
+            28,
+            35
+          ],
+          "layer_fusion": "attention",
+          "target_dim": 2048,
+          "video_dim": 4096,
+          "audio_dim": 2048,
+          "fusion_width": 512,
+          "fusion_depth": 2,
+          "fusion_heads": 8,
+          "decoder_width": 1024,
+          "decoder_depth": 16,
+          "diffusion_batch_mul": 16,
+          "zero_init_connector": true,
+          "vision_fps": 2.0,
+          "audio_hz": 4.0,
+          "vision_max_pixels": 65536,
+          "feature_video_weight": 1.0,
+          "feature_audio_weight": 1.0,
+          "av_weight": 1.0,
+          "learning_rate": 0.0001
+        },
+        "identity": {
+          "contract": {
+            "version": "p2_multilayer_condition_v2",
+            "config": {
+              "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+              "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+              "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+              "hidden_size": 2048,
+              "hidden_layers": [
+                8,
+                18,
+                28,
+                35
+              ],
+              "layer_fusion": "attention",
+              "target_dim": 2048,
+              "video_dim": 4096,
+              "audio_dim": 2048,
+              "fusion_width": 512,
+              "fusion_depth": 2,
+              "fusion_heads": 8,
+              "decoder_width": 1024,
+              "decoder_depth": 16,
+              "diffusion_batch_mul": 16,
+              "zero_init_connector": true,
+              "vision_fps": 2.0,
+              "audio_hz": 4.0,
+              "vision_max_pixels": 65536,
+              "feature_video_weight": 1.0,
+              "feature_audio_weight": 1.0,
+              "av_weight": 1.0,
+              "learning_rate": 0.0001
+            },
+            "omni_config_sha256": "20790f362c37a1718a3e764f597ae33dfc20177399762018dffaabf8321d4dd1",
+            "omni_index_sha256": "5b7629198e2ef80e37612a491d9bfd71639d2f212632d36d8ab086922e74e129"
+          },
+          "recipe": "joint",
+          "entries": [
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0000.pt",
+              "sample_id": "V02_S5137_I00000730_00003258_00003498_turn_P5135",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0000.pt",
+              "sample_id": "V00_S1010_I00000197_00008314_00008554_turn_P0929",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0000.pt",
+              "sample_id": "V03_S1025_I00000082_00004093_00004333_turn_P2641",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0000.pt",
+              "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0000.pt",
+              "sample_id": "V00_S0431_I00000131_00003150_00003390_turn_P0006A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0000.pt",
+              "sample_id": "V00_S1543_I00001070_00004506_00004746_turn_P0921A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0000.pt",
+              "sample_id": "V00_S0656_I00000385_00001451_00001691_turn_P0813",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0000.pt",
+              "sample_id": "V01_S1840_I00000703_00000046_00000286_turn_P2736",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0001.pt",
+              "sample_id": "V02_S5043_I00000055_00003144_00003624_turn_P5005",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0001.pt",
+              "sample_id": "V00_S0779_I00000515_00001950_00002430_turn_P0917",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0001.pt",
+              "sample_id": "V00_S0441_I00000379_00004057_00004537_turn_P0578",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0001.pt",
+              "sample_id": "V02_S3269_I00000135_00005227_00005707_turn_P4142",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0001.pt",
+              "sample_id": "V00_S1399_I00001174_00000627_00001107_turn_P0557A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0001.pt",
+              "sample_id": "V00_S0458_I00000132_00007153_00007633_turn_P0590",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0001.pt",
+              "sample_id": "V00_S1616_I00001170_00004025_00004505_turn_P1124A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0001.pt",
+              "sample_id": "V00_S0848_I00000479_00009070_00009550_turn_P0028A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0002.pt",
+              "sample_id": "V01_S1666_I00000702_00000959_00001679_turn_P2023",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0002.pt",
+              "sample_id": "V01_S0258_I00001294_00000928_00001648_turn_P1467",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0002.pt",
+              "sample_id": "V00_S1406_I00001171_00011245_00011965_turn_P0407A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0002.pt",
+              "sample_id": "V02_S5091_I00000217_00003703_00004423_turn_P5105",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0002.pt",
+              "sample_id": "V02_S3440_I00000194_00004945_00005665_turn_P4179",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0002.pt",
+              "sample_id": "V01_S0548_I00000726_00003649_00004369_turn_P1572",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0002.pt",
+              "sample_id": "V03_S1231_I00000154_00041885_00042604_turn_P3835",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0002.pt",
+              "sample_id": "V03_S1933_I00000198_00002629_00003349_turn_P4092",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0002.pt"
+            }
+          ],
+          "tiny": false,
+          "seed": 45,
+          "world_size": 24,
+          "accumulation": 3,
+          "trainer": "p2_ddp_v1",
+          "fused_adam": true
+        },
+        "args": {
+          "gpus": "0,1,2,3,4,5,6,7",
+          "cache": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/cache_index.json",
+          "output": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/benchmark_unbalanced",
+          "checkpoint_dir": "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_benchmark_unbalanced",
+          "config": null,
+          "resume": null,
+          "recipe": "joint",
+          "steps": 1,
+          "balance_workload": false,
+          "accumulation": 3,
+          "save_every": 100,
+          "seed": 45,
+          "tiny": false,
+          "allow_terminal_trim": true,
+          "checkpoint_every": 1,
+          "decoder_checkpointing": true,
+          "fused_adam": true,
+          "cache_samples": 3,
+          "data_root": "/private/liqi_workspace/data/seamless/subset_300h_pure",
+          "validation_cache": null,
+          "validate_every": 100,
+          "validation_seed": 1045,
+          "tensorboard": true,
+          "nnodes": 3,
+          "node_rank": 0,
+          "master_addr": "172.29.252.24",
+          "master_port": 29848,
+          "run_id": "benchmark_unbalanced",
+          "network_config": "/private/liqi_workspace/project_code/audio-driven-v4/configs/p2_roce.json",
+          "preflight_only": false,
+          "probe": null,
+          "worker": true
+        },
+        "global_batch": 72
+      }
+    },
+    "benchmark_balanced": {
+      "source": "outputs/p2_3n24g_20261008/benchmark_balanced/run.json",
+      "sha256": "a79575e59d01f8a10512df06f7fc0bb5d862de1891333fc0b485b98a92fb9fc9",
+      "result": {
+        "config": {
+          "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+          "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+          "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+          "hidden_size": 2048,
+          "hidden_layers": [
+            8,
+            18,
+            28,
+            35
+          ],
+          "layer_fusion": "attention",
+          "target_dim": 2048,
+          "video_dim": 4096,
+          "audio_dim": 2048,
+          "fusion_width": 512,
+          "fusion_depth": 2,
+          "fusion_heads": 8,
+          "decoder_width": 1024,
+          "decoder_depth": 16,
+          "diffusion_batch_mul": 16,
+          "zero_init_connector": true,
+          "vision_fps": 2.0,
+          "audio_hz": 4.0,
+          "vision_max_pixels": 65536,
+          "feature_video_weight": 1.0,
+          "feature_audio_weight": 1.0,
+          "av_weight": 1.0,
+          "learning_rate": 0.0001
+        },
+        "identity": {
+          "contract": {
+            "version": "p2_multilayer_condition_v2",
+            "config": {
+              "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+              "ltx_path": "/public/2_CKPT/2_AVATAR/LTX23/LTX_23/ltx-2.3-22b-dev.safetensors",
+              "gemma_path": "/public/2_CKPT/0_WM/LTX2.0_TEXT_ENCODER",
+              "hidden_size": 2048,
+              "hidden_layers": [
+                8,
+                18,
+                28,
+                35
+              ],
+              "layer_fusion": "attention",
+              "target_dim": 2048,
+              "video_dim": 4096,
+              "audio_dim": 2048,
+              "fusion_width": 512,
+              "fusion_depth": 2,
+              "fusion_heads": 8,
+              "decoder_width": 1024,
+              "decoder_depth": 16,
+              "diffusion_batch_mul": 16,
+              "zero_init_connector": true,
+              "vision_fps": 2.0,
+              "audio_hz": 4.0,
+              "vision_max_pixels": 65536,
+              "feature_video_weight": 1.0,
+              "feature_audio_weight": 1.0,
+              "av_weight": 1.0,
+              "learning_rate": 0.0001
+            },
+            "omni_config_sha256": "20790f362c37a1718a3e764f597ae33dfc20177399762018dffaabf8321d4dd1",
+            "omni_index_sha256": "5b7629198e2ef80e37612a491d9bfd71639d2f212632d36d8ab086922e74e129"
+          },
+          "recipe": "joint",
+          "entries": [
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0000.pt",
+              "sample_id": "V02_S5137_I00000730_00003258_00003498_turn_P5135",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0000.pt",
+              "sample_id": "V00_S1010_I00000197_00008314_00008554_turn_P0929",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0000.pt",
+              "sample_id": "V03_S1025_I00000082_00004093_00004333_turn_P2641",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0000.pt",
+              "sample_id": "V02_S5089_I00000196_00002202_00002442_turn_P5116",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0000.pt",
+              "sample_id": "V00_S0431_I00000131_00003150_00003390_turn_P0006A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0000.pt",
+              "sample_id": "V00_S1543_I00001070_00004506_00004746_turn_P0921A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0000.pt",
+              "sample_id": "V00_S0656_I00000385_00001451_00001691_turn_P0813",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0000.pt",
+              "sample_id": "V01_S1840_I00000703_00000046_00000286_turn_P2736",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0000.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0001.pt",
+              "sample_id": "V02_S5043_I00000055_00003144_00003624_turn_P5005",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0001.pt",
+              "sample_id": "V00_S0779_I00000515_00001950_00002430_turn_P0917",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0001.pt",
+              "sample_id": "V00_S0441_I00000379_00004057_00004537_turn_P0578",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0001.pt",
+              "sample_id": "V02_S3269_I00000135_00005227_00005707_turn_P4142",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0001.pt",
+              "sample_id": "V00_S1399_I00001174_00000627_00001107_turn_P0557A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0001.pt",
+              "sample_id": "V00_S0458_I00000132_00007153_00007633_turn_P0590",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0001.pt",
+              "sample_id": "V00_S1616_I00001170_00004025_00004505_turn_P1124A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0001.pt",
+              "sample_id": "V00_S0848_I00000479_00009070_00009550_turn_P0028A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0001.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/features_0002.pt",
+              "sample_id": "V01_S1666_I00000702_00000959_00001679_turn_P2023",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard0/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/features_0002.pt",
+              "sample_id": "V01_S0258_I00001294_00000928_00001648_turn_P1467",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard1/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/features_0002.pt",
+              "sample_id": "V00_S1406_I00001171_00011245_00011965_turn_P0407A",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard2/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/features_0002.pt",
+              "sample_id": "V02_S5091_I00000217_00003703_00004423_turn_P5105",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard3/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/features_0002.pt",
+              "sample_id": "V02_S3440_I00000194_00004945_00005665_turn_P4179",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard4_retry/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/features_0002.pt",
+              "sample_id": "V01_S0548_I00000726_00003649_00004369_turn_P1572",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard5/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/features_0002.pt",
+              "sample_id": "V03_S1231_I00000154_00041885_00042604_turn_P3835",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard6/text_0002.pt"
+            },
+            {
+              "features": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/features_0002.pt",
+              "sample_id": "V03_S1933_I00000198_00002629_00003349_turn_P4092",
+              "split": "train",
+              "text": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/shard7/text_0002.pt"
+            }
+          ],
+          "tiny": false,
+          "seed": 45,
+          "world_size": 24,
+          "accumulation": 3,
+          "trainer": "p2_ddp_v1",
+          "fused_adam": true,
+          "balance_workload": true
+        },
+        "args": {
+          "gpus": "0,1,2,3,4,5,6,7",
+          "cache": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/train/cache_index.json",
+          "output": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/benchmark_balanced",
+          "checkpoint_dir": "/public/2_CKPT/0_WM/llq/p2_3n24g_20261008_benchmark_balanced",
+          "config": null,
+          "resume": null,
+          "recipe": "joint",
+          "steps": 1,
+          "balance_workload": true,
+          "accumulation": 3,
+          "save_every": 100,
+          "seed": 45,
+          "tiny": false,
+          "allow_terminal_trim": true,
+          "checkpoint_every": 1,
+          "decoder_checkpointing": true,
+          "fused_adam": true,
+          "cache_samples": 3,
+          "data_root": "/private/liqi_workspace/data/seamless/subset_300h_pure",
+          "validation_cache": null,
+          "validate_every": 100,
+          "validation_seed": 1045,
+          "tensorboard": true,
+          "nnodes": 3,
+          "node_rank": 0,
+          "master_addr": "172.29.252.24",
+          "master_port": 29848,
+          "run_id": "benchmark_balanced",
+          "network_config": "/private/liqi_workspace/project_code/audio-driven-v4/configs/p2_roce.json",
+          "preflight_only": false,
+          "probe": null,
+          "worker": true
+        },
+        "global_batch": 72
+      }
+    }
+  },
+  "manifest_sha256": {
+    "outputs/p2_full91009_dev48_20261008/train.json": "45f10fd1c2a7c1564db88fedfea8f51a62e1c71004ede5924dfb01a7c48ba78f",
+    "outputs/p2_full91009_dev48_20261008/dev.json": "723072f90728e71bd6c067be8636945c91fcfc1a9efe1b1649fe8ce89512f943",
+    "outputs/p2_3n24g_20261008/gate_train.json": "d4c6b5145f94a2653fa862977d65d9f15b8bd9654f3a26b8cf2291eacd7689af"
+  },
+  "backup_source_sha256": {
+    "src/omni_av/__init__.py": "412a9493c2ca3f4d6dc59d711e04ad5c593ded3baa3ecee297b4134a45e408c5",
+    "src/omni_av/checkpoint.py": "66b7fa39ba14f621c5c48eb0e0a5eacfc563b78d45cb45cf3c6f854f531a207b",
+    "src/omni_av/config.py": "232e0b5241b4920d29c191fdc5f57fb713d46ce76d475cf9bbc3442374f60fdc",
+    "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+    "src/omni_av/flow.py": "b8043d0cc3de4492073a921faf367990383f273ddd45182e13062e1d0fa280c5",
+    "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+    "src/omni_av/ltx_gate.py": "e67da37c88c27fb2a6b36a7b4ef8a57b2aad59895953c4cdf6a03c96e25b3f50",
+    "src/omni_av/ltx_runtime.py": "819644c8262a4d02596833fe3c6f6d3249f78c9f0e90fcf5b2d288dc133187e2",
+    "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+    "src/omni_av/omni.py": "4b5ee8ed99767d5d204de1d80e137180337a909fb08543ea466b66f1e15a81bf",
+    "src/omni_av/planner.py": "99626ee269b362b7287f73a06f2d9cb55d5ea7ddb4256e7256c1f87c572e37b6",
+    "src/omni_av/renderer.py": "00e895449b836a28073fcafc23504f2be82e5b4ec985db5ee55ef46e5d948375",
+    "src/omni_av/runner.py": "37f4765f258bf607ddf4aec1845adc88f96455e6de73c0c73db58f3d90b9208c",
+    "src/omni_av/training.py": "aba2ab83db39917949b0a0a44ec2cdf4fba8f6851f15e3276ae463630a550ace",
+    "src/omni_av_p2/__init__.py": "db764150d6bcd88d2182552d1ed851200f1eb41e09e12d7d69999ac755776931",
+    "src/omni_av_p2/checkpoint.py": "778364c2edcc7da16c6cc996920232b1a55bd5528b4875ad731a27522818dfc9",
+    "src/omni_av_p2/config.py": "d7755801a6637a073ff8c883884e4217aba6891c480ca3c985ee4e1493d881c8",
+    "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+    "src/omni_av_p2/data.py": "009f1bf338634455a60332cf35d473a35ae4af1875738aaf84fe93fa7b524164",
+    "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+    "src/omni_av_p2/distributed.py": "5ea2f5687d1bf8fe68f67765e4480768ebca19ddc2bb889fbe35de95000d3904",
+    "src/omni_av_p2/inference.py": "4c9866a935d9065d600417c0008b5c04ef7900258cae633e499878029de96a31",
+    "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+    "src/omni_av_p2/ltx.py": "608341d49ccfdf97d63fbcf2c506625a36bd51a152b8131ae4f89b3e62b157a8",
+    "src/omni_av_p2/model.py": "39b32f9a7065838dae5902cb6060519ad2efaa7f7d5a3880a78bf76ab60a82c5",
+    "src/omni_av_p2/performance.py": "190c01cf2a55d80129735a69095e250e998bb149dd472ff3758a15967dca290f",
+    "src/omni_av_p2/probe.py": "e06ad1935365f91ba2074efb39f08dcd8e908093b894c6043e2b35f6b92999ab",
+    "src/omni_av_p2/runner.py": "75dd51f9463ec25d056684e6cbb7c7a352c2c94da48fa4ed15876f3b04801171",
+    "src/omni_av_p2/validation.py": "ae7b58885dc6bb52d25afc80b802e5682865bfb9615cbb8f4f6585a5bfa6303d",
+    "scripts/inspect_environment.py": "ba0101183e08d316eef6539be2e079df777ab97505af1a19d41c4244cdde5672",
+    "scripts/pipeline2.py": "d007fba7b7a4e9e21ab6ae653a9720ba6a9fe88fab8df5bcc943dedcd8e26216",
+    "scripts/pipeline2_cluster.py": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+    "scripts/pipeline2_dataset.py": "3c9a9d5134434ca4ffe9bc8e5278bee35a55ef63a3c385cfb697d88b565cec27",
+    "scripts/pipeline2_merge_cache.py": "73786e37479a24d9164ebd9ca9fffd395cfad9824a97f376da706b96846494c6",
+    "scripts/pipeline2_parallel.py": "f8f9c50a634b487eb5248970bd60d7e2058ee33845fa20b27ba990fbcd6486be",
+    "scripts/v4.py": "a3de3cca1a47f9fd81c8783070aae81094c378efcdd65f19bc1c8d7c47b0e973",
+    "configs/p2_full91009_dev48_experiment.json": "8523c6b9e7ad4feed9f5719552ddafe2b5d07780193bf2cdbda2560a774b6aaa",
+    "configs/p2_roce.json": "c44f50a88344bcbd5acab338e15c62f640682c4599cf12e62d6b116f55fd3919",
+    "configs/p2_three_nodes.json": "0978b14c7140d6b2c6dd2bb9ab737045583ac11a2adfa3f0213f873543d22538",
+    "configs/pipeline2_bernini_scale.json": "df666aff9d23d2350377e90dc0f2e0514b90614c043b54ee2d393e72e3af4b97",
+    "configs/pipeline2_single_layer.json": "ce693b79090e2238e263c646d8ebaa5a9cccd4caf130e687cad4e6c6ba6bc629",
+    "configs/pipeline2_weighted_layers.json": "3700b4fc355cea3d79bac6b3bae8ab60d77fe12edcff6ff28caddc1042cf54c2"
+  },
+  "provenance_note": "Raw results copied without changing historical values; backup_source_sha256 identifies source at backup time, not a claim that earlier runs used every later change. outputs/ and weights remain local.",
+  "backup_validation": {
+    "cpu_pytest": {
+      "command": "CUDA_VISIBLE_DEVICES='' /private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python -m pytest -q tests",
+      "passed": 51,
+      "seconds": 14.36
+    },
+    "ruff": {
+      "rules": [
+        "F63",
+        "F7",
+        "F82"
+      ],
+      "passed": true,
+      "scope": "P2 scripts/modules; changed P1 data/runtime; P2 audit/training tests"
+    },
+    "git_diff_check_passed": true
+  }
+}

@@ -71,10 +71,21 @@ def decode_and_save(cfg, video, audio, fps, path, device="cuda:0"):
     if path.exists():
         raise FileExistsError(path)
     decoder = load_video_vae_decoder(cfg.ltx_path, device, torch.bfloat16).requires_grad_(False).eval()
-    pixels = decoder(video.to(device, torch.bfloat16))
-    if not torch.isfinite(pixels).all():
-        raise FloatingPointError("Invalid decoded video")
-    pixels = ((pixels[0].float() + 1) / 2).clamp(0, 1).cpu()
+    # A full 233-frame 720p decode exceeds H200 memory even after unloading DiT.
+    # Use native overlapping spatial/temporal tiles and move each chunk to CPU.
+    from ltx_core.model.video_vae.tiling import TilingConfig
+    tiled = video.shape[2] > 10 or video.shape[3] > 24 or video.shape[4] > 24
+    tiling = TilingConfig.default() if tiled else None
+    chunks = []
+    for chunk in decoder.decode_video(video.to(device, torch.bfloat16), tiling_config=tiling):
+        if not torch.isfinite(chunk).all():
+            raise FloatingPointError("Invalid decoded video")
+        chunks.append(chunk.float().cpu())
+    pixels = torch.cat(chunks, 0).permute(3, 0, 1, 2).contiguous()
+    expected = ((video.shape[2] - 1) * 8 + 1, video.shape[3] * 32, video.shape[4] * 32)
+    if tuple(pixels.shape[1:]) != expected:
+        raise ValueError(f"Decoded video geometry mismatch: {pixels.shape[1:]} != {expected}")
+    del chunks, chunk
     del decoder
     unload()
     decoder = load_audio_vae_decoder(cfg.ltx_path, device, torch.bfloat16).requires_grad_(False).eval()
@@ -96,6 +107,6 @@ def decode_and_save(cfg, video, audio, fps, path, device="cuda:0"):
         wave = torch.nn.functional.pad(wave, (0, padding))
     wave = wave[..., :count]
     save_video(pixels, path, fps=fps, audio=wave, audio_sample_rate=rate, video_format="CFHW")
-    return dict(frames=pixels.shape[1], height=pixels.shape[2], width=pixels.shape[3],
+    return dict(frames=pixels.shape[1], height=pixels.shape[2], width=pixels.shape[3], tiled_video_decode=tiled,
                 audio_samples=wave.shape[-1], audio_rate=rate, rounding_padding_samples=padding,
                 duration_s=pixels.shape[1] / fps)

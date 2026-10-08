@@ -3,6 +3,7 @@ import gc
 import json
 from dataclasses import replace
 from pathlib import Path
+from functools import lru_cache
 
 import torch
 from torch import nn
@@ -59,21 +60,28 @@ def encode_text(config, plan, device="cuda:0"):
         runtime.close()
 
 
-def load_av_targets(root, sample_id, device="cuda:0", tiny=False):
+@lru_cache(maxsize=6)
+def _vae_metadata(path, mtime_ns, size):
+    rows = [json.loads(line) for line in Path(path).open()]
+    result = {row["sample_id"]: row for row in rows}
+    if len(result) != len(rows):
+        raise ValueError("Duplicate VAE metadata IDs")
+    return result
+
+
+def load_av_targets(root, sample_id, device="cuda:0", tiny=False, split="train"):
+    if split not in {"train", "dev", "test"}:
+        raise ValueError("Unknown dataset split")
     root = Path(root) / "ltx23_precomputed_720p_area_qualified_20260920"
-    meta = None
-    with (root / "metadata_train.jsonl").open() as stream:
-        for line in stream:
-            row = json.loads(line)
-            if row["sample_id"] == sample_id:
-                meta = row
-                break
-    if meta is None or meta["split"] != "train":
-        raise ValueError("Sample absent from Train VAE metadata")
+    path = root / f"metadata_{split}.jsonl"
+    stat = path.stat()
+    meta = _vae_metadata(str(path.resolve()), stat.st_mtime_ns, stat.st_size).get(sample_id)
+    if meta is None or meta["split"] != split:
+        raise ValueError(f"Sample absent from {split} VAE metadata")
     result = {}
     sources = {}
     for key, folder in (("latents", "latents"), ("audio_latents", "audio_latents")):
-        candidates = [root / folder / f"{sample_id}.pt", root / folder / "train" / f"{sample_id}.pt"]
+        candidates = [root / folder / f"{sample_id}.pt", root / folder / split / f"{sample_id}.pt"]
         found = [p for p in candidates if p.is_file()]
         if len(found) != 1:
             raise ValueError(f"Expected one VAE cache: {candidates}")

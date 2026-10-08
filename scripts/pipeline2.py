@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Independent Pipeline 2 entry point; all outputs must be new paths."""
 import argparse
-import json
 import os
 from pathlib import Path
 import subprocess
@@ -26,6 +25,8 @@ def main():
     parser.add_argument("--text-only", action="store_true", help="E0 baseline: native Gemma text + first frame, no U/checkpoint")
     parser.add_argument("--zero-condition", action="store_true", help="Diagnostic: preserve U token count but set values to zero")
     parser.add_argument("--recipe", choices=["av", "joint"], default="joint")
+    parser.add_argument("--shards", type=int, default=1)
+    parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--samples", type=int, default=2)
     parser.add_argument("--budget", type=float, default=8)
     parser.add_argument("--steps", type=int, default=3)
@@ -40,6 +41,8 @@ def main():
     parser.add_argument("--fps", type=float, default=30)
     parser.add_argument("--data-root", type=Path, default=Path("/private/liqi_workspace/data/seamless/subset_300h_pure"))
     args = parser.parse_args()
+    if args.shards < 1 or not 0 <= args.shard_index < args.shards:
+        parser.error("Invalid preparation shard")
     if args.command == "export-checkpoint":
         if args.checkpoint is None or args.output is None:
             parser.error("export-checkpoint needs --checkpoint and new --output directory")

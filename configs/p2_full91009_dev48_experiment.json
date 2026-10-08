@@ -1,0 +1,29 @@
+{
+  "train_manifest": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_20261008/train.json",
+  "train_samples": 91009,
+  "dev_manifest": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_20261008/dev.json",
+  "dev_samples": 48,
+  "train_cache": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_cache/train/cache_index.json",
+  "dev_cache": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_3n24g_20261008/cache/dev/cache_index.json",
+  "checkpoint_root": "/public/2_CKPT/0_WM/llq",
+  "save_every": 100,
+  "validate_every": 100,
+  "tensorboard": true,
+  "recipe": "joint",
+  "preserve_source_spatial_shape": true,
+  "tiny": false,
+  "budgets_seconds": [
+    8,
+    16,
+    24
+  ],
+  "cluster": "configs/p2_three_nodes.json",
+  "full_training_started": false,
+  "full_train_cache_prepared": false,
+  "engineering_gate_train_samples": 24,
+  "engineering_gate_separate_from_full_training": true,
+  "accumulation": 3,
+  "balance_workload": true,
+  "world_size": 24,
+  "global_batch": 72
+}

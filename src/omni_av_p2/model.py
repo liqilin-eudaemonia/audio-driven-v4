@@ -14,8 +14,10 @@ class Extractor(nn.Module):
             self.audio_decoder = EmbeddingDecoder(config.target_dim, config.audio_dim,
                 config.decoder_width, config.decoder_depth, config.diffusion_batch_mul)
 
-    def forward(self, conditions):
-        return self.connector(conditions)
+    def forward(self, conditions, targets=None, generator=None):
+        u = self.connector(conditions)
+        # Keep auxiliary parameters inside DDP's forward/backward transaction.
+        return u if targets is None else (u, self.feature_losses(u, targets, generator))
 
     def feature_losses(self, u, targets, generator=None):
         return {mod: getattr(self, mod + "_decoder").loss(targets[mod], getattr(u, mod),
