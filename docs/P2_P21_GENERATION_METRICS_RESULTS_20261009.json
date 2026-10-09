@@ -122,5 +122,7 @@
     "scripts/pipeline2_validate.py": "1e2b7d88ac6d5eede903526f09ad623acb5d98eeb384560def1bb63be997e892",
     "scripts/pipeline21_validate.py": "55ad0d4d4b66e805430e9fddbf5e1d72fe88ba54f73ad5e077827630aba8a2fa",
     "configs/p2_generation_metrics.json": "4a1f4793ddb256873ab8c9a189b6a88dd3e1e36bf90a8e8b94fbbbab4ef9fc1d"
-  }
+  },
+  "code_commit": "e5773d592026148c46e612e3ea7ffba638cbc2ba",
+  "github_branch": "experiment/p21-text-lora-fresh-20261008"
 }
