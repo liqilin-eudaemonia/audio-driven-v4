@@ -83,3 +83,6 @@ Vocal是可选字段：Omni没有输出就为空，不从GT回填；保持训练
 - GPU生成、24卡生成调度、完整视频解码与效果尚未实测。默认采样器的生成质量尚未验证，必须先做一对真实样本门禁再推进全量。
 
 机器可读记录：[P2_FULL_PLAN_VALIDATION_RESULTS_20261008.json](P2_FULL_PLAN_VALIDATION_RESULTS_20261008.json)。
+
+
+2026-10-09新增：[历史四项生成指标及覆盖率](P2_P21_GENERATION_METRICS_20261009.md)。支持原验证入口的`metrics`子命令，对已有视频评分；与训练/Dev loss分开记录。GT／Omni规划阶段增加独立状态记录，Omni计划拒绝后GT可继续，配对状态保留partial。

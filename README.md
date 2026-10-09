@@ -1,5 +1,7 @@
 # Audio driven v4 总索引
 
+**P2／P2.1生成质量指标已接入（2026-10-09）**：沿用旧版ArcFace ID、FID、FVD、SyncNet-C，保留SyncNet-D及覆盖率；GT／Omni分别评分并提供共同成功样本对照，记录规划合法率和生成成功率。支持已有视频独立重算、CSV及TensorBoard。37项CPU回归、真实CPU ID/FID/FVD自检通过；当前未执行Dev生成或新视频SyncNet评分。[指标口径与命令](docs/P2_P21_GENERATION_METRICS_20261009.md) · [检查证据](docs/P2_P21_GENERATION_METRICS_RESULTS_20261009.json)。
+
 **P2 → P2.1 切换任务（2026-10-08）**：P2到第200步保存后停止；P2.1使用原始LTX-2.3与新初始化Extractor/LoRA独立训练，**不加载P2权重**。24卡、global batch72、目标1000步、每100步保存、不推理Dev；新增每15分钟三机GPU/进度检查、当前任务告警和受限checkpoint恢复。[运行与监控记录](docs/P21_FRESH_3NODE_TRAIN_20261008.md) · [检查结果](docs/P21_FRESH_START_RESULTS_20261008.json)。14:34 UTC已在原三机24卡启动；四卡完整模型更新/恢复测试已通过。[GitHub实验分支](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p21-text-lora-fresh-20261008)，初始实现提交`b07988d`；GPU检查与四卡续训提交[8c7dd05](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/8c7dd057d844145b7281e3994adb0aab0009e14d)。P2第200步完整保存后，按后续指示迁至172.29.104.194的0–3卡续训，见[四卡续训记录](docs/P2_RESUME_4GPU_20261008.md)。
 
 **Pipeline 2.1（2026-10-08）**：新增 **Connector + 原生 text cross-attention LoRA**，仅开放视频`attn2`与音频`audio_attn2`的Q/K/V/输出投影增量；其余DiT参数冻结。独立训练/三机/配对验证入口、adapter与Connector共同保存恢复，复用当前P2缓存。默认rank8，完整四卡训练/保存/恢复门禁通过，三机24卡独立训练已启动；P2冻结版另在四卡续训。[实现与命令](docs/PIPELINE21_IMPLEMENTATION.md) · [测试记录](docs/PIPELINE21_RESULTS_20261008.json)。

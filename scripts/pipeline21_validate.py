@@ -90,6 +90,10 @@ def launch(args):
 
 
 def main():
+    if sys.argv[1:2] == ['metrics']:
+        from pipeline2_metrics import main as metrics_main
+        metrics_main(sys.argv[2:])
+        return
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest='command', required=True)
     prepare = sub.add_parser('prepare', help='CPU-only Dev48 task preparation; no inference')

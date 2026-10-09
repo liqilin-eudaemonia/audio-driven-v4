@@ -1,0 +1,15 @@
+{
+  "legacy_trainer": "/private/liqi_workspace/project_code/Omni-LTX-stage2/packages/ltx-trainer",
+  "benchmark_root": "/private/codes/exp/boxian_workspace/codes/benchmark",
+  "id_python": "/private/software/conda/envs/ovi/bin/python",
+  "avbench_python": "/private/software/conda/envs/avbench/bin/python",
+  "sync_python": "/private/software/conda/envs/vocal_sync/bin/python",
+  "id_model_root": "/private/codes/exp/boxian_workspace/models/benchmark/insightface",
+  "id_model_name": "buffalo_l",
+  "torch_home": "/private/codes/exp/boxian_workspace/models/benchmark/torch",
+  "syncnet_root": "/private/codes/joint_gen/complex_motion_train/syncnet_python",
+  "id_frames": 8,
+  "fid_frames": 4,
+  "fvd_frames": 16,
+  "timeout_seconds": 7200
+}

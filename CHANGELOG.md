@@ -1,5 +1,9 @@
 # 版本变更记录
 
+## 2026-10-09 P2／P2.1：补齐历史四项生成指标
+
+对齐v2索引及Stage2旧评测代码，接入ArcFace ID/FID/FVD/SyncNet-C，附带SyncNet-D与覆盖率。新增独立metrics prepare/preflight/score入口、视频/权重身份审计、GT/Omni成功子集与共同子集对照、JSON/CSV/TensorBoard。无回复不计SyncNet但保留视觉指标，缺失/非有限值不填0；失败分母保持完整Dev48。Omni计划拒绝不再阻断GT生成，禁止GT回填Omni。训练代码/配置未改，未启动GPU验证。37项相关回归及CPU真实后端自检通过；新视频SyncNet与Dev生成仍待GPU验证。[说明与边界](docs/P2_P21_GENERATION_METRICS_20261009.md)。
+
 ## 2026-10-08 Pipeline 2.1：原生text cross-attention LoRA、独立训练与四卡门禁
 
 在P2相同的Gemma/U拼接条件上，只为每个block的视频attn2和音频audio_attn2的Q/K/V/输出投影新增可训练LoRA；原始DiT权重保持冻结。默认rank8/alpha8，LoRA学习率1e-5，Extractor仍为1e-4。新增独立P2.1多卡训练、保存恢复、固定噪声验证和GT/Omni配对推理入口；Connector和LoRA共同参与DDP，并共同写入部署权重。

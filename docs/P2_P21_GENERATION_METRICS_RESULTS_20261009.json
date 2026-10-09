@@ -1,0 +1,126 @@
+{
+  "tests_passed": 37,
+  "test_seconds": 8.46,
+  "ruff": "F,E9 passed",
+  "asset_preflight": {
+    "config": {
+      "legacy_trainer": "/private/liqi_workspace/project_code/Omni-LTX-stage2/packages/ltx-trainer",
+      "benchmark_root": "/private/codes/exp/boxian_workspace/codes/benchmark",
+      "id_python": "/private/software/conda/envs/ovi/bin/python",
+      "avbench_python": "/private/software/conda/envs/avbench/bin/python",
+      "sync_python": "/private/software/conda/envs/vocal_sync/bin/python",
+      "id_model_root": "/private/codes/exp/boxian_workspace/models/benchmark/insightface",
+      "id_model_name": "buffalo_l",
+      "torch_home": "/private/codes/exp/boxian_workspace/models/benchmark/torch",
+      "syncnet_root": "/private/codes/joint_gen/complex_motion_train/syncnet_python",
+      "id_frames": 8,
+      "fid_frames": 4,
+      "fvd_frames": 16,
+      "timeout_seconds": 7200
+    },
+    "asset_sha256": {
+      "/private/liqi_workspace/project_code/Omni-LTX-stage2/packages/ltx-trainer/scripts/compute_arcface_id.py": "c6e7fc84520aeab737c7d00f0fdc97577104739adf8270657e1ad1b6ad9fcb4f",
+      "/private/codes/exp/boxian_workspace/codes/benchmark/metrics/visual_distribution.py": "5cae7024e777477f28375a724efb1add43761a8afbdcb96300bb0a9eb5605096",
+      "/private/codes/exp/boxian_workspace/codes/benchmark/metrics/syncnet_metrics.py": "06af0ecd55312d987528f69a404ac32d8fdb53490924144df40ac6a290d1db45",
+      "/private/codes/exp/boxian_workspace/codes/benchmark/benchmark_core.py": "d3c652a941dbc4527268221a13ae777d88fd737a1a880b18eb95ca1c798ca635",
+      "/private/codes/joint_gen/complex_motion_train/syncnet_python/run_vocal_sync_multigpu.py": "9134caa0df36785cdc5a1e180556c849fa4ddd22b901c3a4591f3c0acc6991aa",
+      "/private/codes/joint_gen/complex_motion_train/syncnet_python/run_vocal_sync.py": "edc0355770aa1bf95d51af6fa98b30211716f5db7090a21a41811be91ceffedc",
+      "/private/codes/joint_gen/complex_motion_train/syncnet_python/data/syncnet_v2.model": "961e8696f888fce4f3f3a6c3d5b3267cf5b343100b238e79b2659bff2c605442",
+      "/private/codes/joint_gen/complex_motion_train/syncnet_python/models/audio-separator/model_bs_roformer_ep_317_sdr_12.9755.ckpt": "5b84f37e8d444c8cb30c79d77f613a41c05868ff9c9ac6c7049c00aefae115aa",
+      "/private/codes/joint_gen/complex_motion_train/syncnet_python/detectors/s3fd/weights/sfd_face.pth": "d54a87c2b7543b64729c9a25eafd188da15fd3f6e02f0ecec76ae1b30d86c491",
+      "/private/codes/exp/boxian_workspace/models/benchmark/insightface/models/buffalo_l/det_10g.onnx": "5838f7fe053675b1c7a08b633df49e7af5495cee0493c7dcf6697200b85b5b91",
+      "/private/codes/exp/boxian_workspace/models/benchmark/insightface/models/buffalo_l/w600k_r50.onnx": "4c06341c33c2ca1f86781dab0e829f88ad5b64be9fba56e56bc9ebdefc619e43",
+      "/private/codes/exp/boxian_workspace/models/benchmark/torch/hub/checkpoints/inception_v3_google-0cc3c7bd.pth": "0cc3c7bd75056d25e46cba549dc184522069b81e9787eff6df84f397bd52a5ef",
+      "/private/codes/exp/boxian_workspace/models/benchmark/torch/hub/checkpoints/I3D_8x8_R50.pyth": "eabc0c8de27af9ee7aa6348fb3a18f2c53fee4e73806b26d4499748543e857d8"
+    },
+    "protocol": {
+      "id": "ArcFace buffalo_l cosine, reference first frame vs 8 uniform generated frames",
+      "fid": "historical torchvision ImageNet Inception-v3 pooled features; not pytorch-fid",
+      "fvd": "historical PyTorchVideo I3D-R50 Kinetics pooled features; not TF-I3D FVD",
+      "sync": "historical vocal-separated SyncNet, single generated face gate",
+      "preprocessing": "metric feature copies use legacy resize/crop; source/generation geometry unchanged"
+    }
+  },
+  "backend_cpu_selftest": {
+    "status": "computed",
+    "values": {
+      "id_similarity": 0.6649718629196286,
+      "fid": 0.0,
+      "fvd": 0.0,
+      "sync_c": null,
+      "sync_d": null
+    },
+    "issues": [],
+    "sample_count": 2,
+    "id_coverage": {
+      "mean": 0.6649718629196286,
+      "std": 0.27340842317789793,
+      "min": 0.3915634397417307,
+      "max": 0.9383802860975266,
+      "count": 2,
+      "coverage": 1.0
+    },
+    "syncnet_coverage": {
+      "mean": null,
+      "count": 0,
+      "coverage": 0.0,
+      "dataset_count": 2,
+      "eligible_count": 0,
+      "excluded_count": 2,
+      "success_count": 0,
+      "eligible_coverage": 0.0,
+      "dataset_coverage": 0.0
+    },
+    "syncnet_status_counts": {
+      "not_applicable": 2
+    },
+    "fvd_status": "computed",
+    "small_sample_diagnostic": true,
+    "quality_pass": null,
+    "errors": {}
+  },
+  "sync_replay": {
+    "sync_c": {
+      "mean": 0.5304,
+      "median": 0.5304,
+      "min": 0.514,
+      "max": 0.5468,
+      "count": 2,
+      "coverage": 1.0,
+      "dataset_count": 2,
+      "eligible_count": 2,
+      "excluded_count": 0,
+      "success_count": 2,
+      "eligible_coverage": 1.0,
+      "dataset_coverage": 1.0
+    },
+    "sync_d": {
+      "mean": 10.20735,
+      "median": 10.20735,
+      "min": 10.032,
+      "max": 10.3827,
+      "count": 2,
+      "coverage": 1.0,
+      "dataset_count": 2,
+      "eligible_count": 2,
+      "excluded_count": 0,
+      "success_count": 2,
+      "eligible_coverage": 1.0,
+      "dataset_coverage": 1.0
+    }
+  },
+  "dev_suite_count": 48,
+  "generated_videos": 0,
+  "training_modified": false,
+  "gpu_used": false,
+  "new_video_syncnet_inference_tested": false,
+  "source_sha256": {
+    "src/omni_av_p2/generation_metrics.py": "e5c2848e2718a994ae62259dbc8adeabcd3b33f0470bef40fad02c7a8c4c61c8",
+    "src/omni_av_p2/paired_validation.py": "c9f2e7cbf08e96bdf9378489ddc5613725bef141db23eb32e380f86da92b0b11",
+    "src/omni_av_p21/paired_validation.py": "a95ada5eadb45638eb10b454ecc566900a0bd475b57a6b01b898d1de2d18528e",
+    "scripts/pipeline2_metrics.py": "f47c847b1a846319acb5af190396789a337572c9836572e361b24a02a4edb89b",
+    "scripts/pipeline2_validate.py": "1e2b7d88ac6d5eede903526f09ad623acb5d98eeb384560def1bb63be997e892",
+    "scripts/pipeline21_validate.py": "55ad0d4d4b66e805430e9fddbf5e1d72fe88ba54f73ad5e077827630aba8a2fa",
+    "configs/p2_generation_metrics.json": "4a1f4793ddb256873ab8c9a189b6a88dd3e1e36bf90a8e8b94fbbbab4ef9fc1d"
+  }
+}

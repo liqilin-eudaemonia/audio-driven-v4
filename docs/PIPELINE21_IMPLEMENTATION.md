@@ -70,3 +70,6 @@ TensorBoard在新运行的`training/tensorboard/`，新增`train/lora_grad_norm`
 测试包括精确注入名单、零增量等价、AV loss向Connector和两路LoRA回传、冻结底座不变、梯度重计算、BF16底座/FP32 adapter、LTX2.3 gated attention + text AdaLN路径、双进程累积对照、保存/恢复与部署输出一致、旧P2显式初始化、LoRA漏载拒绝、固定噪声Dev/RNG恢复、多机入口与忙卡保护。结果见[测试记录](PIPELINE21_RESULTS_20261008.json)。
 
 后续验证：105项CPU回归通过；监控功耗检查修改后11项监控回归通过（与前者重叠，不相加）。172.29.104.194的0–3卡完整22B模型完成2步独立训练、保存、加载并续训至第3步；LoRA梯度、冻结底座、四rank参数一致、部署权重与完整权重一致均通过。三机24卡已于14:34 UTC独立启动，最新进度与checkpoint审计见[运行记录](P21_FRESH_3NODE_TRAIN_20261008.md)。Dev生成质量仍未验证。
+
+
+2026-10-09新增：[历史四项生成指标及覆盖率](P2_P21_GENERATION_METRICS_20261009.md)。支持原验证入口的`metrics`子命令，对已有视频评分；与训练/Dev loss分开记录。GT／Omni规划阶段增加独立状态记录，Omni计划拒绝后GT可继续，配对状态保留partial。

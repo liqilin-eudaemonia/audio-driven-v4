@@ -66,10 +66,10 @@ def run_case(case, suite, cfg, connector, output, deployment, device='cuda:0'):
             raise ValueError('Refusing reference resize/crop')
     output.mkdir(parents=True, exist_ok=False)
     atomic_json_new(output / 'case.json', case)
-    plans, conditions, raw = collect_conditions(obs, TextPlan(**case['gt_plan']), cfg, suite['max_plan_tokens'])
+    plans, conditions, raw = collect_conditions(obs, TextPlan(**case['gt_plan']), cfg, suite['max_plan_tokens'], output)
     (output / 'omni_raw.txt').write_text(raw, encoding='utf8')
     controls, records = {}, {}
-    for mode in MODES:
+    for mode in plans:
         folder = output / mode
         folder.mkdir()
         plan, condition = plans[mode], conditions[mode]
@@ -91,7 +91,7 @@ def run_case(case, suite, cfg, connector, output, deployment, device='cuda:0'):
     texts = {}
     text_runtime = NativeTextConditioner(cfg)
     try:
-        for mode in MODES:
+        for mode in plans:
             texts[mode] = text_runtime.encode(plans[mode])
             records[mode]['gemma_prompt'] = texts[mode]['prompt']
             if texts[mode]['prompt'] != plans[mode].render_prompt():
@@ -104,7 +104,7 @@ def run_case(case, suite, cfg, connector, output, deployment, device='cuda:0'):
     latents = {}
     try:
         with torch.autocast('cuda', dtype=torch.bfloat16):
-            for mode in MODES:
+            for mode in plans:
                 video, audio = sample_branch(renderer, strategy, sampler, av, texts[mode], controls[mode],
                                              case['seed'], suite['sampling_steps'])
                 latents[mode] = (video, audio)
@@ -112,14 +112,14 @@ def run_case(case, suite, cfg, connector, output, deployment, device='cuda:0'):
     finally:
         del renderer, strategy, sampler, av, texts, controls
         unload()
-    for mode in MODES:
+    for mode in plans:
         video, audio = latents.pop(mode)
         decoded = decode_and_save(cfg, video, audio, geometry['fps'], output / mode / 'generated.mp4', device=device)
         if any(decoded[k] != geometry[k] for k in ('frames', 'height', 'width')):
             raise ValueError('Decoded output differs from training geometry')
         records[mode]['decoded'] = decoded
         atomic_json_new(output / mode / 'completed.json', records[mode])
-    result = dict(sample_id=obs.sample_id, modes=records, same_seed_and_geometry=True,
+    result = dict(sample_id=obs.sample_id, modes=records, pair_complete=set(records) == set(MODES), same_seed_and_geometry=True,
         protocol=PROTOCOL, hidden_extractor='omni_av_p2.data.extract_condition', quality_pass=None)
     atomic_json_new(output / 'completed.json', result)
     return result
@@ -146,8 +146,10 @@ def run_shard(suite_path, checkpoint, output, shard_index, shards):
     for case in suite['cases'][shard_index::shards]:
         destination = output / case['sample_id']
         try:
-            run_case(case, suite, cfg, connector, destination, deployment)
-            results.append(dict(sample_id=case['sample_id'], status='complete', output=str(destination)))
+            completed = run_case(case, suite, cfg, connector, destination, deployment)
+            results.append(dict(sample_id=case['sample_id'],
+                status='complete' if completed['pair_complete'] else 'partial',
+                available_modes=list(completed['modes']), output=str(destination)))
         except Exception:
             error = dict(sample_id=case['sample_id'], status='failed', traceback=traceback.format_exc())
             atomic_json_new(output / f"{case['sample_id']}.failed.json", error)

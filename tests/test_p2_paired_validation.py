@@ -137,15 +137,19 @@ def test_checkpoint_requires_publication_and_disjoint_dev(tmp_path):
         paired.checkpoint_state(path, suite)
 
 
-def test_pair_execution_uses_matching_hidden_and_gemma_plans(tmp_path, monkeypatch):
+@pytest.mark.parametrize('reject_omni', [False, True])
+def test_pair_execution_uses_matching_hidden_and_gemma_plans(tmp_path, monkeypatch, reject_omni):
     example, metadata, manifest, meta = media_case(tmp_path)
     monkeypatch.setattr(paired, 'contract', lambda cfg: {'prompt': 'no-time'})
     cfg = SimpleNamespace(to_dict=lambda: {})
     suite = paired.prepare_suite(manifest, meta, tmp_path / 'suite', cfg)
     case = suite['cases'][0]
     plans = dict(gt=TextPlan(**case['gt_plan']), omni=TextPlan('new words', 'new voice', 'new action', 'laugh'))
+    if reject_omni:
+        plans.pop('omni')
     monkeypatch.setattr(paired, 'collect_conditions', lambda *a: (
-        plans, dict(gt=make_condition(3, 1), omni=make_condition(5, 2)), plans['omni'].serialize()))
+        plans, dict(gt=make_condition(3, 1), omni=make_condition(5, 2)),
+        '' if reject_omni else plans['omni'].serialize()))
     monkeypatch.setattr(paired, 'unload', lambda: None)
     monkeypatch.setattr(torch, 'autocast', lambda *a, **kw: nullcontext())
     class TextRuntime:
@@ -174,13 +178,15 @@ def test_pair_execution_uses_matching_hidden_and_gemma_plans(tmp_path, monkeypat
                                condition.video_valid, condition.audio_valid)
     output = tmp_path / 'generated'
     result = paired.run_case(case, suite, cfg, connector, output, device='cpu')
-    assert seen == [(plans['gt'].render_prompt(), 1, 1045), (plans['omni'].render_prompt(), 2, 1045)]
-    for mode in paired.MODES:
+    assert seen == [(plan.render_prompt(), 1 if mode=='gt' else 2, 1045) for mode, plan in plans.items()]
+    assert result['pair_complete'] is not reject_omni
+    for mode in plans:
         hidden = torch.load(output / mode / 'hidden.pt', weights_only=True)
         assert hidden['text_plan'] == asdict(plans[mode])
         assert result['modes'][mode]['gt_plan_used'] == (mode == 'gt')
         assert not result['modes'][mode]['paired_target_media_used']
-    assert result['modes']['gt']['hidden_sha256'] != result['modes']['omni']['hidden_sha256']
+    if not reject_omni:
+        assert result['modes']['gt']['hidden_sha256'] != result['modes']['omni']['hidden_sha256']
 
 
 def test_comparison_report_escapes_plan_text(tmp_path):
@@ -192,3 +198,47 @@ def test_comparison_report_escapes_plan_text(tmp_path):
     text = (tmp_path / 'comparison.html').read_text()
     assert 'dev1/gt/generated.mp4' in text
     assert '<script>' not in text and '&lt;script&gt;' in text
+
+
+def test_planner_acceptance_is_recorded_before_hidden_failure(monkeypatch):
+    plan = TextPlan('own reply')
+    monkeypatch.setattr(paired, 'prepare_observation', lambda *a: {})
+    monkeypatch.setattr(paired, 'generate_reply', lambda *a, **k: (plan, plan.serialize()))
+    def fail(*a):
+        raise RuntimeError('hidden OOM')
+    monkeypatch.setattr(paired, 'extract_condition', fail)
+    records = []
+    with pytest.raises(RuntimeError, match='hidden OOM'):
+        paired.plan_conditions(None, None, None, TextPlan('GT'), None, 512, records.append)
+    assert records[0]['status'] == 'valid' and records[0]['plan']['reply'] == 'own reply'
+    assert records[0]['gt_fallback'] is False
+
+
+def test_invalid_plan_and_runtime_failure_have_distinct_records(monkeypatch):
+    monkeypatch.setattr(paired, 'prepare_observation', lambda *a: {})
+    for exc, status in [(ValueError('Incomplete plan'), 'rejected'), (RuntimeError('model OOM'), 'error')]:
+        def fail(*a, **kw):
+            raise exc
+        monkeypatch.setattr(paired, 'generate_reply', fail)
+        records = []
+        with pytest.raises(type(exc)):
+            paired.plan_conditions(None, None, None, TextPlan('GT'), None, 512, records.append)
+        assert records[0]['status'] == status and records[0]['gt_fallback'] is False
+
+
+def test_rejected_omni_does_not_prevent_gt_condition(monkeypatch):
+    gt = TextPlan('GT reply')
+    monkeypatch.setattr(paired, 'prepare_observation', lambda *a: {})
+    def fail(*a, **kw):
+        raise ValueError('Plan not terminated')
+    monkeypatch.setattr(paired, 'generate_reply', fail)
+    seen = []
+    def extract(*args):
+        seen.append(args[-1])
+        return make_condition()
+    monkeypatch.setattr(paired, 'extract_condition', extract)
+    records = []
+    plans, conditions, raw = paired.plan_conditions(None, None, None, gt, None, 512,
+                                                    records.append, allow_rejected=True)
+    assert plans == {'gt': gt} and list(conditions) == ['gt'] and raw == ''
+    assert seen == [gt] and records[0]['status'] == 'rejected'
