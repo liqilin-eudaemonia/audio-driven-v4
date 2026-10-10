@@ -2,6 +2,8 @@
 
 ## 2026-10-10 Pipeline 3：step1000完成归档与独立GitHub备份
 
+已推送固定代码提交：[a56d4ca](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/a56d4ca4939d49b3b2b6c4c17ab627a029bee32f)；后续索引提交只登记此版本。独立备份工作树23项CPU测试及7个CLI入口检查通过。
+
 备份分支：[backup/p3-3n24g-step1000-20261010](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-3n24g-step1000-20261010)。继承`d3e3667`共享依赖，集中新增P3 MASK规划、冻结/LoRA试验、多机训练/恢复、完整缓存、合批提速、监控、测试与历史实验文档。25个启动源码哈希与正式运行记录全部一致；旧条目中的“未上传”描述当时状态，本次备份登记见[专页](docs/PIPELINE3_GITHUB_BACKUP_20261010.md)。
 
 三机24卡全量Train91,009/Dev48 LoRA训练已正常完成step1000，24rank权重一致，最终检查点/Dev48结果完整，无训练错误。正式平均0.619秒/步；同样本/噪声的短测速选择batch2×累积2，吞吐提高19.7%。[最终结果](docs/PIPELINE3_FULL_TRAIN_FINAL_20261010.json)。本版本仍是规划阶段，不含生成Connector/LTX训练或自主时长预测；权重、缓存和媒体不上传。

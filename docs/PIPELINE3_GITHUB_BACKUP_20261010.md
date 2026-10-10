@@ -1,5 +1,7 @@
 # Pipeline 3 GitHub备份与复现（2026-10-10）
 
+**固定代码提交**：[a56d4ca4939d49b3b2b6c4c17ab627a029bee32f](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/a56d4ca4939d49b3b2b6c4c17ab627a029bee32f)，已推送。后续文档提交登记该哈希，不改变训练代码。本次独立工作树验证：[23项CPU测试、7个CLI入口及源码匹配记录](PIPELINE3_BACKUP_CHECKS_20261010.json)。
+
 私密仓库：[liqilin-eudaemonia/audio-driven-v4](https://github.com/liqilin-eudaemonia/audio-driven-v4)。独立分支：[backup/p3-3n24g-step1000-20261010](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-3n24g-step1000-20261010)。以`d3e366744cc72ebc11bbf24acac558fcbcecd449`为基础，继承已备份的P1/P2/P2.1及P3需要的共享工具；本次新增P3文件，不改变其他分支。
 
 ## 本次版本内容

@@ -2,6 +2,8 @@
 
 **Pipeline 3 代码备份（2026-10-10）**：[独立备份分支](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-3n24g-step1000-20261010)。覆盖MASK规划、冻结/LoRA对照、三机训练与恢复、全量缓存、合批提速、监控、配置、测试和实验文档；详见[备份范围与复现](docs/PIPELINE3_GITHUB_BACKUP_20261010.md)。
 
+固定代码提交：[a56d4ca](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/a56d4ca4939d49b3b2b6c4c17ab627a029bee32f)，已推送并保存在原私密仓库；后续索引提交仅登记该代码版本。独立备份工作树23项P3测试、7个CLI入口检查通过，正式训练25个源码哈希全部匹配。
+
 **Pipeline 3 全量三机训练已完成 step1000（2026-10-09）**：Train91,009／Dev48，node17/node12/node16三机24卡，Thinker LoRA与规划头训练，global batch96。四组实测选择每卡batch2×累积2，相对基准吞吐提高19.7%；正式1000步平均0.619秒/步，24rank权重一致，最终检查点与Dev48结果已保存。[完整训练记录](docs/PIPELINE3_FULL_TRAIN_20261009.md) · [最终结果](docs/PIPELINE3_FULL_TRAIN_FINAL_20261010.json) · [测速证据](docs/PIPELINE3_OPTIMIZATION_RESULTS_20261009.json)。本轮仅训练规划器，尚未接入LTX验证生成质量。
 
 **Pipeline 3 多机工程验证历史（2026-10-09）**：配置式SSH／torchrun、DDP梯度累积、分布式Dev验证及完整状态恢复已测试。18项CPU回归、真实Omni三机24卡更新、两机16卡LoRA恢复及冻结组更新通过；严格24卡恢复／24→4卡转换未验证或实现。[多机说明](docs/PIPELINE3_MULTINODE_20261009.md) · [工程结果](docs/PIPELINE3_MULTINODE_RESULTS_20261009.json)。后续全量step1000完成及GitHub备份见顶部。
