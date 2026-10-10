@@ -1,0 +1,14 @@
+{
+  "decoder_width": 512,
+  "decoder_depth": 16,
+  "diffusion_batch_mul": 4,
+  "train_samples": 16,
+  "dev_samples": 8,
+  "steps": 200,
+  "heads_lr": 0.0001,
+  "lora_lr": 0.0001,
+  "seed": 20261008,
+  "eval_seeds": [137, 251],
+  "planning_steps": 25,
+  "denoising_steps": 5
+}

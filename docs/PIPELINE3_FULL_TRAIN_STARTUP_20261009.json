@@ -1,0 +1,661 @@
+{
+  "recorded_utc": "2026-10-09T14:14:26Z",
+  "status": "preparing_full_cache",
+  "formal_optimizer_started": false,
+  "prepared": 31356,
+  "expected": 91057,
+  "recent_cache_samples_per_second": 47.50904709094934,
+  "launch": {
+    "cache_pid": 467820,
+    "monitor_pid": 467821,
+    "cache": "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009",
+    "run_root": "/public/2_CKPT/0_WM/llq/p3_full91009_3n24g_1000step_20261009",
+    "cache_command": [
+      "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+      "/private/liqi_workspace/project_code/audio-driven-v4/scripts/pipeline3_full_cache.py",
+      "--cluster",
+      "/private/liqi_workspace/project_code/audio-driven-v4/configs/p3_three_nodes.json",
+      "--output",
+      "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009",
+      "--train-manifest",
+      "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_20261008/train.json",
+      "--dev-manifest",
+      "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_20261008/dev.json",
+      "--lanes",
+      "4"
+    ],
+    "monitor_command": [
+      "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+      "/private/liqi_workspace/project_code/audio-driven-v4/scripts/pipeline3_monitor.py",
+      "--cluster",
+      "/private/liqi_workspace/project_code/audio-driven-v4/configs/p3_three_nodes.json",
+      "--cache",
+      "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009",
+      "--run-root",
+      "/public/2_CKPT/0_WM/llq/p3_full91009_3n24g_1000step_20261009",
+      "--output",
+      "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p3_full_training_20261009/monitor",
+      "--interval",
+      "15"
+    ]
+  },
+  "supervisor": {
+    "pid": 474667,
+    "command": [
+      "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+      "/private/liqi_workspace/project_code/audio-driven-v4/scripts/pipeline3_full_run.py",
+      "--cache",
+      "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009",
+      "--output",
+      "/public/2_CKPT/0_WM/llq/p3_full91009_3n24g_1000step_20261009",
+      "--cluster",
+      "/private/liqi_workspace/project_code/audio-driven-v4/configs/p3_full_three_nodes.json",
+      "--cache-pid",
+      "467820"
+    ]
+  },
+  "tests_passed": 20,
+  "extraction_gate": {
+    "exact_embeddings": true,
+    "cases": [
+      {
+        "sample": "V01_S1666_I00000702_00000959_00001679_turn_P2023",
+        "duration": 24.0,
+        "prefix": 866,
+        "video": 1440,
+        "audio": 600,
+        "seconds": 5.403062306344509
+      },
+      {
+        "sample": "V02_S5110_I00000299_00005070_00005194_turn_P5141",
+        "duration": 4.15,
+        "prefix": 413,
+        "video": 330,
+        "audio": 104,
+        "seconds": 17.764688685536385
+      }
+    ],
+    "peak_gb": 8.860167026519775
+  },
+  "cache_spot_audit": {
+    "time": 1791555046.512268,
+    "passed": 24,
+    "checks": [
+      {
+        "shard": 0,
+        "sample": "V03_S1734_I00000007_00000876_00001584_turn_P4941",
+        "duration": 23.635,
+        "video": 1584,
+        "audio": 591
+      },
+      {
+        "shard": 4,
+        "sample": "V02_S3580_I00000040_00002357_00003066_turn_P4237",
+        "duration": 23.636,
+        "video": 1584,
+        "audio": 591
+      },
+      {
+        "shard": 8,
+        "sample": "V00_S1580_I00001169_00001244_00001955_turn_P1103A",
+        "duration": 23.683,
+        "video": 1728,
+        "audio": 592
+      },
+      {
+        "shard": 12,
+        "sample": "V01_S0356_I00001171_00004328_00005039_turn_P1537",
+        "duration": 23.693,
+        "video": 1536,
+        "audio": 592
+      },
+      {
+        "shard": 16,
+        "sample": "V03_S1794_I00000195_00002806_00003517_turn_P5106",
+        "duration": 23.705,
+        "video": 1440,
+        "audio": 593
+      },
+      {
+        "shard": 20,
+        "sample": "V03_S0513_I00000135_00002714_00003424_turn_P1503",
+        "duration": 23.71,
+        "video": 1440,
+        "audio": 593
+      },
+      {
+        "shard": 24,
+        "sample": "V02_S3521_I00000315_00004742_00005454_turn_P4093",
+        "duration": 23.715,
+        "video": 1440,
+        "audio": 593
+      },
+      {
+        "shard": 28,
+        "sample": "V02_S3533_I00000759_00002829_00003540_turn_P4178",
+        "duration": 23.708,
+        "video": 1584,
+        "audio": 593
+      },
+      {
+        "shard": 32,
+        "sample": "V00_S0877_I00000520_00000831_00001542_turn_P0989",
+        "duration": 23.7,
+        "video": 1440,
+        "audio": 592
+      },
+      {
+        "shard": 36,
+        "sample": "V03_S2111_I00000276_00003898_00004607_turn_P2182",
+        "duration": 23.674,
+        "video": 1440,
+        "audio": 592
+      },
+      {
+        "shard": 40,
+        "sample": "V00_S1460_I00000999_00002902_00003613_turn_P1094A",
+        "duration": 23.676,
+        "video": 1440,
+        "audio": 592
+      },
+      {
+        "shard": 44,
+        "sample": "V03_S2030_I00000232_00006069_00006779_turn_P1491",
+        "duration": 23.699,
+        "video": 1584,
+        "audio": 592
+      },
+      {
+        "shard": 48,
+        "sample": "V00_S1266_I00001110_00000406_00001116_turn_P0028A",
+        "duration": 23.684,
+        "video": 1584,
+        "audio": 592
+      },
+      {
+        "shard": 52,
+        "sample": "V03_S1218_I00000203_00003221_00003930_turn_P3771",
+        "duration": 23.656,
+        "video": 1584,
+        "audio": 591
+      },
+      {
+        "shard": 56,
+        "sample": "V00_S0239_I00000135_00005280_00005990_turn_P0006A",
+        "duration": 23.668,
+        "video": 1584,
+        "audio": 592
+      },
+      {
+        "shard": 60,
+        "sample": "V00_S0580_I00000371_00000005_00000715_turn_P0477",
+        "duration": 23.683,
+        "video": 1440,
+        "audio": 592
+      },
+      {
+        "shard": 64,
+        "sample": "V03_S0521_I00000478_00003921_00004630_turn_P2015",
+        "duration": 23.629,
+        "video": 1584,
+        "audio": 591
+      },
+      {
+        "shard": 68,
+        "sample": "V00_S0144_I00000135_00002196_00002905_turn_P0079",
+        "duration": 23.637,
+        "video": 1584,
+        "audio": 591
+      },
+      {
+        "shard": 72,
+        "sample": "V00_S0605_I00000487_00004898_00005607_turn_P0229A",
+        "duration": 23.649,
+        "video": 1584,
+        "audio": 591
+      },
+      {
+        "shard": 76,
+        "sample": "V00_S1960_I00000611_00004591_00005300_turn_P1229",
+        "duration": 23.638,
+        "video": 1584,
+        "audio": 591
+      },
+      {
+        "shard": 80,
+        "sample": "V02_S5109_I00000282_00002753_00003462_turn_P5140",
+        "duration": 23.637,
+        "video": 1440,
+        "audio": 591
+      },
+      {
+        "shard": 84,
+        "sample": "V02_S5160_I00000330_00004301_00005010_turn_P5197",
+        "duration": 23.652,
+        "video": 1440,
+        "audio": 591
+      },
+      {
+        "shard": 88,
+        "sample": "V03_S0042_I00000374_00011309_00012018_turn_P1031",
+        "duration": 23.652,
+        "video": 1680,
+        "audio": 591
+      },
+      {
+        "shard": 92,
+        "sample": "V03_S0219_I00000500_00005085_00005793_turn_P1487",
+        "duration": 23.631,
+        "video": 1680,
+        "audio": 591
+      }
+    ]
+  },
+  "long_training_gate": {
+    "records": [
+      {
+        "step": 1,
+        "seconds": 2.6140232160687447,
+        "grad_norm": 0.5033513903617859,
+        "audit": {
+          "mask": 0.0,
+          "connector": 0.0,
+          "decoder": 0.0183563232421875,
+          "lora": 0.0
+        },
+        "peak_gb": 22.71879243850708
+      },
+      {
+        "step": 2,
+        "seconds": 1.1308709513396025,
+        "grad_norm": 0.49954578280448914,
+        "audit": {
+          "mask": 0.0,
+          "connector": 0.0,
+          "decoder": 0.0184173583984375,
+          "lora": 0.0
+        },
+        "peak_gb": 23.372610569000244
+      },
+      {
+        "step": 3,
+        "seconds": 1.9544546287506819,
+        "grad_norm": 0.5483032464981079,
+        "audit": {
+          "mask": 0.004119593184441328,
+          "connector": 0.0013599395751953125,
+          "decoder": 0.019012451171875,
+          "lora": 9.09566879272461e-05
+        },
+        "peak_gb": 23.627690315246582
+      },
+      {
+        "step": 4,
+        "seconds": 0.9921244196593761,
+        "grad_norm": 0.733137309551239,
+        "audit": {
+          "mask": 0.03629447519779205,
+          "connector": 0.004547119140625,
+          "decoder": 0.020233154296875,
+          "lora": 0.0004000663757324219
+        },
+        "peak_gb": 23.627690315246582
+      }
+    ],
+    "entries": [
+      {
+        "path": "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009/shards/000/000000_1791554456447379416.pt",
+        "sha256": "d0cb8b3460a102b3adad775e0edbea8522efaf996663b51d6d578dff53ab0098",
+        "sample_id": "V01_S1666_I00000702_00000959_00001679_turn_P2023",
+        "split": "train",
+        "prefix_tokens": 866,
+        "video_tokens": 1440,
+        "audio_tokens": 600,
+        "duration_s": 24.0,
+        "seconds": 17.13838835991919
+      },
+      {
+        "path": "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009/shards/000/000001_1791554462515303885.pt",
+        "sha256": "52642c7aed79c857f59b62fb708f0eaa16128284e4539a206207423066660527",
+        "sample_id": "V02_S3290_I00000384_00003835_00004549_turn_P4087",
+        "split": "train",
+        "prefix_tokens": 796,
+        "video_tokens": 1680,
+        "audio_tokens": 595,
+        "duration_s": 23.798,
+        "seconds": 6.063893761485815
+      },
+      {
+        "path": "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009/shards/000/000002_1791554467869011459.pt",
+        "sha256": "e5e06f8fd754878ee897f9320937bff6784a21c6cf3f73ac4de61e8d3140ff01",
+        "sample_id": "V00_S1775_I00001134_00003249_00003963_turn_P1115A",
+        "split": "train",
+        "prefix_tokens": 664,
+        "video_tokens": 1440,
+        "audio_tokens": 595,
+        "duration_s": 23.788,
+        "seconds": 5.3473659586161375
+      },
+      {
+        "path": "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009/shards/000/000003_1791554472049997322.pt",
+        "sha256": "eb4b315b9c8b57dc305f33a394587cce179f3e00fd5685b4780a7b7987d11d2e",
+        "sample_id": "V03_S1734_I00000007_00000876_00001584_turn_P4941",
+        "split": "train",
+        "prefix_tokens": 648,
+        "video_tokens": 1584,
+        "audio_tokens": 591,
+        "duration_s": 23.635,
+        "seconds": 4.181708492338657
+      }
+    ],
+    "note": "Shares GPU only with this task cache workers; not a throughput benchmark"
+  },
+  "cpu_distributed_gate": {
+    "arm": "lora",
+    "world_size": 4,
+    "physical_nodes": 1,
+    "hosts": [
+      "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+      "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+      "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+      "dedicated-developjob-zhizhou-tokenizer-1-kix71"
+    ],
+    "tiny": true,
+    "pretrained_omni": false,
+    "backend": "gloo",
+    "start_step": 0,
+    "end_step": 4,
+    "ranks_identical": true,
+    "trainable_sha256": "81bc7160dea319afe851466daa577d0011ce6bf456b4f1c6177b8ef6e9fa5773",
+    "global_batch": 16,
+    "serial_reference_max_abs_error": 2.9802322387695312e-08,
+    "validation_count": 3,
+    "final_validation": {
+      "count": 3,
+      "video": 1.8690669933954875,
+      "audio": 1.9687730471293132,
+      "shuffled_video": 1.8690669933954875,
+      "shuffled_audio": 1.9687730471293132,
+      "records": [
+        {
+          "sample_id": "dev_0",
+          "seed": 21161008,
+          "values": [
+            1.8064228296279907,
+            2.09486722946167,
+            1.8064228296279907,
+            2.09486722946167
+          ]
+        },
+        {
+          "sample_id": "dev_1",
+          "seed": 21161009,
+          "values": [
+            1.8980166912078857,
+            1.9648096561431885,
+            1.8980166912078857,
+            1.9648096561431885
+          ]
+        },
+        {
+          "sample_id": "dev_2",
+          "seed": 21161010,
+          "values": [
+            1.902761459350586,
+            1.846642255783081,
+            1.902761459350586,
+            1.846642255783081
+          ]
+        }
+      ],
+      "step": 4
+    },
+    "mean_update_seconds": 0.18786249496042728,
+    "stopped": false
+  },
+  "source": {
+    "scripts/pipeline2_cluster.py": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+    "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+    "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+    "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+    "scripts/pipeline3_full_cache.py": "b94a9852732e0717a21b70556a64fd0bb3a3112862165bbf7999d5190142c815",
+    "scripts/pipeline3_full_run.py": "8540921ccbf1372b3284bb90d86fa8c1c90f3cc063f3c2e7d88d6715c00c6b34",
+    "scripts/pipeline3_monitor.py": "e5c01e05d7154ad169de28797cade2fd22a47449d274cf4f29254bb20e6561bf",
+    "scripts/pipeline3_parallel.py": "c39a6f85b96bb09228df706aedcc5e7d89fe1e4f9662e9156fcaf4316c6bcbe9",
+    "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+    "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+    "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+    "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+    "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+    "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+    "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+    "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+    "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+    "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+    "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+    "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+    "src/omni_av_p3/distributed.py": "be94266162f814909de4817614fd00d1338c6e485c368ca4667ce34d02889bc2",
+    "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+    "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+    "src/omni_av_p3/launch.py": "07c5abda02fccd391d6d1d54b1e1cbd69fdf3792ca0fcf9ca140b7f8eaca524a",
+    "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+  },
+  "gpu_snapshot": {
+    "time": 1791555264.3627777,
+    "nodes": [
+      {
+        "node": "avgen-2",
+        "host": "172.29.15.126",
+        "gpus": [
+          {
+            "index": 0.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 100.0,
+            "watts": 157.51,
+            "temp_c": 45.0
+          },
+          {
+            "index": 1.0,
+            "used_mib": 34128.0,
+            "total_mib": 143771.0,
+            "util": 64.0,
+            "watts": 180.82,
+            "temp_c": 40.0
+          },
+          {
+            "index": 2.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 19.0,
+            "watts": 164.88,
+            "temp_c": 39.0
+          },
+          {
+            "index": 3.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 94.0,
+            "watts": 179.55,
+            "temp_c": 42.0
+          },
+          {
+            "index": 4.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 77.0,
+            "watts": 177.29,
+            "temp_c": 46.0
+          },
+          {
+            "index": 5.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 55.0,
+            "watts": 192.45,
+            "temp_c": 39.0
+          },
+          {
+            "index": 6.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 100.0,
+            "watts": 177.76,
+            "temp_c": 44.0
+          },
+          {
+            "index": 7.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 0.0,
+            "watts": 141.43,
+            "temp_c": 38.0
+          }
+        ],
+        "ok": true
+      },
+      {
+        "node": "js-public",
+        "host": "172.29.252.24",
+        "gpus": [
+          {
+            "index": 0.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 100.0,
+            "watts": 178.07,
+            "temp_c": 46.0
+          },
+          {
+            "index": 1.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 19.0,
+            "watts": 166.9,
+            "temp_c": 39.0
+          },
+          {
+            "index": 2.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 82.0,
+            "watts": 167.83,
+            "temp_c": 40.0
+          },
+          {
+            "index": 3.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 93.0,
+            "watts": 193.22,
+            "temp_c": 42.0
+          },
+          {
+            "index": 4.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 0.0,
+            "watts": 155.49,
+            "temp_c": 43.0
+          },
+          {
+            "index": 5.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 100.0,
+            "watts": 135.31,
+            "temp_c": 38.0
+          },
+          {
+            "index": 6.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 37.0,
+            "watts": 135.68,
+            "temp_c": 43.0
+          },
+          {
+            "index": 7.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 63.0,
+            "watts": 189.08,
+            "temp_c": 38.0
+          }
+        ],
+        "ok": true
+      },
+      {
+        "node": "avgen-1",
+        "host": "172.29.112.17",
+        "gpus": [
+          {
+            "index": 0.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 0.0,
+            "watts": 195.99,
+            "temp_c": 43.0
+          },
+          {
+            "index": 1.0,
+            "used_mib": 34128.0,
+            "total_mib": 143771.0,
+            "util": 100.0,
+            "watts": 143.87,
+            "temp_c": 40.0
+          },
+          {
+            "index": 2.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 100.0,
+            "watts": 139.6,
+            "temp_c": 37.0
+          },
+          {
+            "index": 3.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 59.0,
+            "watts": 174.33,
+            "temp_c": 42.0
+          },
+          {
+            "index": 4.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 0.0,
+            "watts": 139.54,
+            "temp_c": 43.0
+          },
+          {
+            "index": 5.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 100.0,
+            "watts": 127.27,
+            "temp_c": 39.0
+          },
+          {
+            "index": 6.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 100.0,
+            "watts": 154.92,
+            "temp_c": 44.0
+          },
+          {
+            "index": 7.0,
+            "used_mib": 34130.0,
+            "total_mib": 143771.0,
+            "util": 0.0,
+            "watts": 194.14,
+            "temp_c": 38.0
+          }
+        ],
+        "ok": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "python": "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+  "master_port": 29874,
+  "nodes": [
+    {"name": "avgen-2", "host": "172.29.15.126", "ssh_user": "root", "ssh_port": 22, "role": "master", "gpus": [0,1]},
+    {"name": "tk-1", "host": "172.29.104.194", "ssh_user": "root", "ssh_port": 22, "role": "slave", "gpus": [2,3]},
+    {"name": "avgen-1", "host": "172.29.112.17", "ssh_user": "root", "ssh_port": 22, "role": "slave", "gpus": [0,1]}
+  ]
+}

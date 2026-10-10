@@ -1,0 +1,7 @@
+{
+  "NCCL_IB_DISABLE": "1",
+  "NCCL_NET": "Socket",
+  "NCCL_SOCKET_IFNAME": "eth0",
+  "GLOO_SOCKET_IFNAME": "eth0",
+  "NCCL_DEBUG": "WARN"
+}

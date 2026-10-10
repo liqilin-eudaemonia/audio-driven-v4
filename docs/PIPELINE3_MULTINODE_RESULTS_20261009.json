@@ -1,0 +1,2451 @@
+{
+  "date": "2026-10-09",
+  "scope": "P3 planner DDP engineering; no LTX or new quality claim",
+  "tests": {
+    "passed": 18,
+    "command": "PYTHONPATH=src python -m pytest tests/test_p3.py tests/test_p3_acceleration.py tests/test_p3_distributed.py -q",
+    "shell_syntax_passed": true
+  },
+  "source": {
+    "scripts/pipeline2_cluster.py": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+    "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+    "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+    "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+    "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+    "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+    "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+    "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+    "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+    "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+    "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+    "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+    "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+    "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+    "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+    "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+    "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+    "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+    "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+    "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+    "src/omni_av_p3/launch.py": "07c5abda02fccd391d6d1d54b1e1cbd69fdf3792ca0fcf9ca140b7f8eaca524a",
+    "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+  },
+  "configs": {
+    "configs/p3_nccl_roce_example.json": {
+      "sha256": "fb2c981b2234a1e9890b40a855bba1febbc04ed69b76553684c7c0754a982686",
+      "value": {
+        "NCCL_NET": "IB",
+        "NCCL_DEBUG": "INFO",
+        "NCCL_IB_DISABLE": "0",
+        "NCCL_IB_HCA": "mlx5_0",
+        "NCCL_IB_GID_INDEX": "3",
+        "NCCL_IB_ADDR_FAMILY": "AF_INET",
+        "NCCL_IB_ROCE_VERSION_NUM": "2",
+        "NCCL_IB_TIMEOUT": "20",
+        "NCCL_IB_RETRY_CNT": "7",
+        "NCCL_NET_GDR_LEVEL": "0",
+        "NCCL_CROSS_NIC": "0",
+        "NCCL_IB_MERGE_NICS": "0",
+        "NCCL_SOCKET_IFNAME": "eth0",
+        "GLOO_SOCKET_IFNAME": "eth0"
+      }
+    },
+    "configs/p3_three_nodes.json": {
+      "sha256": "17304082a67c806ce2d47a61b477263a24923f43e73af44003ef6c7563098c49",
+      "value": {
+        "python": "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+        "master_port": 29875,
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "name": "js-public",
+            "host": "172.29.252.24",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ]
+      }
+    },
+    "configs/p3_two_nodes_gate.json": {
+      "sha256": "2d6a3d0f987fa26d3c43b53f0b6d62a3c9dd37ba4b2ac126581effdb49ae13e7",
+      "value": {
+        "python": "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+        "master_port": 29876,
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ]
+      }
+    },
+    "configs/p3_nccl_socket.json": {
+      "sha256": "ad655e6e26f5c972ee69b8605d8636707edafabb914f38259a6442360f66e282",
+      "value": {
+        "NCCL_IB_DISABLE": "1",
+        "NCCL_NET": "Socket",
+        "NCCL_SOCKET_IFNAME": "eth0",
+        "GLOO_SOCKET_IFNAME": "eth0",
+        "NCCL_DEBUG": "WARN"
+      }
+    },
+    "configs/p3_three_node_gate.json": {
+      "sha256": "7e634a00fabcb4f638a8bb47d9c451e20ab233a6d1184ce44022145285b8a332",
+      "value": {
+        "python": "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+        "master_port": 29874,
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "tk-1",
+            "host": "172.29.104.194",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              2,
+              3
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "configs/p3_five_nodes.json": {
+      "sha256": "48346ae627c664cc069ef805cd8fbbead12f8b10725424467739510965b41b35",
+      "value": {
+        "python": "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+        "master_port": 29873,
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "external_port_note": 20494
+          },
+          {
+            "name": "tk-1",
+            "host": "172.29.104.194",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "external_port_note": 20341
+          },
+          {
+            "name": "avgen-public",
+            "host": "172.29.189.120",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "external_port_note": 20470
+          },
+          {
+            "name": "js-public",
+            "host": "172.29.252.24",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "external_port_note": 20474
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "external_port_note": 20392
+          }
+        ]
+      }
+    }
+  },
+  "runs": {
+    "cpu4": {
+      "result": {
+        "arm": "lora",
+        "world_size": 4,
+        "physical_nodes": 1,
+        "hosts": [
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71"
+        ],
+        "tiny": true,
+        "pretrained_omni": false,
+        "backend": "gloo",
+        "start_step": 0,
+        "end_step": 4,
+        "ranks_identical": true,
+        "trainable_sha256": "92e3b6ba7127e59b95e5257601708f078fd8c9d1cf60d24266b61692bbc55e22",
+        "global_batch": 8,
+        "serial_reference_max_abs_error": 2.9802322387695312e-08,
+        "validation_count": 3,
+        "final_validation": {
+          "count": 3,
+          "video": 1.8691471020380657,
+          "audio": 1.9689144293467205,
+          "shuffled_video": 1.8691471020380657,
+          "shuffled_audio": 1.9689144293467205,
+          "records": [
+            {
+              "sample_id": "dev_0",
+              "seed": 21161008,
+              "values": [
+                1.8065690994262695,
+                2.0953829288482666,
+                1.8065690994262695,
+                2.0953829288482666
+              ]
+            },
+            {
+              "sample_id": "dev_1",
+              "seed": 21161009,
+              "values": [
+                1.898058295249939,
+                1.9646505117416382,
+                1.898058295249939,
+                1.9646505117416382
+              ]
+            },
+            {
+              "sample_id": "dev_2",
+              "seed": 21161010,
+              "values": [
+                1.9028139114379883,
+                1.8467098474502563,
+                1.9028139114379883,
+                1.8467098474502563
+              ]
+            }
+          ],
+          "step": 4
+        },
+        "mean_update_seconds": 0.09537164308130741,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 32,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 32,
+            "decoder_depth": 2,
+            "diffusion_batch_mul": 2,
+            "lora_rank": 2,
+            "lora_alpha": 4,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "synthetic_v1",
+          "arm": "lora",
+          "world_size": 4,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": true,
+          "fused": false,
+          "checkpointing": false,
+          "train_ids": [
+            "train_0",
+            "train_1",
+            "train_2",
+            "train_3",
+            "train_4",
+            "train_5",
+            "train_6"
+          ]
+        },
+        "start_step": 0,
+        "total_steps": 4,
+        "global_batch": 8,
+        "hosts": [
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71"
+        ],
+        "source": {
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "f1f7c61ed836e9dd6beb8c2a5423e86a98c53c6fd057c6c0ef3dc542a51d9b13",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "6c37a1da0c82041cc0d861ab435cd20bdee0ad44850520b40cfeed56b2b7d2d4",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "None",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 3.5269371778667846e-07,
+        "connector": 2.143013716704445e-06,
+        "decoder": 0.06268297135829926,
+        "lora": 8.400665052477052e-08
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/cpu4/completed.json": "d88812889535f7b1dc8f50f9c793d5b69318b7e17d3b98f4820e50f6064ef1ac",
+        "outputs/p3_multinode_20261009/cpu4/run.json": "cee81a8b14bc54843171c27ba12e74bf30afa751452041fb3dfa11bd66c12b03",
+        "outputs/p3_multinode_20261009/cpu4/train_rank0.jsonl": "067b90512ca3c2fdba46d10f72b71f3918e45a49f428bf2d1da0b75f8a645608"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/cpu4/step_000004.pt",
+        "step": 4,
+        "sha256": "acff6b21c7c28ee2855c3a203a2e20678fc0cfad5da8c865a6a653c785779cc0"
+      },
+      "cluster": null
+    },
+    "cpu4_resume": {
+      "result": {
+        "arm": "lora",
+        "world_size": 4,
+        "physical_nodes": 1,
+        "hosts": [
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71"
+        ],
+        "tiny": true,
+        "pretrained_omni": false,
+        "backend": "gloo",
+        "start_step": 4,
+        "end_step": 6,
+        "ranks_identical": true,
+        "trainable_sha256": "b98b818937b2bee76741d337529f04ee34d31bef58b907bab914fff41400fcb2",
+        "global_batch": 8,
+        "serial_reference_max_abs_error": 7.450580596923828e-09,
+        "validation_count": 3,
+        "final_validation": {
+          "count": 3,
+          "video": 1.8690554698308308,
+          "audio": 1.9689541657765706,
+          "shuffled_video": 1.8690554698308308,
+          "shuffled_audio": 1.9689542452494304,
+          "records": [
+            {
+              "sample_id": "dev_0",
+              "seed": 21161008,
+              "values": [
+                1.8063844442367554,
+                2.0952188968658447,
+                1.8063844442367554,
+                2.0952188968658447
+              ]
+            },
+            {
+              "sample_id": "dev_1",
+              "seed": 21161009,
+              "values": [
+                1.8978755474090576,
+                1.965081810951233,
+                1.8978755474090576,
+                1.965081810951233
+              ]
+            },
+            {
+              "sample_id": "dev_2",
+              "seed": 21161010,
+              "values": [
+                1.9029064178466797,
+                1.8465617895126343,
+                1.9029064178466797,
+                1.8465620279312134
+              ]
+            }
+          ],
+          "step": 6
+        },
+        "mean_update_seconds": 0.09546806290745735,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 32,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 32,
+            "decoder_depth": 2,
+            "diffusion_batch_mul": 2,
+            "lora_rank": 2,
+            "lora_alpha": 4,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "synthetic_v1",
+          "arm": "lora",
+          "world_size": 4,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": true,
+          "fused": false,
+          "checkpointing": false,
+          "train_ids": [
+            "train_0",
+            "train_1",
+            "train_2",
+            "train_3",
+            "train_4",
+            "train_5",
+            "train_6"
+          ]
+        },
+        "start_step": 4,
+        "total_steps": 6,
+        "global_batch": 8,
+        "hosts": [
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71"
+        ],
+        "source": {
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "6c37a1da0c82041cc0d861ab435cd20bdee0ad44850520b40cfeed56b2b7d2d4",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "outputs/p3_multinode_20261009/cpu4/step_000004.pt",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 1.375803094560979e-06,
+        "connector": 8.442853868473321e-06,
+        "decoder": 0.04925912618637085,
+        "lora": 3.6410696679922694e-07
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/cpu4_resume/completed.json": "6b0ab0928f8f967e5afe062f8e46c82aa1d4a8aa009b724eb4650aabf46c0848",
+        "outputs/p3_multinode_20261009/cpu4_resume/run.json": "cab2dda11b0de8175d89ff6f50807b93a79ae9f785f6022c79e948bcda365ba1",
+        "outputs/p3_multinode_20261009/cpu4_resume/train_rank0.jsonl": "a90023126e996cb803f5f8662b47afa261176c43507e0324584465d03eda0073"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/cpu4_resume/step_000006.pt",
+        "step": 6,
+        "sha256": "2bd7fcc357707d3e3a04122436319222af5e90d8e4fd359a92c8baa7987e4a76"
+      },
+      "cluster": null
+    },
+    "cpu4_uninterrupted": {
+      "result": {
+        "arm": "lora",
+        "world_size": 4,
+        "physical_nodes": 1,
+        "hosts": [
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71"
+        ],
+        "tiny": true,
+        "pretrained_omni": false,
+        "backend": "gloo",
+        "start_step": 0,
+        "end_step": 6,
+        "ranks_identical": true,
+        "trainable_sha256": "5c99f17fc3a430c48cc0be0902ad2254306d2fd147eba2f4ac970b28ae775e4e",
+        "global_batch": 8,
+        "serial_reference_max_abs_error": 2.9802322387695312e-08,
+        "validation_count": 3,
+        "final_validation": {
+          "count": 3,
+          "video": 1.8690554698308308,
+          "audio": 1.9689541657765706,
+          "shuffled_video": 1.8690554698308308,
+          "shuffled_audio": 1.9689542452494304,
+          "records": [
+            {
+              "sample_id": "dev_0",
+              "seed": 21161008,
+              "values": [
+                1.8063844442367554,
+                2.0952188968658447,
+                1.8063844442367554,
+                2.0952188968658447
+              ]
+            },
+            {
+              "sample_id": "dev_1",
+              "seed": 21161009,
+              "values": [
+                1.8978755474090576,
+                1.965081810951233,
+                1.8978755474090576,
+                1.965081810951233
+              ]
+            },
+            {
+              "sample_id": "dev_2",
+              "seed": 21161010,
+              "values": [
+                1.9029064178466797,
+                1.8465617895126343,
+                1.9029064178466797,
+                1.8465620279312134
+              ]
+            }
+          ],
+          "step": 6
+        },
+        "mean_update_seconds": 0.09898390372594197,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 32,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 32,
+            "decoder_depth": 2,
+            "diffusion_batch_mul": 2,
+            "lora_rank": 2,
+            "lora_alpha": 4,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "synthetic_v1",
+          "arm": "lora",
+          "world_size": 4,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": true,
+          "fused": false,
+          "checkpointing": false,
+          "train_ids": [
+            "train_0",
+            "train_1",
+            "train_2",
+            "train_3",
+            "train_4",
+            "train_5",
+            "train_6"
+          ]
+        },
+        "start_step": 0,
+        "total_steps": 6,
+        "global_batch": 8,
+        "hosts": [
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71"
+        ],
+        "source": {
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "6c37a1da0c82041cc0d861ab435cd20bdee0ad44850520b40cfeed56b2b7d2d4",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "None",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 1.3758029808741412e-06,
+        "connector": 8.442853868473321e-06,
+        "decoder": 0.04925912618637085,
+        "lora": 3.6410696679922694e-07
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/cpu4_uninterrupted/completed.json": "3f70f690ebf6399e2fb18ff2e750664ad1c18304e41796bf11b5ae7fbc98c172",
+        "outputs/p3_multinode_20261009/cpu4_uninterrupted/run.json": "4ae480b3e50ff16b5f8845b7e2c65e8721d2cc3d1c71279b276a4aba5634e546",
+        "outputs/p3_multinode_20261009/cpu4_uninterrupted/train_rank0.jsonl": "5f26d66b069745c9dbd55a72af8483e671c110b396842b11634c499862861dbd"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/cpu4_uninterrupted/step_000006.pt",
+        "step": 6,
+        "sha256": "dbb2c2fafb0cfd743737af5f7d847b6547c5a4d25572c43116a4f6492e649407"
+      },
+      "cluster": null
+    },
+    "nccl6": {
+      "result": {
+        "arm": "lora",
+        "world_size": 6,
+        "physical_nodes": 3,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "tiny": true,
+        "pretrained_omni": false,
+        "backend": "nccl",
+        "start_step": 0,
+        "end_step": 4,
+        "ranks_identical": true,
+        "trainable_sha256": "dd4a8d18d6d4b5a11e52d80fe5ae145c646eb64d7742cc090db039e382001cd2",
+        "global_batch": 12,
+        "serial_reference_max_abs_error": 2.9802322387695312e-08,
+        "validation_count": 3,
+        "final_validation": {
+          "count": 3,
+          "video": 1.879136363665263,
+          "audio": 2.048284729321798,
+          "shuffled_video": 1.879136363665263,
+          "shuffled_audio": 2.048284729321798,
+          "records": [
+            {
+              "sample_id": "dev_0",
+              "seed": 21161008,
+              "values": [
+                1.7485904693603516,
+                2.089279890060425,
+                1.7485904693603516,
+                2.089279890060425
+              ]
+            },
+            {
+              "sample_id": "dev_1",
+              "seed": 21161009,
+              "values": [
+                1.9210562705993652,
+                2.148055076599121,
+                1.9210562705993652,
+                2.148055076599121
+              ]
+            },
+            {
+              "sample_id": "dev_2",
+              "seed": 21161010,
+              "values": [
+                1.9677623510360718,
+                1.9075192213058472,
+                1.9677623510360718,
+                1.9075192213058472
+              ]
+            }
+          ],
+          "step": 4
+        },
+        "mean_update_seconds": 0.3324898714199662,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 32,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 32,
+            "decoder_depth": 2,
+            "diffusion_batch_mul": 2,
+            "lora_rank": 2,
+            "lora_alpha": 4,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "synthetic_v1",
+          "arm": "lora",
+          "world_size": 6,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": true,
+          "fused": true,
+          "checkpointing": false,
+          "train_ids": [
+            "train_0",
+            "train_1",
+            "train_2",
+            "train_3",
+            "train_4",
+            "train_5",
+            "train_6"
+          ]
+        },
+        "start_step": 0,
+        "total_steps": 4,
+        "global_batch": 12,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "source": {
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "6c37a1da0c82041cc0d861ab435cd20bdee0ad44850520b40cfeed56b2b7d2d4",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "None",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 5.318847797752824e-07,
+        "connector": 3.3678873023745837e-06,
+        "decoder": 0.055505771189928055,
+        "lora": 1.313295001637016e-07
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/nccl6/completed.json": "97983baacef251b3b963cb669caec53428215865b9beb5188318493b35f148f8",
+        "outputs/p3_multinode_20261009/nccl6/run.json": "983765ac4e3da3bd6a0212923e9f4f5373df587b176afa87e1539a7d1b9410b9",
+        "outputs/p3_multinode_20261009/nccl6/train_rank0.jsonl": "bbe1f21cb9c9f315b6110409fa6ec7f4928174ca43102dd8886f4ae0b5646c13"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/nccl6/step_000004.pt",
+        "step": 4,
+        "sha256": "ecc33b884e0d9af14753fc2b1e72abaf1615e1ba87e03a697faf884f04a0cc2f"
+      },
+      "cluster": {
+        "returncodes": [
+          0,
+          0,
+          0
+        ],
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "tk-1",
+            "host": "172.29.104.194",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              2,
+              3
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "roce6": {
+      "result": {
+        "arm": "lora",
+        "world_size": 6,
+        "physical_nodes": 3,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "tiny": true,
+        "pretrained_omni": false,
+        "backend": "nccl",
+        "start_step": 0,
+        "end_step": 4,
+        "ranks_identical": true,
+        "trainable_sha256": "0b5e08e77a6be49d0561b04136e1263a3541ea3367701668a24ed8ee48605573",
+        "global_batch": 12,
+        "serial_reference_max_abs_error": 2.9802322387695312e-08,
+        "validation_count": 3,
+        "final_validation": {
+          "count": 3,
+          "video": 1.879136363665263,
+          "audio": 2.048284729321798,
+          "shuffled_video": 1.879136363665263,
+          "shuffled_audio": 2.048284729321798,
+          "records": [
+            {
+              "sample_id": "dev_0",
+              "seed": 21161008,
+              "values": [
+                1.7485904693603516,
+                2.089279890060425,
+                1.7485904693603516,
+                2.089279890060425
+              ]
+            },
+            {
+              "sample_id": "dev_1",
+              "seed": 21161009,
+              "values": [
+                1.9210562705993652,
+                2.148055076599121,
+                1.9210562705993652,
+                2.148055076599121
+              ]
+            },
+            {
+              "sample_id": "dev_2",
+              "seed": 21161010,
+              "values": [
+                1.9677623510360718,
+                1.9075192213058472,
+                1.9677623510360718,
+                1.9075192213058472
+              ]
+            }
+          ],
+          "step": 4
+        },
+        "mean_update_seconds": 0.3111210181377828,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 32,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 32,
+            "decoder_depth": 2,
+            "diffusion_batch_mul": 2,
+            "lora_rank": 2,
+            "lora_alpha": 4,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "synthetic_v1",
+          "arm": "lora",
+          "world_size": 6,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": true,
+          "fused": true,
+          "checkpointing": false,
+          "train_ids": [
+            "train_0",
+            "train_1",
+            "train_2",
+            "train_3",
+            "train_4",
+            "train_5",
+            "train_6"
+          ]
+        },
+        "start_step": 0,
+        "total_steps": 4,
+        "global_batch": 12,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-tokenizer-1-kix71",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "source": {
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "6c37a1da0c82041cc0d861ab435cd20bdee0ad44850520b40cfeed56b2b7d2d4",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "None",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 5.318847229318635e-07,
+        "connector": 3.3678870750009082e-06,
+        "decoder": 0.05550577491521835,
+        "lora": 1.313295143745563e-07
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/roce6/completed.json": "7114d037ef560b2fd59840634f0b494cd0a5c8837d773b6b790a277e7df069ff",
+        "outputs/p3_multinode_20261009/roce6/run.json": "983765ac4e3da3bd6a0212923e9f4f5373df587b176afa87e1539a7d1b9410b9",
+        "outputs/p3_multinode_20261009/roce6/train_rank0.jsonl": "147f66c5d0162b453332d1c5effe2689e15ce899f3f777b8af4c615a22c34822"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/roce6/step_000004.pt",
+        "step": 4,
+        "sha256": "cce2c415f5b64353ac5b4b92affca3ac93274e143d77d2d973cc40e673bf3e98"
+      },
+      "cluster": {
+        "returncodes": [
+          0,
+          0,
+          0
+        ],
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "tk-1",
+            "host": "172.29.104.194",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              2,
+              3
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "omni24": {
+      "result": {
+        "arm": "lora",
+        "world_size": 24,
+        "physical_nodes": 3,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "tiny": false,
+        "pretrained_omni": true,
+        "backend": "nccl",
+        "start_step": 0,
+        "end_step": 6,
+        "ranks_identical": true,
+        "trainable_sha256": "f4188896598871ec9a286d3da13c35581c4845b42cd8b6c9132c4458c66c7494",
+        "global_batch": 48,
+        "serial_reference_max_abs_error": null,
+        "validation_count": 8,
+        "final_validation": {
+          "count": 8,
+          "video": 4.0687523782253265,
+          "audio": 1.572850078344345,
+          "shuffled_video": 4.0687494575977325,
+          "shuffled_audio": 1.5728512853384018,
+          "records": [
+            {
+              "sample_id": "V00_S0255_I00000137_00003622_00003827_turn_P0350",
+              "seed": 21161008,
+              "values": [
+                4.195211887359619,
+                1.5962826013565063,
+                4.195204734802246,
+                1.596290946006775
+              ]
+            },
+            {
+              "sample_id": "V00_S1045_I00000001_00002525_00002744_turn_P1067",
+              "seed": 21161009,
+              "values": [
+                4.527090072631836,
+                1.518559217453003,
+                4.527047157287598,
+                1.5185627937316895
+              ]
+            },
+            {
+              "sample_id": "V00_S0925_I00000520_00001476_00001716_turn_P0383",
+              "seed": 21161010,
+              "values": [
+                3.5380330085754395,
+                1.5579931735992432,
+                3.538182258605957,
+                1.5579897165298462
+              ]
+            },
+            {
+              "sample_id": "V00_S0700_I00000576_00001725_00001874_turn_P0844A",
+              "seed": 21161011,
+              "values": [
+                3.422502040863037,
+                1.5870893001556396,
+                3.4224259853363037,
+                1.5870907306671143
+              ]
+            },
+            {
+              "sample_id": "V02_S5054_I00000238_00004611_00004844_turn_P5062",
+              "seed": 21161012,
+              "values": [
+                4.587822914123535,
+                1.5210226774215698,
+                4.587703227996826,
+                1.521024227142334
+              ]
+            },
+            {
+              "sample_id": "V00_S2091_I00001103_00005425_00005593_turn_P1282A",
+              "seed": 21161013,
+              "values": [
+                3.953737497329712,
+                1.5673503875732422,
+                3.9537787437438965,
+                1.567341685295105
+              ]
+            },
+            {
+              "sample_id": "V03_S0251_I00000373_00002889_00003039_turn_P1607",
+              "seed": 21161014,
+              "values": [
+                4.00861930847168,
+                1.6192998886108398,
+                4.008677959442139,
+                1.6192948818206787
+              ]
+            },
+            {
+              "sample_id": "V03_S1221_I00000458_00002213_00002366_turn_P3778",
+              "seed": 21161015,
+              "values": [
+                4.317002296447754,
+                1.6152033805847168,
+                4.3169755935668945,
+                1.6152153015136719
+              ]
+            }
+          ],
+          "step": 6
+        },
+        "mean_update_seconds": 0.695749388076365,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 2048,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 512,
+            "decoder_depth": 16,
+            "diffusion_batch_mul": 4,
+            "lora_rank": 16,
+            "lora_alpha": 32,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "19f08522be0f98b5f6e00dc2d1788bf9661a005ff346d44a4b63acc06db4d3d7",
+          "arm": "lora",
+          "world_size": 24,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": false,
+          "fused": true,
+          "checkpointing": false,
+          "train_ids": [
+            "V00_S0472_I00000381_00001526_00001702_turn_P0337",
+            "V02_S3354_I00000161_00001452_00001681_turn_P4150",
+            "V00_S0088_I00000544_00004489_00004652_turn_P0026A",
+            "V00_S0475_I00000139_00002704_00002871_turn_P0413",
+            "V02_S3604_I00000730_00000224_00000395_turn_P4176",
+            "V03_S1025_I00000080_00002014_00002140_turn_P2921",
+            "V02_S3279_I00000767_00002410_00002642_turn_P4146",
+            "V03_S0410_I00000126_00004514_00004735_turn_P1306",
+            "V02_S5055_I00000749_00004001_00004181_turn_P5065",
+            "V03_S1613_I00000253_00005426_00005623_turn_P2640",
+            "V02_S3350_I00000764_00000277_00000493_turn_P4107",
+            "V00_S0411_I00000914_00011350_00011553_turn_P0085A",
+            "V03_S0779_I00000151_00000150_00000382_turn_P2921",
+            "V03_S0580_I00000199_00004279_00004459_turn_P1965",
+            "V00_S1346_I00001189_00008625_00008840_turn_P1094A",
+            "V00_S0323_I00000135_00000056_00000192_turn_P0437"
+          ]
+        },
+        "start_step": 0,
+        "total_steps": 6,
+        "global_batch": 48,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-js-public-huvlx",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "source": {
+          "scripts/pipeline2_cluster.py": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "07c5abda02fccd391d6d1d54b1e1cbd69fdf3792ca0fcf9ca140b7f8eaca524a",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "None",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 0.018640823662281036,
+        "connector": 0.0035462852101773024,
+        "decoder": 0.0211960282176733,
+        "lora": 0.00036526707117445767
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/omni24/completed.json": "58efd5b77c4309c8bb66cacce3f347be71441134ddb1ed99c14bdda02c9e8d4f",
+        "outputs/p3_multinode_20261009/omni24/run.json": "9002caf3c1470d966fb5bd0327c778f7bc1fce271e64a3135ea7b370f64730f7",
+        "outputs/p3_multinode_20261009/omni24/train_rank0.jsonl": "247efbc696f535f2ec6c6e05411af74d7a44faefc7586e263bf5b62f459dbbcc"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/omni24/step_000006.pt",
+        "step": 6,
+        "sha256": "f9465d1ec55ce3768177b6960d8c212c2d0f4c27e62c8cad188b73e41a354a93"
+      },
+      "cluster": {
+        "returncodes": [
+          0,
+          0,
+          0
+        ],
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "name": "js-public",
+            "host": "172.29.252.24",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ]
+      }
+    },
+    "omni16": {
+      "result": {
+        "arm": "lora",
+        "world_size": 16,
+        "physical_nodes": 2,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "tiny": false,
+        "pretrained_omni": true,
+        "backend": "nccl",
+        "start_step": 0,
+        "end_step": 4,
+        "ranks_identical": true,
+        "trainable_sha256": "cc1358792818cb26e00f6ada4695906cd3e5ab5a00a45194a7382845940c174b",
+        "global_batch": 32,
+        "serial_reference_max_abs_error": null,
+        "validation_count": 8,
+        "final_validation": {
+          "count": 8,
+          "video": 4.288099259138107,
+          "audio": 1.6161385923624039,
+          "shuffled_video": 4.288093060255051,
+          "shuffled_audio": 1.6161308586597443,
+          "records": [
+            {
+              "sample_id": "V00_S0255_I00000137_00003622_00003827_turn_P0350",
+              "seed": 21161008,
+              "values": [
+                4.439526081085205,
+                1.6524120569229126,
+                4.439596176147461,
+                1.6524578332901
+              ]
+            },
+            {
+              "sample_id": "V00_S1045_I00000001_00002525_00002744_turn_P1067",
+              "seed": 21161009,
+              "values": [
+                4.761613845825195,
+                1.5531224012374878,
+                4.761542320251465,
+                1.5531086921691895
+              ]
+            },
+            {
+              "sample_id": "V00_S0925_I00000520_00001476_00001716_turn_P0383",
+              "seed": 21161010,
+              "values": [
+                3.7478888034820557,
+                1.6117714643478394,
+                3.7479512691497803,
+                1.6117244958877563
+              ]
+            },
+            {
+              "sample_id": "V00_S0700_I00000576_00001725_00001874_turn_P0844A",
+              "seed": 21161011,
+              "values": [
+                3.6145997047424316,
+                1.6345106363296509,
+                3.6145663261413574,
+                1.634480595588684
+              ]
+            },
+            {
+              "sample_id": "V02_S5054_I00000238_00004611_00004844_turn_P5062",
+              "seed": 21161012,
+              "values": [
+                4.8193182945251465,
+                1.56035315990448,
+                4.819272994995117,
+                1.5603584051132202
+              ]
+            },
+            {
+              "sample_id": "V00_S2091_I00001103_00005425_00005593_turn_P1282A",
+              "seed": 21161013,
+              "values": [
+                4.167116165161133,
+                1.5994243621826172,
+                4.167145729064941,
+                1.5994493961334229
+              ]
+            },
+            {
+              "sample_id": "V03_S0251_I00000373_00002889_00003039_turn_P1607",
+              "seed": 21161014,
+              "values": [
+                4.227910041809082,
+                1.6634503602981567,
+                4.227899074554443,
+                1.6634764671325684
+              ]
+            },
+            {
+              "sample_id": "V03_S1221_I00000458_00002213_00002366_turn_P3778",
+              "seed": 21161015,
+              "values": [
+                4.526821136474609,
+                1.6540642976760864,
+                4.52677059173584,
+                1.6539909839630127
+              ]
+            }
+          ],
+          "step": 4
+        },
+        "mean_update_seconds": 0.8832588244949875,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 2048,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 512,
+            "decoder_depth": 16,
+            "diffusion_batch_mul": 4,
+            "lora_rank": 16,
+            "lora_alpha": 32,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "19f08522be0f98b5f6e00dc2d1788bf9661a005ff346d44a4b63acc06db4d3d7",
+          "arm": "lora",
+          "world_size": 16,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": false,
+          "fused": true,
+          "checkpointing": false,
+          "train_ids": [
+            "V00_S0472_I00000381_00001526_00001702_turn_P0337",
+            "V02_S3354_I00000161_00001452_00001681_turn_P4150",
+            "V00_S0088_I00000544_00004489_00004652_turn_P0026A",
+            "V00_S0475_I00000139_00002704_00002871_turn_P0413",
+            "V02_S3604_I00000730_00000224_00000395_turn_P4176",
+            "V03_S1025_I00000080_00002014_00002140_turn_P2921",
+            "V02_S3279_I00000767_00002410_00002642_turn_P4146",
+            "V03_S0410_I00000126_00004514_00004735_turn_P1306",
+            "V02_S5055_I00000749_00004001_00004181_turn_P5065",
+            "V03_S1613_I00000253_00005426_00005623_turn_P2640",
+            "V02_S3350_I00000764_00000277_00000493_turn_P4107",
+            "V00_S0411_I00000914_00011350_00011553_turn_P0085A",
+            "V03_S0779_I00000151_00000150_00000382_turn_P2921",
+            "V03_S0580_I00000199_00004279_00004459_turn_P1965",
+            "V00_S1346_I00001189_00008625_00008840_turn_P1094A",
+            "V00_S0323_I00000135_00000056_00000192_turn_P0437"
+          ]
+        },
+        "start_step": 0,
+        "total_steps": 4,
+        "global_batch": 32,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "source": {
+          "scripts/pipeline2_cluster.py": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "07c5abda02fccd391d6d1d54b1e1cbd69fdf3792ca0fcf9ca140b7f8eaca524a",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "None",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 0.03468865901231766,
+        "connector": 0.004509925842285156,
+        "decoder": 0.020208358764648438,
+        "lora": 0.00034406036138534546
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/omni16/completed.json": "29c098e3728d848048e5735c419c036a03b90d9fda0fef88976619340be4e5c8",
+        "outputs/p3_multinode_20261009/omni16/run.json": "145f8ad7a814a77a3d968c1f18bdf85441a4fc04d375c0258ab99458f59084f7",
+        "outputs/p3_multinode_20261009/omni16/train_rank0.jsonl": "374690e4ed4ad9d8955743971a8bee9915a1c4f0dee1fd20c655d57fec0f6ef3"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/omni16/step_000004.pt",
+        "step": 4,
+        "sha256": "a22690418de7d7fbd7e4ea184fc830a4edf9b557ea08286d2356010c452531d8"
+      },
+      "cluster": {
+        "returncodes": [
+          0,
+          0
+        ],
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ]
+      }
+    },
+    "omni16_resume": {
+      "result": {
+        "arm": "lora",
+        "world_size": 16,
+        "physical_nodes": 2,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "tiny": false,
+        "pretrained_omni": true,
+        "backend": "nccl",
+        "start_step": 4,
+        "end_step": 6,
+        "ranks_identical": true,
+        "trainable_sha256": "cb7826fd675738dc21d2b38ed99398bc2579243d8f4693d693eeee7d127ef683",
+        "global_batch": 32,
+        "serial_reference_max_abs_error": null,
+        "validation_count": 8,
+        "final_validation": {
+          "count": 8,
+          "video": 4.06868702173233,
+          "audio": 1.573022946715355,
+          "shuffled_video": 4.0686778128147125,
+          "shuffled_audio": 1.5730247646570206,
+          "records": [
+            {
+              "sample_id": "V00_S0255_I00000137_00003622_00003827_turn_P0350",
+              "seed": 21161008,
+              "values": [
+                4.195140361785889,
+                1.5964570045471191,
+                4.195125579833984,
+                1.5964616537094116
+              ]
+            },
+            {
+              "sample_id": "V00_S1045_I00000001_00002525_00002744_turn_P1067",
+              "seed": 21161009,
+              "values": [
+                4.527024745941162,
+                1.5187541246414185,
+                4.527004241943359,
+                1.5187592506408691
+              ]
+            },
+            {
+              "sample_id": "V00_S0925_I00000520_00001476_00001716_turn_P0383",
+              "seed": 21161010,
+              "values": [
+                3.537952184677124,
+                1.5580930709838867,
+                3.538060188293457,
+                1.5580883026123047
+              ]
+            },
+            {
+              "sample_id": "V00_S0700_I00000576_00001725_00001874_turn_P0844A",
+              "seed": 21161011,
+              "values": [
+                3.42246675491333,
+                1.5872845649719238,
+                3.4223885536193848,
+                1.587293028831482
+              ]
+            },
+            {
+              "sample_id": "V02_S5054_I00000238_00004611_00004844_turn_P5062",
+              "seed": 21161012,
+              "values": [
+                4.587730884552002,
+                1.5211782455444336,
+                4.58760404586792,
+                1.5211819410324097
+              ]
+            },
+            {
+              "sample_id": "V00_S2091_I00001103_00005425_00005593_turn_P1282A",
+              "seed": 21161013,
+              "values": [
+                3.95369029045105,
+                1.5675528049468994,
+                3.953737497329712,
+                1.5675475597381592
+              ]
+            },
+            {
+              "sample_id": "V03_S0251_I00000373_00002889_00003039_turn_P1607",
+              "seed": 21161014,
+              "values": [
+                4.008538722991943,
+                1.6194758415222168,
+                4.008599758148193,
+                1.6194721460342407
+              ]
+            },
+            {
+              "sample_id": "V03_S1221_I00000458_00002213_00002366_turn_P3778",
+              "seed": 21161015,
+              "values": [
+                4.316952228546143,
+                1.6153879165649414,
+                4.3169026374816895,
+                1.6153942346572876
+              ]
+            }
+          ],
+          "step": 6
+        },
+        "mean_update_seconds": 1.1584778977558017,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 2048,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 512,
+            "decoder_depth": 16,
+            "diffusion_batch_mul": 4,
+            "lora_rank": 16,
+            "lora_alpha": 32,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "19f08522be0f98b5f6e00dc2d1788bf9661a005ff346d44a4b63acc06db4d3d7",
+          "arm": "lora",
+          "world_size": 16,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": false,
+          "fused": true,
+          "checkpointing": false,
+          "train_ids": [
+            "V00_S0472_I00000381_00001526_00001702_turn_P0337",
+            "V02_S3354_I00000161_00001452_00001681_turn_P4150",
+            "V00_S0088_I00000544_00004489_00004652_turn_P0026A",
+            "V00_S0475_I00000139_00002704_00002871_turn_P0413",
+            "V02_S3604_I00000730_00000224_00000395_turn_P4176",
+            "V03_S1025_I00000080_00002014_00002140_turn_P2921",
+            "V02_S3279_I00000767_00002410_00002642_turn_P4146",
+            "V03_S0410_I00000126_00004514_00004735_turn_P1306",
+            "V02_S5055_I00000749_00004001_00004181_turn_P5065",
+            "V03_S1613_I00000253_00005426_00005623_turn_P2640",
+            "V02_S3350_I00000764_00000277_00000493_turn_P4107",
+            "V00_S0411_I00000914_00011350_00011553_turn_P0085A",
+            "V03_S0779_I00000151_00000150_00000382_turn_P2921",
+            "V03_S0580_I00000199_00004279_00004459_turn_P1965",
+            "V00_S1346_I00001189_00008625_00008840_turn_P1094A",
+            "V00_S0323_I00000135_00000056_00000192_turn_P0437"
+          ]
+        },
+        "start_step": 4,
+        "total_steps": 6,
+        "global_batch": 32,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "source": {
+          "scripts/pipeline2_cluster.py": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "07c5abda02fccd391d6d1d54b1e1cbd69fdf3792ca0fcf9ca140b7f8eaca524a",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p3_multinode_20261009/omni16/step_000004.pt",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 0.048656705766916275,
+        "connector": 0.003556314390152693,
+        "decoder": 0.021102329716086388,
+        "lora": 0.0004092150484211743
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/omni16_resume/completed.json": "80ca94fd366b4d023fce0c80a56c2ac127d96b742ad2398ec51ad00942a92960",
+        "outputs/p3_multinode_20261009/omni16_resume/run.json": "180aa36f6675a16ea99173f2e210f877c0f779e457ecfde9386a7dabd9edee51",
+        "outputs/p3_multinode_20261009/omni16_resume/train_rank0.jsonl": "01d7a5a20be01b10079f60dca079eeeacd5fe90634efafe7498455eeddec1ab6"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/omni16_resume/step_000006.pt",
+        "step": 6,
+        "sha256": "d20ea07edc1746596ca119b6a18d630d037095cb7f7c6459a5c609e1bde88528"
+      },
+      "cluster": {
+        "returncodes": [
+          0,
+          0
+        ],
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ]
+      }
+    },
+    "frozen16": {
+      "result": {
+        "arm": "frozen",
+        "world_size": 16,
+        "physical_nodes": 2,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "tiny": false,
+        "pretrained_omni": true,
+        "backend": "nccl",
+        "start_step": 0,
+        "end_step": 4,
+        "ranks_identical": true,
+        "trainable_sha256": "abcb6cda7b426b1d0a69436be234357da9e73e5c417e574b6738af434ba96def",
+        "global_batch": 32,
+        "serial_reference_max_abs_error": null,
+        "validation_count": 8,
+        "final_validation": {
+          "count": 8,
+          "video": 4.288254082202911,
+          "audio": 1.6161945015192032,
+          "shuffled_video": 4.288249611854553,
+          "shuffled_audio": 1.6161905974149704,
+          "records": [
+            {
+              "sample_id": "V00_S0255_I00000137_00003622_00003827_turn_P0350",
+              "seed": 21161008,
+              "values": [
+                4.439693927764893,
+                1.65248703956604,
+                4.439756870269775,
+                1.6525347232818604
+              ]
+            },
+            {
+              "sample_id": "V00_S1045_I00000001_00002525_00002744_turn_P1067",
+              "seed": 21161009,
+              "values": [
+                4.761758804321289,
+                1.553161382675171,
+                4.761709213256836,
+                1.5531660318374634
+              ]
+            },
+            {
+              "sample_id": "V00_S0925_I00000520_00001476_00001716_turn_P0383",
+              "seed": 21161010,
+              "values": [
+                3.7480478286743164,
+                1.6118279695510864,
+                3.748100519180298,
+                1.611772894859314
+              ]
+            },
+            {
+              "sample_id": "V00_S0700_I00000576_00001725_00001874_turn_P0844A",
+              "seed": 21161011,
+              "values": [
+                3.614716053009033,
+                1.6345738172531128,
+                3.61470627784729,
+                1.6345415115356445
+              ]
+            },
+            {
+              "sample_id": "V02_S5054_I00000238_00004611_00004844_turn_P5062",
+              "seed": 21161012,
+              "values": [
+                4.819489002227783,
+                1.56040620803833,
+                4.819431781768799,
+                1.5604161024093628
+              ]
+            },
+            {
+              "sample_id": "V00_S2091_I00001103_00005425_00005593_turn_P1282A",
+              "seed": 21161013,
+              "values": [
+                4.167258262634277,
+                1.5994772911071777,
+                4.167304992675781,
+                1.5995131731033325
+              ]
+            },
+            {
+              "sample_id": "V03_S0251_I00000373_00002889_00003039_turn_P1607",
+              "seed": 21161014,
+              "values": [
+                4.2280755043029785,
+                1.6635159254074097,
+                4.228063583374023,
+                1.6635328531265259
+              ]
+            },
+            {
+              "sample_id": "V03_S1221_I00000458_00002213_00002366_turn_P3778",
+              "seed": 21161015,
+              "values": [
+                4.526993274688721,
+                1.6541063785552979,
+                4.526923656463623,
+                1.6540474891662598
+              ]
+            }
+          ],
+          "step": 4
+        },
+        "mean_update_seconds": 0.6741135414486052,
+        "stopped": false
+      },
+      "run": {
+        "identity": {
+          "format": "p3_ddp_v1",
+          "config": {
+            "omni_path": "/public/2_CKPT/3_PreTRAINED/Qwen2.5-Omni-3B",
+            "hidden_size": 2048,
+            "vision_max_pixels": 50176,
+            "vision_fps": 2.0,
+            "decoder_width": 512,
+            "decoder_depth": 16,
+            "diffusion_batch_mul": 4,
+            "lora_rank": 16,
+            "lora_alpha": 32,
+            "beta_alpha": 12.0,
+            "beta_beta": 0.9,
+            "all_mask_probability": 0.2,
+            "time_ticks_per_second": 25,
+            "seed": 20261008,
+            "steps": 200,
+            "heads_lr": 0.0001,
+            "lora_lr": 0.0001,
+            "train_samples": 16,
+            "dev_samples": 8,
+            "max_duration": 8.0,
+            "eval_seeds": [
+              137,
+              251
+            ],
+            "planning_steps": 25,
+            "denoising_steps": 5
+          },
+          "cache_sha256": "19f08522be0f98b5f6e00dc2d1788bf9661a005ff346d44a4b63acc06db4d3d7",
+          "arm": "frozen",
+          "world_size": 16,
+          "accumulation": 2,
+          "seed": 20261008,
+          "tiny": false,
+          "fused": true,
+          "checkpointing": false,
+          "train_ids": [
+            "V00_S0472_I00000381_00001526_00001702_turn_P0337",
+            "V02_S3354_I00000161_00001452_00001681_turn_P4150",
+            "V00_S0088_I00000544_00004489_00004652_turn_P0026A",
+            "V00_S0475_I00000139_00002704_00002871_turn_P0413",
+            "V02_S3604_I00000730_00000224_00000395_turn_P4176",
+            "V03_S1025_I00000080_00002014_00002140_turn_P2921",
+            "V02_S3279_I00000767_00002410_00002642_turn_P4146",
+            "V03_S0410_I00000126_00004514_00004735_turn_P1306",
+            "V02_S5055_I00000749_00004001_00004181_turn_P5065",
+            "V03_S1613_I00000253_00005426_00005623_turn_P2640",
+            "V02_S3350_I00000764_00000277_00000493_turn_P4107",
+            "V00_S0411_I00000914_00011350_00011553_turn_P0085A",
+            "V03_S0779_I00000151_00000150_00000382_turn_P2921",
+            "V03_S0580_I00000199_00004279_00004459_turn_P1965",
+            "V00_S1346_I00001189_00008625_00008840_turn_P1094A",
+            "V00_S0323_I00000135_00000056_00000192_turn_P0437"
+          ]
+        },
+        "start_step": 0,
+        "total_steps": 4,
+        "global_batch": 32,
+        "hosts": [
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-2-bjweu",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg",
+          "dedicated-developjob-zhizhou-avgen-1-zzdsg"
+        ],
+        "source": {
+          "scripts/pipeline2_cluster.py": "af90c53bfa510ac06d64ee74ce1de559bb248d5c1eb6f9d6deadaa7225a1b2c5",
+          "scripts/pipeline3.py": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+          "scripts/pipeline3_cluster.py": "fb469d725cdae3135ebfb87f7fc31543ea92f2580582b92d20135b682ecb99ab",
+          "scripts/pipeline3_extended.py": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+          "scripts/pipeline3_parallel.py": "3c959d81d1df15a43f3723a860968dbf82d0afdd8ce3b5157e9161474b03a255",
+          "src/omni_av/data.py": "2a85bc50a14447ee9206d4fc5949c06643520ce743448af0db2928a47324c7bd",
+          "src/omni_av/lora.py": "98cf537eb9a692d41af1a0603247558a9097e2d435d08873f1b1ff36496d3bca",
+          "src/omni_av/masking.py": "dba71355be47f8d1201530b52dccc33225bc12f5c2032c02997b32ce0d63a87a",
+          "src/omni_av/omni.py": "27d2eac1912a34143570775b67cbe52fde4335fac5d385218d4dfa03a6d3aad3",
+          "src/omni_av_p2/checkpoint.py": "64abc79c4c7fbb7b3a8eae5f4312a58005e5950bacec5c06ea1685f5bf9f502b",
+          "src/omni_av_p2/connector.py": "3bd12fc0e0f02ef5e58ce121cbf98c8b2f8c7a97f9ab5d232a901a397c5af27b",
+          "src/omni_av_p2/decoder.py": "7879c9fa605bbd86c3cb14c2087dcc57b3c30c1429233555066b7ba14af64409",
+          "src/omni_av_p2/launch.py": "3edacdd7658f9ef3cd3acd9d5774f41410bd27d0f1699ecd9e2c7dfbc23cc361",
+          "src/omni_av_p3/__init__.py": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+          "src/omni_av_p3/accelerated.py": "f3f39411034ed56b3b1b7c231b4f9a498151eb402fc743dbb1c1099b28f96b34",
+          "src/omni_av_p3/data.py": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+          "src/omni_av_p3/diagnostics.py": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+          "src/omni_av_p3/distributed.py": "064ce425a4e6f45168d2afd83597fe1f8ef6e1549d9ba3a69102ec29499575bd",
+          "src/omni_av_p3/experiment.py": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+          "src/omni_av_p3/extended.py": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+          "src/omni_av_p3/launch.py": "07c5abda02fccd391d6d1d54b1e1cbd69fdf3792ca0fcf9ca140b7f8eaca524a",
+          "src/omni_av_p3/model.py": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc"
+        },
+        "resume": "None",
+        "initialize_from": "None"
+      },
+      "final_gradient_audit": {
+        "mask": 0.036027692258358,
+        "connector": 0.004549980163574219,
+        "decoder": 0.02017974853515625,
+        "lora": 0.0
+      },
+      "artifacts": {
+        "outputs/p3_multinode_20261009/frozen16/completed.json": "f43017d1ab7952b58f0166c9e222f978b8432c68b6215b9ca4b96d5f1a54dc7d",
+        "outputs/p3_multinode_20261009/frozen16/run.json": "7e2ceda610dfb8a878c3ee66691c608bf4573a7ae7b4cbed7566a586a8f3ae8e",
+        "outputs/p3_multinode_20261009/frozen16/train_rank0.jsonl": "9166096b8ad56b86981774a593d8e25a7354e34236d3a2e7ac537454812d33bc"
+      },
+      "checkpoint": {
+        "path": "outputs/p3_multinode_20261009/frozen16/step_000004.pt",
+        "step": 4,
+        "sha256": "20164ffeaa440657f551afea57f92a2e764d548cf46dd5944199ce648985feee"
+      },
+      "cluster": {
+        "returncodes": [
+          0,
+          0
+        ],
+        "nodes": [
+          {
+            "name": "avgen-2",
+            "host": "172.29.15.126",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "master",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "name": "avgen-1",
+            "host": "172.29.112.17",
+            "ssh_user": "root",
+            "ssh_port": 22,
+            "role": "slave",
+            "gpus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "cpu_resume_comparison": {
+    "max_abs_error": 1.4901161193847656e-08,
+    "tensor_count": 360,
+    "step": 6,
+    "passed": true,
+    "exact": false
+  },
+  "real_resume_validation_exact": true,
+  "all_rank_sample_seed_audit_passed": true,
+  "blocked_three_node_resume": {
+    "reason": "node12 occupied by other avbench processes after successful 24-rank run; no workers launched",
+    "log": "outputs/p3_multinode_20261009/omni24_resume_logs/preflight_js-public.log",
+    "sha256": "73b3f6d51fceab658cb64a9d07b368e529d5e4cb87a1694fb02ed681c0f02f16"
+  },
+  "not_verified": [
+    "24-rank strict resume",
+    "changed-world-size resume",
+    "5-node training",
+    "cross-node STOP failure injection",
+    "LTX rendering",
+    "large-data planner quality"
+  ],
+  "github_pushed": false
+}

@@ -1,0 +1,62 @@
+{
+  "time": 1791557424.964672,
+  "run_root": "/public/2_CKPT/0_WM/llq/p3_full91009_1000step_20261009_perf",
+  "cache": {
+    "train": 91009,
+    "dev": 48,
+    "index_sha256": "dab1ab1cf06c9cdd2bb8d84cafec7409932c799e49a6dee71a9926a2a823bf52",
+    "bytes": 634051336705,
+    "note": "Full exact manifest coverage; per-sample SHA stored at extraction; trainer verifies before first use"
+  },
+  "benchmarks": [
+    {
+      "name": "benchmark_reference",
+      "sample_seed_sets_match": true,
+      "world": 24,
+      "physical_nodes": 3,
+      "ranks_identical": true,
+      "dev_count": 48,
+      "mean_seconds": 0.9775122555651857,
+      "peak_allocated_gib": 23.656445026397705
+    },
+    {
+      "name": "benchmark_optimized_b1",
+      "sample_seed_sets_match": true,
+      "world": 24,
+      "physical_nodes": 3,
+      "ranks_identical": true,
+      "dev_count": 48,
+      "mean_seconds": 0.8804587103106314,
+      "peak_allocated_gib": 23.322531700134277
+    },
+    {
+      "name": "benchmark_optimized_b2",
+      "sample_seed_sets_match": true,
+      "world": 24,
+      "physical_nodes": 3,
+      "ranks_identical": true,
+      "dev_count": 48,
+      "mean_seconds": 0.8166106331996464,
+      "peak_allocated_gib": 34.60511016845703
+    },
+    {
+      "name": "benchmark_optimized_b4",
+      "sample_seed_sets_match": true,
+      "world": 24,
+      "physical_nodes": 3,
+      "ranks_identical": true,
+      "dev_count": 48,
+      "mean_seconds": 0.9390080947050592,
+      "peak_allocated_gib": 57.51478099822998
+    }
+  ],
+  "selected": "benchmark_optimized_b2",
+  "speedup": 1.197035913841942,
+  "global_batch": 96,
+  "steps_per_benchmark": 20,
+  "warmup": 5,
+  "formal_target": 1000,
+  "formal_status": "launch submitted; verify training/train_rank0.jsonl",
+  "lcot": "node12 dedicated pane closed, no LCOT processes on repeated check",
+  "cpu_tests": 23
+}

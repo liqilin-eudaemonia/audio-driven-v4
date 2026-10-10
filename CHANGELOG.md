@@ -1,8 +1,38 @@
 # 版本变更记录
 
+## 2026-10-10 Pipeline 3：step1000完成归档与独立GitHub备份
+
+备份分支：[backup/p3-3n24g-step1000-20261010](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-3n24g-step1000-20261010)。继承`d3e3667`共享依赖，集中新增P3 MASK规划、冻结/LoRA试验、多机训练/恢复、完整缓存、合批提速、监控、测试与历史实验文档。25个启动源码哈希与正式运行记录全部一致；旧条目中的“未上传”描述当时状态，本次备份登记见[专页](docs/PIPELINE3_GITHUB_BACKUP_20261010.md)。
+
+三机24卡全量Train91,009/Dev48 LoRA训练已正常完成step1000，24rank权重一致，最终检查点/Dev48结果完整，无训练错误。正式平均0.619秒/步；同样本/噪声的短测速选择batch2×累积2，吞吐提高19.7%。[最终结果](docs/PIPELINE3_FULL_TRAIN_FINAL_20261010.json)。本版本仍是规划阶段，不含生成Connector/LTX训练或自主时长预测；权重、缓存和媒体不上传。
+
+## 2026-10-09 Pipeline 3：三机恢复、实际合批和SSH稳定性（工作区）
+
+按明确授权关闭node12 LCOT专用启动窗口并确认GPU任务退出；全量训练仍使用node17/node12/node16三机24卡。提取支持固定96分片的文件锁领取、多worker协作、每GPU父进程管理和SSH握手确认／连接复用；暂态SSH失败有限重试，保留历史失败记录。
+
+新增可变长度多样本Thinker合批，保留每样本位置、mask、noise和等权FM；支持batch1/2/4与累积4/2/1，全局batch96不变。23项CPU回归及四CPU rank合批串行对照通过。真实三机四组20步测速及Dev48检查全部通过，逐步全局样本/噪声集合一致；选中batch2×累积2，0.817秒/步、117.56样本/秒，吞吐提高19.7%。正式三机1000步训练已开始更新；见[全量运行记录](docs/PIPELINE3_FULL_TRAIN_20261009.md)和[测速证据](docs/PIPELINE3_OPTIMIZATION_RESULTS_20261009.json)。工作区尚未新增GitHub备份。
+
+## 2026-10-09 Pipeline 3：全量缓存、性能对照与1000步训练流程（工作区）
+
+用户选择完整Train91,009／Dev48；保留最长24秒样本及37条无文字回复训练样本。新增P3专用并行原生特征缓存、可恢复的逐样本记录、完整覆盖校验、GPU／训练遥测和后台训练监督。每GPU4个提取进程，真实模型对照确认释放不参与提取的Thinker层后embedding逐元素一致。
+
+训练增加CPU数据预取、同一global batch内按序列长度分配rank、数据等待与吞吐记录、TensorBoard；保留原样本集合／noise seed／损失权重。20项CPU回归、可变长度tiny Omni四rank与串行全局batch对照通过。计划在缓存完成后实测两组20步速度，采用更快配置从新初始化训练到1000步，每100步保存并验证。[本轮方案与实际进度](docs/PIPELINE3_FULL_TRAIN_20261009.md)。当前正式训练等待全量缓存，不提前声称性能提升或step1000完成。
+
+## 2026-10-09 Pipeline 3：配置式多机 DDP 与恢复（工作区）
+
+参考 `bx_train_ltx_online_mm.sh` 补充 P3 专用 shell／SSH／torchrun 入口、远程 master、只同步可训练参数的 DDP、梯度累积、确定性全局采样、分片 Dev 验证和完整状态保存／恢复。默认三机配置更新为 node17（master）/node12/node16；四卡续训／推理机器172.29.104.194单独保留。新增 Socket 与 RoCE 配置，启动前检查空卡及跨节点代码／数据一致性。
+
+18项相关CPU回归通过，CPU四rank与串行全局batch对照通过；三机六卡Socket/RoCE小模型验证、三机24卡真实Omni LoRA六步更新通过。node12随后被其他任务占用，三机恢复被预检拦截；另在node17/node16两机16卡完成真实LoRA保存及恢复、冻结组四步更新，各rank权重一致且冻结/梯度审计通过，测试进程均退出。训练结构和损失不变，未接LTX或开展新的效果实验。多机采样顺序／batch与原单卡实验不同，旧权重仅可显式初始化，不支持改变world size的严格恢复。[操作与验证范围](docs/PIPELINE3_MULTINODE_20261009.md) · [数值证据](docs/PIPELINE3_MULTINODE_RESULTS_20261009.json)。未新增GitHub提交或推送。
+
 ## 2026-10-09 P2／P2.1：补齐历史四项生成指标
 
 对齐v2索引及Stage2旧评测代码，接入ArcFace ID/FID/FVD/SyncNet-C，附带SyncNet-D与覆盖率。新增独立metrics prepare/preflight/score入口、视频/权重身份审计、GT/Omni成功子集与共同子集对照、JSON/CSV/TensorBoard。无回复不计SyncNet但保留视觉指标，缺失/非有限值不填0；失败分母保持完整Dev48。Omni计划拒绝不再阻断GT生成，禁止GT回填Omni。训练代码/配置未改，未启动GPU验证。37项相关回归及CPU真实后端自检通过；新视频SyncNet与Dev生成仍待GPU验证。[说明与边界](docs/P2_P21_GENERATION_METRICS_20261009.md)。
+
+## 2026-10-08 Pipeline 3：四卡加速、严格续训与2000步条件检查（工作区）
+
+新增常驻GPU特征、预计算mask索引、缓存attention/MRoPE、关闭激活重计算、fused AdamW和向量梯度审计；原参考实现保留。新增`pipeline3_extended.py`配对测速和续训入口，恢复参数及optimizer，保持原样本/噪声序列。修复优化器状态可能共享CPU step张量的隐患，并修复首轮四卡任务暴露的梯度汇总字典遍历错误；失败产物保留。13项相关测试通过，修复后4项加速回归再次通过（计数有重叠）。
+
+空闲0–3卡完成Train16冻结/LoRA续训及Train2双对照，共7600次新增更新，四组均到总2000步并完成全MASK评估。配对测速约2.21×/2.98×，不声称浮点逐位等价。LoRA已建立训练条件依赖，尤其音频；Dev仍无可靠条件泛化，继续规划器验证，未接LTX。[完整报告](docs/PIPELINE3_FOUR_GPU_20261008.md) · [数值及哈希证据](docs/PIPELINE3_FOUR_GPU_RESULTS_20261008.json)。未新增GitHub提交/推送。
 
 ## 2026-10-08 Pipeline 2.1：原生text cross-attention LoRA、独立训练与四卡门禁
 
@@ -17,6 +47,14 @@
 分支：[backup/p2-no-time-frozen-dit-20261008](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p2-no-time-frozen-dit-20261008)，继承`9732ad3`，保留main和此前备份历史。新增全量缓存准备/刷新、损坏缓存恢复保护、无时间prompt契约、GT/Omni整份计划配对验证入口与CPU测试。当前训练使用Train91,009、三机24卡/global batch72、1000步目标、每100步保存、关闭Dev验证，保留原720p-area形状。
 
 原有text cross-attention读取拼接后的Gemma/U条件，完整LTX冻结，仅训练Connector和两路辅助decoder；P2 text cross-attention LoRA尚未实现或启用。训练启动快照哈希与本分支对应关系、原始命令及外部数据依赖见[备份说明](docs/P2_NO_TIME_GITHUB_BACKUP_20261008.md)。配对验证仅完成CPU测试/清单准备，未运行96段GPU生成，不宣称生成质量达标。
+
+## 2026-10-08 Pipeline 3：Bernini 式遮盖规划与冻结／LoRA首轮对照（工作区）
+
+新增独立 `omni_av_p3`、`scripts/pipeline3.py`、实验配置与[路线文档](docs/PIPELINE3_PLAN.md)。由 P2 的前缀 hidden 融合辅助监督，改为原生目标音视频特征遮盖、倒数第二层条件、Bernini for_vit Connector/AdaLN decoder、全 MASK 逐轮回填。此为独立研究路线，不迁移或覆盖 P2 权重/缓存。
+
+固定 GT 文本/时间，真实 Qwen2.5-Omni-3B 在空闲 GPU4/5 完成 Train16/Dev8、200步/组的冻结与 Thinker LoRA 对照；公共初始化、样本与噪声一致。24项相关测试通过，真实梯度和权重恢复检查通过。LoRA采样视频MSE低0.31%、音频高1.49%，两组对条件打乱均不敏感；尚不能确定LoRA收益或宣布规划有效。[结果、限制与下一步](docs/PIPELINE3_FIRST_EXPERIMENT.md) · [机器可读证据](docs/PIPELINE3_RESULTS_20261008.json)。
+
+本轮没有实现或训练生成 Connector/LTX、自主时间预测，也没有新增GitHub提交/推送。保留全部P1/P2历史和本轮开始前的未提交修改。
 
 ## 2026-10-08 无时间 user message 与缓存契约（已纳入本次P2备份）
 

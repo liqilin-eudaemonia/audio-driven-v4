@@ -1,0 +1,26 @@
+{
+  "date_utc": "2026-10-10T02:04:03.110612+00:00",
+  "cpu_tests": {
+    "passed": 23,
+    "seconds": 6.97,
+    "files": [
+      "tests/test_p3.py",
+      "tests/test_p3_acceleration.py",
+      "tests/test_p3_distributed.py",
+      "tests/test_p3_cache_concurrency.py"
+    ]
+  },
+  "cli_help_passed": [
+    "pipeline3.py",
+    "pipeline3_extended.py",
+    "pipeline3_cluster.py",
+    "pipeline3_parallel.py",
+    "pipeline3_full_cache.py",
+    "pipeline3_full_run.py",
+    "pipeline3_monitor.py"
+  ],
+  "training_source_sha256_matches": 25,
+  "base_commit": "d3e366744cc72ebc11bbf24acac558fcbcecd449",
+  "branch": "backup/p3-3n24g-step1000-20261010",
+  "scope": "P3 source/config/tests/docs; excludes outputs, model weights and media"
+}
