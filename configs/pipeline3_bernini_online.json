@@ -1,0 +1,26 @@
+{
+  "version": "p3.bernini-online.v1",
+  "seed": 20261012,
+  "world_size": 24,
+  "global_batch": 72,
+  "accumulation": 3,
+  "save_every": 100,
+  "validate_every": 100,
+  "steps": {"C0": 2000, "A": 1000},
+  "connector_lr": 0.00003,
+  "dit_lr": 0.000005,
+  "planner_lr": 0.00001,
+  "heads_lr": 0.00001,
+  "lora_rank": 8,
+  "lora_alpha": 8,
+  "checkpoint_group_size": 1,
+  "online": {
+    "mask_min": 0.5,
+    "mask_max": 0.95,
+    "all_mask_probability": 0.2,
+    "planner_warmup_steps": 100,
+    "feature_video_weight": 1.0,
+    "feature_audio_weight": 1.0
+  },
+  "note": "Proposed training recipe; requires real-model GPU gates. Fixed GT reply/timeline; no automatic launch/transition."
+}

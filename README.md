@@ -1,5 +1,13 @@
 # Audio driven v4 总索引
 
+## P3在线Bernini式改造（2026-10-12，本地实现／未切换训练）
+
+[方案、代码入口、运行步骤与验收边界](docs/PIPELINE3_BERNINI_ONLINE_PLAN_20261012.md) · [36项CPU测试记录](docs/PIPELINE3_ONLINE_TESTS_20261012.json) · [实际缓存读取核验](docs/PIPELINE3_ONLINE_DATA_CHECK_20261012.json)。
+
+新代码在独立工作树`/private/liqi_workspace/project_code/audio-driven-v4-p3-online-20261012`、分支`experiment/p3-bernini-online-c0-a-20261012`。C0在线读取部分mask条件，只训练生成Connector；新A前100步适配Connector/DiT LoRA，随后特征FM与AV共同更新Omni LoRA、特征头、生成Connector与DiT text-attention LoRA。同一次Omni forward，前缀＋未mask槽位hidden指导LTX、masked槽位hidden接受FM监督。固定GT计划/时间表不变。
+
+**新在线A与下文已备份的离线A不同；当前作业仍使用旧快照。** 新版复用原生感知、文本与VAE缓存，不消费离线Oracle/Pred25 hidden；推理用新checkpoint重新预测。36项CPU回归（含两rank、原生CFG、严格恢复）、真实Dev缓存读取及3个CLI检查通过；真实模型GPU显存、24卡吞吐与生成质量尚未验证。本轮未启动新训练、未修改旧权重/缓存、未推送新分支。
+
 ## 当前P3版本备份（2026-10-12）
 
 GitHub分支：[backup/p3-offline-oracle-pred25-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-offline-oracle-pred25-c0-a-20261012)；[版本说明、训练边界与复现入口](docs/PIPELINE3_OFFLINE_C0_A_BACKUP_20261012.md)。本次归档**固定GT计划／时间表＋完整Oracle/Pred25离线hidden混合**版本：C0只训生成Connector，A训Connector＋DiT text-attention LoRA，Omni始终冻结于C0/A，AV loss不回传规划器。**不包含刚讨论的Bernini式在线mask分流联合训练。** 包含C0 step700转A的已部署调度代码；原2000步recipe保留用于身份追溯。已推送固定代码提交：[6ee6719](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/6ee67193c31a9b2ba18874f96736cb5ace406696)，66项CPU回归与8个CLI检查通过。运行进度为下文标注时间的快照。

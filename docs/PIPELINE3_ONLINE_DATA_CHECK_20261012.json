@@ -1,0 +1,39 @@
+{
+  "sample_id": "V00_S2021_I00001120_00002996_00003127_turn_P1276A",
+  "split": "dev",
+  "native_targets": [
+    1,
+    434,
+    2048
+  ],
+  "prefix": [
+    1,
+    513,
+    2048
+  ],
+  "video_latent": [
+    1,
+    128,
+    17,
+    50,
+    18
+  ],
+  "audio_latent": [
+    1,
+    8,
+    108,
+    16
+  ],
+  "original_geometry": [
+    1600,
+    576
+  ],
+  "video_tokens": 325,
+  "audio_tokens": 109,
+  "targets_require_grad": false,
+  "teacher_dtype": "torch.bfloat16",
+  "manifest_sha256": "d9c8aeacb429ae45a3bd791f2a14214a0aff16f5f08b453ba6f6d5232a6e1ee5",
+  "seconds": 0.134,
+  "full_manifest_and_input_seal": "passed",
+  "renderer_config_json_serializable": true
+}

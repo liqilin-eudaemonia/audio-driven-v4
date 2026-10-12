@@ -1,0 +1,75 @@
+{
+  "version": "p3.bernini-online.v1",
+  "checked_utc": "2026-10-12T09:22:11.117514+00:00",
+  "tests": {
+    "tests": "36",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "25.393"
+  },
+  "test_files": [
+    "tests/test_p3_online.py",
+    "tests/test_p3_online_io.py",
+    "tests/test_p3.py",
+    "tests/test_p3_staged_render.py"
+  ],
+  "test_cases": [
+    "test_exact_context_selection_prefix_and_visible_modality_only",
+    "test_masks_reproducible_and_handle_padding_and_singletons",
+    "test_masked_gt_cannot_leak_into_hidden_or_av_loss",
+    "test_one_omni_forward_and_separate_av_fm_gradient_paths",
+    "test_stage_freezing_and_base_immutability[C0-0-1]",
+    "test_stage_freezing_and_base_immutability[A-100-100]",
+    "test_stage_freezing_and_base_immutability[A-100-101]",
+    "test_zero_initialized_connector_opens_on_first_update",
+    "test_strict_resume_reproduces_update_and_transition",
+    "test_generation_reads_current_planner_without_gt_argument",
+    "test_online_conditions_work_with_cfg_and_no_gt_vae_tail",
+    "test_two_rank_warmup_to_joint_accumulation_matches_serial",
+    "test_native_integrity_and_prediction_excludes_teacher",
+    "test_context_padding_preserves_gradients_and_valid_masks",
+    "test_offline_checkpoint_only_explicit_c0_warm_start",
+    "test_planner_lr_only_starts_after_warmup",
+    "test_launcher_only_accepts_network_environment",
+    "test_p3_common_initialization_and_mask_rng_are_paired",
+    "test_p3_adaln_zero_init_opens_gradients_and_preserves_frozen_weights[frozen]",
+    "test_p3_adaln_zero_init_opens_gradients_and_preserves_frozen_weights[lora]",
+    "test_p3_all_mask_hidden_cannot_read_gt_and_sampler_has_no_teacher_argument",
+    "test_p3_prefix_cannot_attend_targets_and_target_attention_is_bidirectional",
+    "test_p3_euler_sign_with_exact_constant_velocity",
+    "test_p3_mean_baseline_only_uses_supplied_train_samples",
+    "test_p3_checkpoint_restoration_exact_and_rejects_missing_or_extra_parameters[frozen]",
+    "test_p3_checkpoint_restoration_exact_and_rejects_missing_or_extra_parameters[lora]",
+    "test_real_ltx_gradients_and_freezing[C0]",
+    "test_real_ltx_gradients_and_freezing[A]",
+    "test_strict_resume_matches_next_optimizer_update",
+    "test_stage_transition_needs_bound_gate_and_zero_lora",
+    "test_explicit_source_transition_preserves_optimizer_and_rejects_recipe_change",
+    "test_full_manifest_checks_split_identity_and_original_aspect",
+    "test_condition_selection_and_full_epoch_resume",
+    "test_no_silent_joint_training_or_padded_readout",
+    "test_two_cpu_rank_accumulation_matches_serial[C0]",
+    "test_two_cpu_rank_accumulation_matches_serial[A]"
+  ],
+  "evidence": [
+    "real tiny Qwen2.5-Omni and native LTX, nonreentrant activation recomputation",
+    "one Omni forward with visible/prefix renderer contexts and masked feature-FM supervision",
+    "AV-only and FM-only gradients reach Omni LoRA, frozen weights unchanged",
+    "two CPU ranks with accumulation, warmup-to-joint transition matches serial batch",
+    "strict resume reproduces next update, rejects offline resume/A initialization",
+    "current-planner sampling plus CFG preserves first frame and ignores GT latent tail/audio",
+    "native/text/VAE cache integrity read passed on one real Dev example"
+  ],
+  "cli_help": [
+    "pipeline3_online_train.py",
+    "pipeline3_online_generate.py",
+    "pipeline3_online_cluster.py"
+  ],
+  "limits": [
+    "no real-model GPU update",
+    "no 24-GPU online memory or throughput validation",
+    "no new video quality results",
+    "no active training modified"
+  ]
+}

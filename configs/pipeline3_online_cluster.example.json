@@ -1,0 +1,11 @@
+{
+  "python": "/private/liqi_workspace/project_code/Omni-LTX-stage2/.venv/bin/python",
+  "ssh_key": "/private/ssh_keys/root_dedicated-developjob-js-public-huvlx_ed25519",
+  "master_port": 29937,
+  "preflight_timeout": 900,
+  "nodes": [
+    {"name": "node12", "host": "172.29.252.24", "ssh_user": "root", "role": "master", "gpus": [0,1,2,3,4,5,6,7]},
+    {"name": "node17", "host": "172.29.15.126", "ssh_user": "root", "role": "slave", "gpus": [0,1,2,3,4,5,6,7]},
+    {"name": "node16", "host": "172.29.112.17", "ssh_user": "root", "role": "slave", "gpus": [0,1,2,3,4,5,6,7]}
+  ]
+}
