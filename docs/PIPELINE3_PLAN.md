@@ -1,3 +1,5 @@
+> 2026-10-11交接更新：本页保留原规划路线，最新完整结构见[实现与交接](PIPELINE3_IMPLEMENTATION.md)，C0→A1000部署见[运行手册](PIPELINE3_STAGED_RENDER_PLAN_20261011.md)。
+
 # Pipeline 3：Bernini 式目标特征规划
 
 2026-10-08。此文记录已讨论的路线；首轮仅执行固定条件下的规划对照，后续渲染和自主时间规划仍待结果决定。实现入口：`scripts/pipeline3.py`；独立模块：`src/omni_av_p3`。不替换 Pipeline 1/2，不使用 P2 缓存或检查点。

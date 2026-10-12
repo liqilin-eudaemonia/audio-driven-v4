@@ -1,0 +1,129 @@
+{
+  "version": "P3-offline-oracle-pred25-c0-a-20261012",
+  "cpu_tests": {
+    "passed": 66,
+    "seconds": 19.5,
+    "test_files": 12,
+    "cuda_visible_devices": ""
+  },
+  "syntax_files": 171,
+  "cli": [
+    {
+      "entry": "pipeline3_parallel.py",
+      "returncode": 0,
+      "usage_present": true
+    },
+    {
+      "entry": "pipeline3_staged_prepare.py",
+      "returncode": 0,
+      "usage_present": true
+    },
+    {
+      "entry": "pipeline3_staged_cache.py",
+      "returncode": 0,
+      "usage_present": true
+    },
+    {
+      "entry": "pipeline3_staged_train.py",
+      "returncode": 0,
+      "usage_present": true
+    },
+    {
+      "entry": "pipeline3_staged_generate.py",
+      "returncode": 0,
+      "usage_present": true
+    },
+    {
+      "entry": "pipeline3_staged_queue.py",
+      "returncode": 0,
+      "usage_present": true
+    },
+    {
+      "entry": "pipeline3_staged_watch.py",
+      "returncode": 0,
+      "usage_present": true
+    },
+    {
+      "entry": "pipeline3_schedule_transition.py",
+      "returncode": 0,
+      "usage_present": true
+    }
+  ],
+  "internal_imports": "resolved",
+  "version_doc_links": [
+    "PIPELINE_PROMPTS_AND_MODULES_20261012.md",
+    "PIPELINE3_OFFLINE_SOURCE_MANIFEST_20261012.json",
+    "PIPELINE3_IMPLEMENTATION.md",
+    "PIPELINE3_STAGED_RENDER_PLAN_20261011.md",
+    "RESULT_COLLECTION_20261011.md",
+    "PIPELINE_COMPARISON_20261012.md"
+  ],
+  "source_snapshot_comparison": {
+    "snapshot": "/private/liqi_workspace/project_code/audio-driven-v4-p3-early-a700-20261012",
+    "src_files": 68,
+    "all_equal": true
+  },
+  "limits": "No new GPU tests, no training launch or restart, no video quality rerun",
+  "elapsed_checks_seconds": 3.11,
+  "scoped_export_checks": {
+    "root": "/tmp/p3-scoped-backup-check-20261012",
+    "syntax_files": 137,
+    "cli": [
+      {
+        "entry": "pipeline3_parallel.py",
+        "returncode": 0,
+        "usage_present": true
+      },
+      {
+        "entry": "pipeline3_staged_prepare.py",
+        "returncode": 0,
+        "usage_present": true
+      },
+      {
+        "entry": "pipeline3_staged_cache.py",
+        "returncode": 0,
+        "usage_present": true
+      },
+      {
+        "entry": "pipeline3_staged_train.py",
+        "returncode": 0,
+        "usage_present": true
+      },
+      {
+        "entry": "pipeline3_staged_generate.py",
+        "returncode": 0,
+        "usage_present": true
+      },
+      {
+        "entry": "pipeline3_staged_queue.py",
+        "returncode": 0,
+        "usage_present": true
+      },
+      {
+        "entry": "pipeline3_staged_watch.py",
+        "returncode": 0,
+        "usage_present": true
+      },
+      {
+        "entry": "pipeline3_schedule_transition.py",
+        "returncode": 0,
+        "usage_present": true
+      }
+    ],
+    "internal_imports": "resolved",
+    "only_staged_files": true,
+    "cpu_tests": {
+      "passed": 66,
+      "seconds": 17.29,
+      "test_files": 12,
+      "cuda_visible_devices": ""
+    }
+  },
+  "remote_visibility": {
+    "anonymous_target_api_status": 404,
+    "public_control_api_status": 200,
+    "ssh_authenticated_known_branch": "92f99210682f69a1153e5b2ffdae6358b7517d80",
+    "interpretation": "Private repository: authenticated SSH succeeds, anonymous API hidden; consistent with prior backup documentation"
+  },
+  "upload_scope": "P3 and required shared dependencies; excludes additional P2/P2.1 experiment history and gallery"
+}

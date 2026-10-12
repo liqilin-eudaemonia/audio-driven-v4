@@ -92,7 +92,7 @@ def _vae_metadata(path, mtime_ns, size):
     return result
 
 
-def load_av_targets(root, sample_id, device="cuda:0", tiny=False, split="train"):
+def load_av_targets(root, sample_id, device="cuda:0", tiny=False, split="train", tensor_loader=None):
     if split not in {"train", "dev", "test"}:
         raise ValueError("Unknown dataset split")
     root = Path(root) / "ltx23_precomputed_720p_area_qualified_20260920"
@@ -108,7 +108,8 @@ def load_av_targets(root, sample_id, device="cuda:0", tiny=False, split="train")
         found = [p for p in candidates if p.is_file()]
         if len(found) != 1:
             raise ValueError(f"Expected one VAE cache: {candidates}")
-        payload = torch.load(found[0], map_location="cpu", weights_only=True)
+        payload = (tensor_loader(found[0]) if tensor_loader is not None else
+                   torch.load(found[0], map_location="cpu", weights_only=True))
         sources[key] = str(found[0])
         if not torch.isfinite(payload["latents"]).all():
             raise ValueError("Nonfinite VAE target")

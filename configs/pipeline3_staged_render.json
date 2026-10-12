@@ -1,0 +1,57 @@
+{
+  "status": "queued_after_residual_eval_pending_gpu_gates",
+  "seed": 20261011,
+  "world_size": 24,
+  "global_batch": 72,
+  "accumulation": 3,
+  "save_every": 100,
+  "data_root": "/private/liqi_workspace/data/seamless/subset_300h_pure",
+  "native_index": "/public/2_CKPT/0_WM/llq/p3_full91009_dev48_cache_20261009/index.json",
+  "manifests": {
+    "train": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_20261008/train.json",
+    "dev": "/private/liqi_workspace/project_code/audio-driven-v4/outputs/p2_full91009_dev48_20261008/dev.json"
+  },
+  "text_indices": {
+    "train": "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_no_time_cache_20261008/train/cache_index.json",
+    "dev": "/public/2_CKPT/0_WM/llq/p2_full91009_dev48_no_time_cache_20261008/dev/cache_index.json"
+  },
+  "planner": {
+    "path": "/public/2_CKPT/0_WM/llq/p3_overnight_10h_20261009/training/lora_017000_attempt032/step_017000.pt",
+    "sha256": "72e0e4c592a05940b166db076f9759a4e19a4a42a3e2ac9ac639650175b40a0f",
+    "arm": "lora",
+    "step": 17000
+  },
+  "initial_connector": {
+    "path": "/public/2_CKPT/0_WM/llq/p3_render_alignment_20261010/training/alignment100_lora/step_000100.pt",
+    "sha256": "212b444e22c7fe4b4ddb63c053c5b7f0b1207fefd6828ae685b90cf4b4b2d782",
+    "step": 100
+  },
+  "stages": {
+    "C0": {
+      "steps": 2000,
+      "connector_lr": 3e-05,
+      "dit_lr": 1e-05,
+      "trainable": "generation_connector_only"
+    },
+    "A": {
+      "steps": 1000,
+      "connector_lr": 3e-05,
+      "dit_lr": 5e-06,
+      "trainable": "generation_connector_and_dit_text_lora"
+    }
+  },
+  "lora_rank": 8,
+  "lora_alpha": 8,
+  "conditions": "50% Oracle / 50% Pred25; fixed GT reply/timeline",
+  "geometry": "Original720p-area; preserve aspect; no spatial crop/resize",
+  "output_root": "/public/2_CKPT/0_WM/llq/p3_full_connector_then_dit_20261011",
+  "transition": "User-authorized queue: GPU gates -> C0 -> measured generation gate -> A1000; STOP persists across phases",
+  "future_stages": "B online Omni LoRA joint graph; C optional broader DiT attention; not implemented",
+  "performance": {
+    "balance_workload": true,
+    "checkpoint_group_size": 1,
+    "offload_block_inputs": true,
+    "gradient_communication": "bf16",
+    "dit_warmup_steps": 50
+  }
+}

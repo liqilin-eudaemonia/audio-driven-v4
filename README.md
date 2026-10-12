@@ -1,5 +1,10 @@
 # Audio driven v4 总索引
 
+## 当前P3版本备份（2026-10-12）
+
+GitHub分支：[backup/p3-offline-oracle-pred25-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-offline-oracle-pred25-c0-a-20261012)；[版本说明、训练边界与复现入口](docs/PIPELINE3_OFFLINE_C0_A_BACKUP_20261012.md)。本次归档**固定GT计划／时间表＋完整Oracle/Pred25离线hidden混合**版本：C0只训生成Connector，A训Connector＋DiT text-attention LoRA，Omni始终冻结于C0/A，AV loss不回传规划器。**不包含刚讨论的Bernini式在线mask分流联合训练。** 包含C0 step700转A的已部署调度代码；原2000步recipe保留用于身份追溯。固定提交与推送核验见版本说明。运行进度为下文标注时间的快照。
+
+
 **Pipeline 3 代码备份（2026-10-10）**：[独立备份分支](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-3n24g-step1000-20261010)。覆盖MASK规划、冻结/LoRA对照、三机训练与恢复、全量缓存、合批提速、监控、配置、测试和实验文档；详见[备份范围与复现](docs/PIPELINE3_GITHUB_BACKUP_20261010.md)。
 
 固定代码提交：[a56d4ca](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/a56d4ca4939d49b3b2b6c4c17ab627a029bee32f)，已推送并保存在原私密仓库；后续索引提交仅登记该代码版本。独立备份工作树23项P3测试、7个CLI入口检查通过，正式训练25个源码哈希全部匹配。

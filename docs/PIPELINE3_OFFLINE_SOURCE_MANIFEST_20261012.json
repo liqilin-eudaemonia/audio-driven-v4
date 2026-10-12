@@ -1,0 +1,363 @@
+{
+  "version": "P3-offline-oracle-pred25-c0-a-20261012",
+  "captured_utc": "2026-10-12T08:51:03.055754+00:00",
+  "base_commit": "92f99210682f69a1153e5b2ffdae6358b7517d80",
+  "scope": "P3 and direct shared dependencies only; no new unrelated P2/P2.1 history or gallery",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "0274635917cc33e3f10a04b1661a475e39dc81afd079cdf58b040060982c50c6",
+      "bytes": 21668
+    },
+    {
+      "path": "README.md",
+      "sha256": "7e8d8d1ca4b7f73c23f903040a8fb19a03d423e6df741de196bc963773fae874",
+      "bytes": 16284
+    },
+    {
+      "path": "configs/pipeline3_staged_render.json",
+      "sha256": "4188eeefc095baf68fcfec8c069584168c7874f823d0eefdb252b2720468e71f",
+      "bytes": 2280
+    },
+    {
+      "path": "docs/PIPELINE3_IMPLEMENTATION.md",
+      "sha256": "45577f07573e01d439d57b2858aad2b02614c2424220a68285d347988a66fb09",
+      "bytes": 6668
+    },
+    {
+      "path": "docs/PIPELINE3_OFFLINE_C0_A_BACKUP_20261012.md",
+      "sha256": "573021ee3bdd5d4b18a679fc57ff07daec8c516c52635acc5eab7c49b3218ca4",
+      "bytes": 8693
+    },
+    {
+      "path": "docs/PIPELINE3_PLAN.md",
+      "sha256": "daf4b448ea51f244d55557101f6f2504912e1bfbe55d9d420773ddc26d4df8d7",
+      "bytes": 13165
+    },
+    {
+      "path": "docs/PIPELINE3_STAGED_RENDER_PLAN_20261011.md",
+      "sha256": "568df68bbca6eddcb94d2229062145bb69c3198b0fb557687a4848143ba3e172",
+      "bytes": 9823
+    },
+    {
+      "path": "scripts/pipeline21_residual_eval_metrics.py",
+      "sha256": "02788ebb43267ecbfd559b395c5e6e8b561aceb43c294770256ecbf540a95184",
+      "bytes": 6738
+    },
+    {
+      "path": "scripts/pipeline21_residual_supervise.py",
+      "sha256": "7d22a163867576285d587e84e7a3603f41e2cf9b50c36280bee3ebccc3c41c46",
+      "bytes": 11513
+    },
+    {
+      "path": "scripts/pipeline3.py",
+      "sha256": "48670ca343465848d9d87d6a8acc62e356c9c1ff4be59e5f7fddcc2f2efd460b",
+      "bytes": 2261
+    },
+    {
+      "path": "scripts/pipeline3_audio_precision.py",
+      "sha256": "c2f77484e6bb48cf90d0fe20ad1ed59a27e2e8a9d1d2cf10a80cbbe3e08d509c",
+      "bytes": 2905
+    },
+    {
+      "path": "scripts/pipeline3_checkpoint_report.py",
+      "sha256": "acb93b9d7bfd498e8b763ae74558a8a3f21ca286ce156f78841636219ae3cd5e",
+      "bytes": 4649
+    },
+    {
+      "path": "scripts/pipeline3_cluster.py",
+      "sha256": "3e4380b7106c8eb261c321baf6499b14cf84c7dcb23571e7a3f42ecab70ab4ef",
+      "bytes": 5600
+    },
+    {
+      "path": "scripts/pipeline3_diagnose.py",
+      "sha256": "db1d82dc9a1d2e1eaec44cb5a1fc5c0186e4723916503bfce975bf863345031f",
+      "bytes": 8202
+    },
+    {
+      "path": "scripts/pipeline3_diagnostic_cpu_identity.py",
+      "sha256": "c71fe8080cf9b553bf5d02072e8a4f5959c2da8bb3a03fa9e1f4d436907fb4fb",
+      "bytes": 3055
+    },
+    {
+      "path": "scripts/pipeline3_diagnostic_generate.py",
+      "sha256": "c9c9e36a7a432e39cceddf89f8e00345c035cfddc79f6bc0f66b555bfe3c7dc3",
+      "bytes": 999
+    },
+    {
+      "path": "scripts/pipeline3_diagnostic_queue.py",
+      "sha256": "fe29b419b986e55ee53589f0accae97c42d889126ec49cd498b37c7ed0af5a09",
+      "bytes": 5588
+    },
+    {
+      "path": "scripts/pipeline3_diagnostic_report.py",
+      "sha256": "3ea731604e21b1524e99bd54db708ac18f9df81c6b661363aa7418490b941ca5",
+      "bytes": 5837
+    },
+    {
+      "path": "scripts/pipeline3_extended.py",
+      "sha256": "2134e6df781b02a5bd24d484ca7b36d12adb640dce76f0b772eb3348584dc916",
+      "bytes": 1201
+    },
+    {
+      "path": "scripts/pipeline3_full_cache.py",
+      "sha256": "b8fba4fb3b3b56476bf884ddc1024bf3af146640937657638811f8d1cc6ddeca",
+      "bytes": 12158
+    },
+    {
+      "path": "scripts/pipeline3_full_run.py",
+      "sha256": "8d798768ad28eab1ab9ddb9ac910752b2fba7eaae4ea034e17967145b7c959e6",
+      "bytes": 5053
+    },
+    {
+      "path": "scripts/pipeline3_kernel_screen.py",
+      "sha256": "bcc0112a51e4b1d6454139a59e5821d291c02d2ed6401b385838c4698ef5292c",
+      "bytes": 3024
+    },
+    {
+      "path": "scripts/pipeline3_monitor.py",
+      "sha256": "c939c8b08894ade0737cdefeb03bfdde3988a88d42491dfbd75773b3ea704169",
+      "bytes": 4203
+    },
+    {
+      "path": "scripts/pipeline3_parallel.py",
+      "sha256": "cc4440065b14b83b27ef37762943ce6f3392c37f9599436402715b2d084005af",
+      "bytes": 3225
+    },
+    {
+      "path": "scripts/pipeline3_parallel_seal_recovery.py",
+      "sha256": "f54250d01cfd7622edd5e0d8d577a825a76aa7fc1978e7a105c4570742c1c6b8",
+      "bytes": 3263
+    },
+    {
+      "path": "scripts/pipeline3_schedule_transition.py",
+      "sha256": "315a5dedb3fe330b291c4645a53556500466fb04e382b7c5bbb6e34f65167aa9",
+      "bytes": 11221
+    },
+    {
+      "path": "scripts/pipeline3_staged_cache.py",
+      "sha256": "c9c8d04bdd5fd7b03f89b38a213876beef21ec00227f73e7d2e308b5253eeea5",
+      "bytes": 6559
+    },
+    {
+      "path": "scripts/pipeline3_staged_generate.py",
+      "sha256": "0846c025fb71c3e86c98958e93d2d58bab7a7103c1c735a5d36653b452edbac6",
+      "bytes": 5428
+    },
+    {
+      "path": "scripts/pipeline3_staged_integrity.py",
+      "sha256": "53426ee774b163bcfa7443f77674bfb0cea155e6546da1502a4094f0ff5ac40c",
+      "bytes": 1049
+    },
+    {
+      "path": "scripts/pipeline3_staged_local_gate.py",
+      "sha256": "d84dd0df900816e5fdc7ea8197244e272b80b76746654a455c33bc785b10118f",
+      "bytes": 4930
+    },
+    {
+      "path": "scripts/pipeline3_staged_prepare.py",
+      "sha256": "1ef7b43ca003e998d4208675dffa7f92b9b043903d3ce16c6578aa1226d110a3",
+      "bytes": 2042
+    },
+    {
+      "path": "scripts/pipeline3_staged_quality.py",
+      "sha256": "d82bc30e89000c245ff93bf4675662cc5fd0d06062b8f8e226ee78e4c7fa053b",
+      "bytes": 5673
+    },
+    {
+      "path": "scripts/pipeline3_staged_queue.py",
+      "sha256": "915d69e9d448a674255b5522e82f8d3e3b4e192c543f3ac47a77e0a40499c9d1",
+      "bytes": 14972
+    },
+    {
+      "path": "scripts/pipeline3_staged_seal.py",
+      "sha256": "19fbca5bfd5c40ddaf47a4baa6445b68d01e77988bf1bdb5bc131366e7579355",
+      "bytes": 2425
+    },
+    {
+      "path": "scripts/pipeline3_staged_train.py",
+      "sha256": "024de6ce52fd49008786af07860e740c2b839bba14c92ec1c59e878c6fe9ce0a",
+      "bytes": 13301
+    },
+    {
+      "path": "scripts/pipeline3_staged_watch.py",
+      "sha256": "db7ef3755400c45a722ed27a8066c5c3b51a8b6c5bfa46fa4d4b8db4f2c65b5a",
+      "bytes": 5029
+    },
+    {
+      "path": "scripts/pipeline3_staged_worker.py",
+      "sha256": "bf7fc69c53df6e871dbb4fc29bfb96aed0839500db0029e4d4c777f1b31d3efb",
+      "bytes": 2368
+    },
+    {
+      "path": "scripts/pipeline3_training_benchmark.py",
+      "sha256": "eddccb8b2abb2257b57c0abe7009032f30cb182a5c1d6f1c5bcceee2a3c5d741",
+      "bytes": 9859
+    },
+    {
+      "path": "src/omni_av/ltx_runtime.py",
+      "sha256": "f5054eb5fe709ad51b7640b7b71751491561e2edb6be5363abe08824193e7fe2",
+      "bytes": 11103
+    },
+    {
+      "path": "src/omni_av_p21/residual_performance.py",
+      "sha256": "db350809224860f3b8a58b235eae099eb9edf6e542420ff8bfc4ab7a60ea0a27",
+      "bytes": 3521
+    },
+    {
+      "path": "src/omni_av_p3/__init__.py",
+      "sha256": "4dcf9c0c5f4a1778f4b0083d0b85d93550c175818a3ebd00cda2cc2c7639b7a6",
+      "bytes": 102
+    },
+    {
+      "path": "src/omni_av_p3/accelerated.py",
+      "sha256": "e4bde7b781d3967d36565397e047a8e8cdc9e4f4cd035622b6f82a577f1c33dc",
+      "bytes": 8161
+    },
+    {
+      "path": "src/omni_av_p3/data.py",
+      "sha256": "979f9ebc84e61f060890e89b0ada2392511731d43bea826fd47b21f577318671",
+      "bytes": 8577
+    },
+    {
+      "path": "src/omni_av_p3/diagnostics.py",
+      "sha256": "e093662175726c3e46091777dc00a714083f016a10126bc553492eb127510531",
+      "bytes": 3721
+    },
+    {
+      "path": "src/omni_av_p3/distributed.py",
+      "sha256": "3b278a876e3e916f31a72c6e51ddbcde78662dbb25e7a0a8409a5d0b8c220532",
+      "bytes": 23410
+    },
+    {
+      "path": "src/omni_av_p3/experiment.py",
+      "sha256": "76c6432a0c65a76145b353f76e335aafb052760bab4879a92a42852a80842c13",
+      "bytes": 11647
+    },
+    {
+      "path": "src/omni_av_p3/extended.py",
+      "sha256": "b9169abbbb7039ed8e689078d3d1d70f4966d035218667fe8b5b0338d6dca5e9",
+      "bytes": 14390
+    },
+    {
+      "path": "src/omni_av_p3/launch.py",
+      "sha256": "07c5abda02fccd391d6d1d54b1e1cbd69fdf3792ca0fcf9ca140b7f8eaca524a",
+      "bytes": 4492
+    },
+    {
+      "path": "src/omni_av_p3/model.py",
+      "sha256": "7e9ea49f8e7a5ddbf747a323aac13b4396558c8e8857a1bbecdb6cf64269b4bc",
+      "bytes": 9702
+    },
+    {
+      "path": "src/omni_av_p3_staged/__init__.py",
+      "sha256": "2daeeec69f2d60aeb53fe2732de93efa403aa6bb586b6bb3c89caba9c94a122c",
+      "bytes": 106
+    },
+    {
+      "path": "src/omni_av_p3_staged/checkpoint.py",
+      "sha256": "617c3aa6d8558f06be1529cda12a23c1c1f24ddf51c6f42c48b0b2f98fac9a8f",
+      "bytes": 5171
+    },
+    {
+      "path": "src/omni_av_p3_staged/data.py",
+      "sha256": "fc7be66f26c0e565fde6e32bf77a6fff5339dcc9caffdf2efa40e94f1b36e650",
+      "bytes": 4072
+    },
+    {
+      "path": "src/omni_av_p3_staged/integrity.py",
+      "sha256": "1fa18649e94714add464b112713859a359214c23116ebae291941d0c171109fb",
+      "bytes": 5608
+    },
+    {
+      "path": "src/omni_av_p3_staged/media.py",
+      "sha256": "05662eca1c79418664737bedab743b0bd579d7cbb1b7d9161254cee77d59537a",
+      "bytes": 4648
+    },
+    {
+      "path": "src/omni_av_p3_staged/model.py",
+      "sha256": "3c2effdb37da46dcec7adfd6d4091e09398b584b7e1bfcde58400f741f7844ed",
+      "bytes": 3004
+    },
+    {
+      "path": "src/omni_av_p3_staged/monitor.py",
+      "sha256": "266de387869dbe9f62cd26460463a1b0710720a6f8c2d704afa8f83a7f584466",
+      "bytes": 1623
+    },
+    {
+      "path": "src/omni_av_p3_staged/orchestration.py",
+      "sha256": "a4fabc87cc92794b27d0c2a4d8260f9daa45bcc36d93c2704eab0f2bf4e152ac",
+      "bytes": 9812
+    },
+    {
+      "path": "src/omni_av_p3_staged/quality.py",
+      "sha256": "6622829e5a3e88b540a0a4048de531e09e9493d9fdebf873e71e73fa5307b8e3",
+      "bytes": 2189
+    },
+    {
+      "path": "src/omni_av_p3_staged/sampling.py",
+      "sha256": "79a883b33859d6b3d36b060d9c334d1a424f6a4f40cdf21faa398694cf9ab69f",
+      "bytes": 2154
+    },
+    {
+      "path": "tests/test_p3.py",
+      "sha256": "41d72e78842dde27accf8db3331bc31a4f2a0d97b2391d6c831aff3e6c2bbb55",
+      "bytes": 6249
+    },
+    {
+      "path": "tests/test_p3_acceleration.py",
+      "sha256": "f592e95d2581f0e99ffb2763851da1c812f7f6465ba62926b6f413114380b8ec",
+      "bytes": 4060
+    },
+    {
+      "path": "tests/test_p3_cache_concurrency.py",
+      "sha256": "6ee97835f1eb9e4bcc289434c319c490619bcd2eafbb38e7e8bc4272b0d00c01",
+      "bytes": 2087
+    },
+    {
+      "path": "tests/test_p3_diagnostic_transport.py",
+      "sha256": "20b543adfb72677b70556355abc94e71949be2ecc8880819f96f7d3fde945a39",
+      "bytes": 2223
+    },
+    {
+      "path": "tests/test_p3_diagnostics.py",
+      "sha256": "257c843a8bb12a033a69f0d3982696ed39edf836cd0f5e885a1af82efd9c0c31",
+      "bytes": 1482
+    },
+    {
+      "path": "tests/test_p3_distributed.py",
+      "sha256": "125c2ce2a10e4c2b74e98fcd71e3d9a18d56950c1795b915c8fdb6310b12a682",
+      "bytes": 3989
+    },
+    {
+      "path": "tests/test_p3_early_transition.py",
+      "sha256": "ce26a022b5f45b64fdb253b9f74013d08101b9f78430a3795146a860de782d5c",
+      "bytes": 4899
+    },
+    {
+      "path": "tests/test_p3_staged_queue.py",
+      "sha256": "043a139fc76618246a0be2419b64cd0a44138ced836582309c529affd43ff663",
+      "bytes": 2501
+    },
+    {
+      "path": "tests/test_p3_staged_render.py",
+      "sha256": "46d3f0a8b670344dbefd0acce334c97dfaa9aa5af8fba88b9f603c42b59a5b3f",
+      "bytes": 8363
+    },
+    {
+      "path": "tests/test_p3_staged_safety.py",
+      "sha256": "55fcec8e8790f2a13a366d7e5d94302484aa2021504e83f939902d5bf9459e54",
+      "bytes": 9008
+    },
+    {
+      "path": "tests/test_p3_staged_watch.py",
+      "sha256": "74ec0326beaebc0dfa43a675274a42c92b8a91c1fc132d696b3af3f3af16e9f0",
+      "bytes": 1567
+    },
+    {
+      "path": "tests/test_p3_training_benchmark.py",
+      "sha256": "9f11516aae6d2ef2656529d48bbd9509dede25ffde7fa4528ebf51dea972d66b",
+      "bytes": 1856
+    }
+  ]
+}

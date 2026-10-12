@@ -1,5 +1,9 @@
 # 版本变更记录
 
+## 2026-10-12 Pipeline 3：离线Oracle/Pred25条件版C0→A备份
+
+分支：[backup/p3-offline-oracle-pred25-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-offline-oracle-pred25-c0-a-20261012)。补齐生成Connector全量C0、DiT text-attention LoRA A、两路hidden缓存／完整性封存、严格恢复／监控、700步提前切换调度、原生生成评分；继承历史Planner与必需共享依赖。固定GT计划与时间表，C0/A使用约50% Oracle、50% Pred25离线目标槽位hidden，AV loss不回传Omni；未实现新讨论的Bernini在线联合FM＋AV训练。66项P3 CPU回归通过；本次不启动GPU任务、不改运行配置。权重、缓存与媒体不上传。详见[版本说明](docs/PIPELINE3_OFFLINE_C0_A_BACKUP_20261012.md)。
+
 ## 2026-10-10 Pipeline 3：step1000完成归档与独立GitHub备份
 
 已推送固定代码提交：[a56d4ca](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/a56d4ca4939d49b3b2b6c4c17ab627a029bee32f)；后续索引提交只登记此版本。独立备份工作树23项CPU测试及7个CLI入口检查通过。
