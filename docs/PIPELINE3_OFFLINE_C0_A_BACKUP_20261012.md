@@ -2,7 +2,7 @@
 
 版本标识：`P3-offline-oracle-pred25-c0-a-20261012`。整理日期：2026-10-12。
 
-GitHub分支：[backup/p3-offline-oracle-pred25-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-offline-oracle-pred25-c0-a-20261012)。本页描述当前已实现版本；推送与固定提交登记见后续记录。
+GitHub分支：[backup/p3-offline-oracle-pred25-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/backup/p3-offline-oracle-pred25-c0-a-20261012)。已推送。固定代码提交：[6ee6719](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/6ee67193c31a9b2ba18874f96736cb5ace406696)；提交含详细中文说明。后续索引提交仅登记此代码版本，不改变训练实现。
 
 ## 版本定位与边界
 
