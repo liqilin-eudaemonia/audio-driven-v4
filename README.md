@@ -1,4 +1,6 @@
 > 新配方：见 [Beta(10,1) P→C0→A全量方案](docs/PIPELINE3_BETA10_P_C0_A_20261013.md)。训练前须通过本版本测试。
+最新无人值守对照：[P3 Beta10温启动／重新初始化自动选优](docs/PIPELINE3_BETA10_AUTOSELECT_20261013.md)。
+
 
 # Audio driven v4 总索引
 

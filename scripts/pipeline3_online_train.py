@@ -42,7 +42,7 @@ def main():
     from omni_av_p3_online import VERSION
     from omni_av_p3_online.model import sample_mask, OnlineConfig
     from omni_av_p3_online.data import load_sample, read_native, validate_manifest
-    from omni_av_p3_online.checkpoint import checked, initialize, initialize_connector, resume, save
+    from omni_av_p3_online.checkpoint import checked, initialize, configure_connector, resume, save
     from omni_av_p3_online.runtime import build, update_learning_rates
 
     recipe, manifest = read(a.config), read(a.manifest)
@@ -106,8 +106,7 @@ def main():
         else:
             initialize(a.initialize, raw, digest, a.initialization_sha256, identity["planner_sha256"])
             if a.stage == "C0":
-                c = recipe["connector_initialization"]
-                initialize_connector(c["path"], raw, c["sha256"])
+                configure_connector(recipe["connector_initialization"], raw)
         if start > steps:
             raise ValueError("Checkpoint exceeds target")
         # Planner parameters are deliberately unused during A warmup. Masks can

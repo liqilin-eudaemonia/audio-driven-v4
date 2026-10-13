@@ -108,3 +108,18 @@ def initialize_connector(path, model, expected_sha):
     state = {k.removeprefix("connector."): v for k, v in data["model"].items() if k.startswith("connector.")}
     validate_state(model.connector, state)
     model.connector.load_state_dict(state, strict=True)
+
+
+def configure_connector(config, model):
+    """Explicit warm/fresh ablation. Fresh keeps constructor zero-output initialization."""
+    mode = config.get("mode", "warm")
+    if mode == "warm":
+        initialize_connector(config["path"], model, config["sha256"])
+    elif mode == "fresh":
+        if set(config) != {"mode"} or model.stage != "C0":
+            raise ValueError("Fresh initialization must have no old checkpoint")
+        for branch in (model.connector.video, model.connector.audio):
+            if branch[-1].weight.any() or (branch[-1].bias is not None and branch[-1].bias.any()):
+                raise ValueError("Fresh connector must have zero output projection")
+    else:
+        raise ValueError("Unknown connector initialization")
