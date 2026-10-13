@@ -32,6 +32,19 @@ def errors(ref,hyp):
     return dict(wer=we/len(r.split()) if r else None,cer=ce/len(rc) if rc else None,
                 word_errors=we,reference_words=len(r.split()),character_errors=ce,reference_characters=len(rc))
 
+def classify_empty_vocal(values, log_text, output, fingerprint, source_rms):
+    """Recognize only the separator's observed empty-stem failure, never invent a sync score."""
+    if len(values)!=1 or values[0].get('status')!='error':return None
+    item=values[0];reference=item.get('reference')
+    if not reference or Path(reference).name!=reference:return None
+    stem=Path(output)/'sync_work'/'vocal_tmp'/(reference+'_vocals.wav')
+    if ('stem_source array is near-silent or empty' not in log_text
+            or str(stem) not in item.get('error','') or stem.exists()):return None
+    return [dict(item,status='no_detectable_vocal',reason='separator_empty_vocal_stem',
+                 video_sha256=fingerprint,source_rms=source_rms,metric_valid=False,
+                 original_status='error',original_error=item.get('error'))]
+
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--plan',type=Path,required=True);p.add_argument('--job',type=Path,required=True);p.add_argument('--gpu',type=int,required=True);a=p.parse_args()
     import sys;sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
@@ -82,14 +95,21 @@ def main():
         if not job['reply'].strip():values=[dict(status='not_applicable',reason='empty_reply',video_sha256=fingerprint)]
         else:
             script=Path(cfg['syncnet_root'])/'run_vocal_sync.py'
-            subprocess.run([cfg['sync_python'],str(script),'--videofile',str(video),'--data_dir',str(out/'sync_work'),
-                '--output_json',str(out/'sync.pending.json'),'--require_single_face','--model_file_dir',str(script.parent/'models/audio-separator')],cwd=script.parent,check=True,timeout=6000)
+            sync_log=out/'sync_execution.log'
+            with sync_log.open('w') as log:
+                subprocess.run([cfg['sync_python'],str(script),'--videofile',str(video),'--data_dir',str(out/'sync_work'),
+                    '--output_json',str(out/'sync.pending.json'),'--require_single_face','--model_file_dir',str(script.parent/'models/audio-separator')],cwd=script.parent,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=6000)
             values=json.loads((out/'sync.pending.json').read_text())
+            empty=classify_empty_vocal(values,sync_log.read_text(errors='replace'),out,fingerprint,
+                                       json.loads((out/'asr.json').read_text())['rms'])
+            if empty is not None:values=empty
             if len(values)!=1 or values[0]['status']=='error':raise RuntimeError('SyncNet error: '+str(values))
             for v in values:
                 v['video_sha256']=fingerprint
                 if v.get('av_offset') is not None:v['av_offset_ms']=40*v['av_offset']
         write(sync,values)
-    write(out/'completed.json',dict(identity,asr=json.loads((out/'asr.json').read_text()),syncnet=json.loads(sync.read_text())))
+    write(out/'completed.json',dict(identity,asr=json.loads((out/'asr.json').read_text()),syncnet=json.loads(sync.read_text()),
+        degraded=any(v.get('status')=='no_detectable_vocal' for v in json.loads(sync.read_text())),
+        metric_protocol='speech.v2.empty-vocal-explicit'))
 
 if __name__=='__main__':main()
