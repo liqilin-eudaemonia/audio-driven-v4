@@ -2,7 +2,7 @@
 
 ## P3 Bernini式在线联合版（2026-10-13归档）
 
-分支：[experiment/p3-bernini-online-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p3-bernini-online-c0-a-20261012)。[本版本说明与验证边界](docs/PIPELINE3_ONLINE_GITHUB_BACKUP_20261013.md) · [备份核验记录](docs/PIPELINE3_ONLINE_BACKUP_CHECKS_20261013.json) · [完整方案与运行命令](docs/PIPELINE3_BERNINI_ONLINE_PLAN_20261012.md)。固定推送提交由后续索引登记。
+分支：[experiment/p3-bernini-online-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p3-bernini-online-c0-a-20261012)。[本版本说明与验证边界](docs/PIPELINE3_ONLINE_GITHUB_BACKUP_20261013.md) · [备份核验记录](docs/PIPELINE3_ONLINE_BACKUP_CHECKS_20261013.json) · [完整方案与运行命令](docs/PIPELINE3_BERNINI_ONLINE_PLAN_20261012.md)。**已推送并核对远端。** 固定代码提交：[e83e7bd](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/e83e7bd7f0e6c5ffc4a5308d763920807352aa16)；后续索引提交仅登记该代码版本。
 
 在线Omni同一次forward：前缀＋未mask槽位hidden指导LTX，masked槽位接受特征FM。C0仅训练生成Connector；A默认前100步训练生成Connector＋DiT text-attention LoRA，随后特征FM与AV联合更新Omni LoRA及相关适配头。固定GT回复／时间表不变，特征Connector与生成Connector仍独立；不是旧离线Oracle/Pred25 hidden训练，也不含待验证的共享Connector主干。
 

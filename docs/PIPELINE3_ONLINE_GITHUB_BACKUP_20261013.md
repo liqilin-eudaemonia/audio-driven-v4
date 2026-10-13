@@ -1,6 +1,6 @@
 # P3 Bernini式在线联合版：GitHub备份（2026-10-13）
 
-分支：[experiment/p3-bernini-online-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p3-bernini-online-c0-a-20261012)。版本契约`p3.bernini-online.v1`。本次归档原在线实现`33602c3`及后续验证／恢复／SSH修复；固定代码提交在推送后由索引登记。
+分支：[experiment/p3-bernini-online-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p3-bernini-online-c0-a-20261012)。版本契约`p3.bernini-online.v1`。本次归档原在线实现`33602c3`及后续验证／恢复／SSH修复；**已推送并核对远端。** 固定代码提交：[e83e7bd](https://github.com/liqilin-eudaemonia/audio-driven-v4/commit/e83e7bd7f0e6c5ffc4a5308d763920807352aa16)；后续索引提交仅登记该代码版本。
 
 ## 这是哪个版本
 
