@@ -1,5 +1,9 @@
 # 版本变更记录
 
+## 2026-10-13 P3 Bernini式在线版备份与工程修复
+
+归档在线C0/A模型、配置、训练／推理／多机入口及partial Dev分组、最终checkpoint恢复验证、SSH通路修复。39项CPU回归通过，历史三机18 rank、global72及在线推理短测通过；未开展正式在线质量评估。详细边界见[本版本说明](docs/PIPELINE3_ONLINE_GITHUB_BACKUP_20261013.md)。下方2026-10-12记录保留为历史状态。
+
 ## 2026-10-12 P3在线mask分流联合训练（本地实现）
 
 新增`omni_av_p3_online`及在线训练、推理、多机预检入口；C0只对齐生成Connector，新A由100步Connector/DiT适配转入Omni LoRA＋两类Connector＋特征Decoder＋DiT text-attention LoRA共同训练。采用前缀/非mask生成条件与masked特征FM分流，保留固定GT计划/时间表，使用新的检查点格式与严格恢复。复用感知/文本/VAE缓存；不使用旧Pred25 hidden指导新检查点推理。36项CPU回归及真实缓存读取通过，GPU工程测试和生成质量待验证。当前离线作业不变、新分支未推送。详见[改造文档](docs/PIPELINE3_BERNINI_ONLINE_PLAN_20261012.md)。

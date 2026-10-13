@@ -1,0 +1,145 @@
+{
+  "checked_utc": "2026-10-13T05:49:43.515496+00:00",
+  "version": "p3.bernini-online.v1",
+  "cpu": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "39",
+    "time": "26.524",
+    "timestamp": "2026-10-13T05:48:06.666018+00:00",
+    "hostname": "dedicated-developjob-js-public-huvlx"
+  },
+  "cli": [
+    {
+      "script": "pipeline3_online_train.py",
+      "passed": true
+    },
+    {
+      "script": "pipeline3_online_generate.py",
+      "passed": true
+    },
+    {
+      "script": "pipeline3_online_cluster.py",
+      "passed": true
+    }
+  ],
+  "historical_gpu_reports": [
+    {
+      "source": "/public/2_CKPT/0_WM/llq/p3_online_multinode_check_20261012/report.json",
+      "sha256": "783cb7daba9f15a3b8c3401b0aedd960ae1aba8bae6bd1f6f7071e750209dd1a",
+      "passed": true,
+      "results": [
+        {
+          "name": "multinode18",
+          "passed": true
+        },
+        {
+          "name": "long_allmask2",
+          "passed": true
+        },
+        {
+          "name": "long_partial2",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "source": "/public/2_CKPT/0_WM/llq/p3_online_globalbatch_check_20261012/report.json",
+      "sha256": "3ef9a34b491c5c4951b921ecc64f0da78860ffa2388324a48f21ecd2f7447b9f",
+      "passed": true,
+      "results": [
+        {
+          "name": "multinode18",
+          "passed": true
+        },
+        {
+          "name": "long_allmask2",
+          "passed": true
+        },
+        {
+          "name": "long_partial2",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "source": "/public/2_CKPT/0_WM/llq/p3_online_inference_smoke_20261012/report.json",
+      "sha256": "763fab492f45326b4c0e5d5e813b662655d441609c7133fc4cf17d3999a552ca",
+      "passed": true,
+      "results": [
+        "C0",
+        "A"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "configs/pipeline3_bernini_online.json",
+      "sha256": "189d753d62b3334389be9d2a30e452c2725fd956357b7f56331e19ef6f3af5e6",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "configs/pipeline3_online_cluster.example.json",
+      "sha256": "8f0fba61279f5a109bef3aefc191f008d9c76ce1f6b73e5981b1b3fc56c646c0",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "scripts/pipeline3_online_cluster.py",
+      "sha256": "7352e5d824f85272186db93467cc8c50f269d8dfe63188e57e6ba292fc8d404c",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "scripts/pipeline3_online_generate.py",
+      "sha256": "69214f740f8b6fb1f7d1b12272b5ea3f947462f1ae64ddb12efa551c8a1c28d0",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "scripts/pipeline3_online_train.py",
+      "sha256": "d2b0cdc4ae58ac8a2d12b930a2b8aa43289595d1cf63ab2f25d73826bc69e328",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "src/omni_av_p3_online/__init__.py",
+      "sha256": "8896ea8ba7ca609891974d898fb2bee08a758b9805194fd746416c41f53faa8d",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "src/omni_av_p3_online/checkpoint.py",
+      "sha256": "6450413097f5eced1a451f0a1f2ecfd44cc8be005bf5403ba63038cdf01924b6",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "src/omni_av_p3_online/data.py",
+      "sha256": "e595bbce7d49d6d39ee9ae4f323a9f4edef01075cbfcbd1d93eb08a13e4f7d93",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "src/omni_av_p3_online/model.py",
+      "sha256": "d9ae9678cfbe509562773c54089f0f298e907f70640a1cb25024f95a7185e5c8",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "src/omni_av_p3_online/runtime.py",
+      "sha256": "d7821545de16a5714ec6e7f86628b2a4e2f33f6852bdb780ed0e98162b5fa468",
+      "matches_gpu_snapshot": true
+    },
+    {
+      "path": "tests/test_p3_online.py",
+      "sha256": "872db439ac2a82e10c48b6be63232fa80776cb5933d4912c2f29c605f3a70c62",
+      "matches_gpu_snapshot": null
+    },
+    {
+      "path": "tests/test_p3_online_io.py",
+      "sha256": "19e842c0cd6b19b3be0e970b32b79a084bcf77ad4ec5ea25e57d793ec89158f2",
+      "matches_gpu_snapshot": null
+    }
+  ],
+  "gpu_rerun_for_backup": false,
+  "limits": [
+    "18-rank GPU engineering only; not 24-rank",
+    "No formal online quality claim",
+    "No weights, datasets or secrets uploaded"
+  ]
+}

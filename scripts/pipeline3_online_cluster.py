@@ -80,7 +80,9 @@ def main():
         shell = "cd " + shlex.quote(str(ROOT)) + " && exec " + shlex.join(command)
         if node["host"] in hosts:
             return ["bash", "-c", shell]
-        return ["ssh", "-i", cfg["ssh_key"], "-p", str(node.get("ssh_port", 22)),
+        controls = ["-S", node["control_path"], "-o", "ControlMaster=auto", "-o", "ControlPersist=14400"] if node.get("control_path") else []
+        proxy = ["-o", "ProxyCommand=" + node["proxy_command"]] if node.get("proxy_command") else []
+        return ["ssh", *controls, *proxy, "-i", cfg["ssh_key"], "-p", str(node.get("ssh_port", 22)),
             "-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=yes", "-o", "ConnectTimeout=15",
             f'{node.get("ssh_user", "root")}@{node["host"]}', shell]
     def preflight(pair):

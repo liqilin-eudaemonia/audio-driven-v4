@@ -1,12 +1,12 @@
 # Audio driven v4 总索引
 
-## P3在线Bernini式改造（2026-10-12，本地实现／未切换训练）
+## P3 Bernini式在线联合版（2026-10-13归档）
 
-[方案、代码入口、运行步骤与验收边界](docs/PIPELINE3_BERNINI_ONLINE_PLAN_20261012.md) · [36项CPU测试记录](docs/PIPELINE3_ONLINE_TESTS_20261012.json) · [实际缓存读取核验](docs/PIPELINE3_ONLINE_DATA_CHECK_20261012.json)。
+分支：[experiment/p3-bernini-online-c0-a-20261012](https://github.com/liqilin-eudaemonia/audio-driven-v4/tree/experiment/p3-bernini-online-c0-a-20261012)。[本版本说明与验证边界](docs/PIPELINE3_ONLINE_GITHUB_BACKUP_20261013.md) · [备份核验记录](docs/PIPELINE3_ONLINE_BACKUP_CHECKS_20261013.json) · [完整方案与运行命令](docs/PIPELINE3_BERNINI_ONLINE_PLAN_20261012.md)。固定推送提交由后续索引登记。
 
-新代码在独立工作树`/private/liqi_workspace/project_code/audio-driven-v4-p3-online-20261012`、分支`experiment/p3-bernini-online-c0-a-20261012`。C0在线读取部分mask条件，只训练生成Connector；新A前100步适配Connector/DiT LoRA，随后特征FM与AV共同更新Omni LoRA、特征头、生成Connector与DiT text-attention LoRA。同一次Omni forward，前缀＋未mask槽位hidden指导LTX、masked槽位hidden接受FM监督。固定GT计划/时间表不变。
+在线Omni同一次forward：前缀＋未mask槽位hidden指导LTX，masked槽位接受特征FM。C0仅训练生成Connector；A默认前100步训练生成Connector＋DiT text-attention LoRA，随后特征FM与AV联合更新Omni LoRA及相关适配头。固定GT回复／时间表不变，特征Connector与生成Connector仍独立；不是旧离线Oracle/Pred25 hidden训练，也不含待验证的共享Connector主干。
 
-**新在线A与下文已备份的离线A不同；当前作业仍使用旧快照。** 新版复用原生感知、文本与VAE缓存，不消费离线Oracle/Pred25 hidden；推理用新checkpoint重新预测。36项CPU回归（含两rank、原生CFG、严格恢复）、真实Dev缓存读取及3个CLI检查通过；真实模型GPU显存、24卡吞吐与生成质量尚未验证。本轮未启动新训练、未修改旧权重/缓存、未推送新分支。
+本次39项CPU回归通过；历史真实三机18 rank／最长样本、global72累积、保存恢复与当前checkpoint推理均通过。没有24 rank在线测试或正式在线长训质量结论；代码备份不切换现有离线训练、不启动新任务。原始测试记录中的“未推送／GPU未验证”均为对应日期的历史状态。
 
 ## 当前P3版本备份（2026-10-12）
 

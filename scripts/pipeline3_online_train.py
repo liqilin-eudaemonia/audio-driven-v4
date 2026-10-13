@@ -1,7 +1,7 @@
 """torchrun online C0/A; explicit stage launch, independent output and strict resume."""
 import argparse
 from contextlib import nullcontext
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from datetime import timedelta
 import json
 import os
@@ -142,7 +142,8 @@ def main():
                         for mode in ("partial", "all_mask"):
                             seed = recipe["seed"] + 100000 + i
                             torch.manual_seed(seed)
-                            mask = layout.valid.clone() if mode == "all_mask" else sample_mask(layout, raw.config, seed)
+                            mask = layout.valid.clone() if mode == "all_mask" else sample_mask(
+                                layout, replace(raw.config, all_mask_probability=0.), seed)
                             values = raw(layout, target, strategy.prepare_training_inputs(with_text(av, text), sampler),
                                 seed, step, mask)
                             rows.append(dict(sample_id=e["sample_id"], mode=mode,
@@ -161,6 +162,11 @@ def main():
             finally:
                 restore_rng(rng)
                 raw.train()
+
+        # A checkpoint is published before Dev evaluation. Recompute the due
+        # evaluation on resume, including start == steps, before completion.
+        if not engineering and start > 0 and recipe["validate_every"] and start % recipe["validate_every"] == 0:
+            evaluate(start)
 
         last, saved = start, None
         with (a.output / f"rank{rank}.jsonl").open("x") as log:

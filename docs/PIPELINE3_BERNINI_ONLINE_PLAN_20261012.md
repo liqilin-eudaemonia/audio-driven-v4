@@ -1,5 +1,7 @@
 # P3 Bernini式在线条件分流：C0与A改造
 
+**2026-10-13归档更新：** 39项CPU回归重新通过，包含下文GPU验证后的修复；版本定位和备份入口见[在线版备份说明](PIPELINE3_ONLINE_GITHUB_BACKUP_20261013.md)。本文分日期追加的“尚未验证／未推送”描述当时状态，最终范围以上述备份说明为准。
+
 2026-10-12。用户授权记录方案并实施代码修改；本轮不切换、不停止既有离线训练。
 独立分支：`experiment/p3-bernini-online-c0-a-20261012`，基于离线备份`2b1ee36`。
 
@@ -131,3 +133,34 @@ A显式启动时使用`--stage A --initialize <新在线C0完整checkpoint> --in
 - 实际复用正式91009/48 manifest及输入封存，抽查Dev原生特征/文本/VAE读取通过：prefix `[1,513,2048]`，目标特征`[1,434,2048]`，325个视频槽位＋109个音频槽位；几何1600×576保持不变。[数据读取证据](PIPELINE3_ONLINE_DATA_CHECK_20261012.json)。
 - **未验证：** 真实22B LTX＋3B Omni同卡在线反向峰值显存、三机24卡吞吐和通信稳定性、新版完整音视频质量。下一步是空卡上的真实短/长样本更新与严格恢复测试，不能直接把CPU结果当作正式训练通过。
 - 当前离线C0/A作业、已有权重和缓存均未修改；本轮没有部署监控或启动新训练，也没有推送新实验分支到GitHub。
+
+## 2026-10-12复核修复与真实GPU工程测试
+
+用户确认保留按模态分路；正式训练仍继续原离线A，在线分支本轮只做工程验证。
+
+- 修复Dev `partial`沿用训练全mask概率的问题：partial评估显式将全mask概率设为0；原固定48个seed中8条被错误归入partial的问题已回归覆盖。训练mask分布保持原配方。
+- 修复最终检查点恢复漏做Dev验证：恢复点达到验证间隔时先重算该点Dev，再继续更新或发布完成标记；验证失败不能发布训练完成。
+- 多机启动器复用既有SSH ControlMaster及跳板配置，使三机检查与训练可沿既有通路运行。
+- 修复后39项CPU测试通过，包含新增的partial标签和最终恢复边界回归；不修改生成条件分路。
+
+真实模型工程测试目录：`/public/2_CKPT/0_WM/llq/p3_online_multinode_check_20261012`。冻结测试源码：`/private/liqi_workspace/project_code/audio-driven-v4-p3-online-gpucheck-20261012`。测试用step500仅作工程温启动，不替代正式A选点。
+
+资源：本机6–7卡保留给C0 step700验证；三机各0–5卡共18卡联合，另两台机器各6–7卡分别测试最长样本的全mask／50%mask。每组均执行C0保存step2→严格恢复至step3→A保存step2→严格恢复至step3。工程配方将Planner暖启动缩短为1步，使A第2步就覆盖在线联合梯度；每卡micro1、工程累积1，**不冒充global batch72的正式配方验证**。真实模型、首帧、原始720p-area保持不变。
+
+实时读取该目录`state.json`、`health.json`及各组`state.json`；最终结果为`report.json`。只在全部检查完成后据实际记录判定通过，不把启动或首步成功当作全部通过。
+
+### 实测结果（2026-10-12，逐项更新）
+
+第一轮三组均通过，证据：[多机／最长样本报告](/public/2_CKPT/0_WM/llq/p3_online_multinode_check_20261012/report.json)。真实3B Omni＋22B LTX，覆盖三机18 rank、最长样本全mask及50%mask；C0与A均完成保存step2并严格恢复更新至step3。A暖启动后Connector、DiT LoRA、Omni LoRA和特征头梯度均有限且非零，冻结参数检查未报错。GPU轮询观测到最高107770 MiB（约105.24 GiB）；这是采样观测值，不是CUDA精确峰值。最长测试包含713帧、85500个视频latent token。
+
+第二轮另行验证实际梯度累积：[目录](/public/2_CKPT/0_WM/llq/p3_online_globalbatch_check_20261012)。三机18 rank×micro1×accum4＝global72，另两组2 rank×accum3＝global6；读取完整Train91009/Dev48输入契约，仍只做C0/A各3步短测，Planner暖启动缩短至1步。此轮不使用engineering-indices子集；两卡组沿用历史目录名，但本轮不是固定最长样本子集。
+
+推理功能检查：[目录](/public/2_CKPT/0_WM/llq/p3_online_inference_smoke_20261012)。从第一轮C0／A各自step3检查点重新运行Planner Pred25并生成同一短Dev22样本；固定seed1067、Euler30、video CFG3／audio CFG7。这些工程权重不参与正式离线A选点。
+
+边界：GPU恢复检查覆盖严格载入与下一次实际更新，未检验与不中断GPU训练的逐数值等价；CPU等价测试已通过。三机最大联合规模为18 rank，不能称为24 rank测试。短步工程通过不能证明新版生成质量或联合loss权重已调好；正式在线A仍需100步暖启动及完整验证。
+
+**10:26 UTC最终结果：第二轮与推理检查均通过。** [global72及累积3报告](/public/2_CKPT/0_WM/llq/p3_online_globalbatch_check_20261012/report.json)三组全部passed。三机18 rank×accum4的C0第2步108.41秒、恢复第3步118.45秒；A联合第2步112.15秒、恢复第3步121.31秒。仅短测、样本长短变化，不能作为稳定吞吐或提速百分比。第二轮GPU轮询最大90228 MiB。A恢复step3梯度范数：Connector0.07316、DiT LoRA0.002253、Omni LoRA0.29125、特征头0.45364；loss均有限。
+
+[在线推理功能报告](/public/2_CKPT/0_WM/llq/p3_online_inference_smoke_20261012/report.json)C0／A两条均成功，当前检查点重新Pred25预测，129帧、1600×576、4.3秒，音视频输出与几何契约一致、波形finite，无目标特征或目标VAE输入。仅验证功能可运行，不能据工程3步权重判断模型质量。
+
+三组工程队列已正常完成释放GPU；正式训练按用户选择使用旧离线A，从同批评选的C0 step500独立初始化，新目录`/public/2_CKPT/0_WM/llq/p3_A_best_C0_20261012`。在线源码修复留在本独立工作树，未推送；本次不启动在线正式训练。

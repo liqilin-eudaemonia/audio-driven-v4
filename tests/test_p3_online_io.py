@@ -87,3 +87,61 @@ def test_launcher_only_accepts_network_environment():
     assert module.network_environment({"NCCL_IB_DISABLE": 0}) == {"NCCL_IB_DISABLE": "0"}
     with pytest.raises(ValueError):
         module.network_environment({"PYTHONPATH": "/wrong/source"})
+
+
+def training_entry_ast():
+    import ast
+    source = Path(__file__).resolve().parents[1] / "scripts/pipeline3_online_train.py"
+    main = next(n for n in ast.parse(source.read_text()).body if isinstance(n, ast.FunctionDef) and n.name == "main")
+    return next(n for n in main.body if isinstance(n, ast.Try))
+
+
+def test_dev_partial_excludes_all_mask_for_all_fixed_seeds():
+    """Exercise the CLI's actual mask expression, including the eight old failures."""
+    import ast
+    from dataclasses import replace
+    from types import SimpleNamespace
+    from omni_av_p3_online.model import OnlineConfig, sample_mask
+    block = training_entry_ast()
+    evaluate = next(n for n in block.body if isinstance(n, ast.FunctionDef) and n.name == "evaluate")
+    assignment = next(n for n in ast.walk(evaluate) if isinstance(n, ast.Assign)
+                      and any(isinstance(t, ast.Name) and t.id == "mask" for t in n.targets))
+    expression = compile(ast.Expression(assignment.value), "<actual-dev-mask>", "eval")
+    layout, _ = inputs()
+    for i in range(48):
+        scope = dict(layout=layout, raw=SimpleNamespace(config=OnlineConfig()), seed=20261012+100000+i,
+                     sample_mask=sample_mask, replace=replace)
+        partial = eval(expression, dict(scope, mode="partial"))
+        for mod in (0, 1):
+            selected = layout.valid & (layout.modalities == mod)
+            assert partial[selected].any() and (~partial[selected]).any()
+        assert torch.equal(eval(expression, dict(scope, mode="all_mask")), layout.valid)
+
+
+@pytest.mark.parametrize("evaluation_fails", [False, True])
+def test_final_checkpoint_resume_evaluates_before_completion(tmp_path, evaluation_fails):
+    """Run the unchanged CLI control flow with its optimizer loop already exhausted."""
+    import ast
+    from types import SimpleNamespace
+    block = training_entry_ast()
+    boundary = next(i for i, n in enumerate(block.body) if isinstance(n, ast.Assign)
+                    and isinstance(n.targets[0], ast.Tuple)
+                    and [x.id for x in n.targets[0].elts] == ["last", "saved"])
+    code = compile(ast.Module(body=block.body[boundary-1:], type_ignores=[]), "<actual-resume-tail>", "exec")
+    events = []
+    def evaluate(step):
+        events.append(("evaluate", step))
+        if evaluation_fails:
+            raise RuntimeError("Dev failed")
+    scope = dict(a=SimpleNamespace(output=tmp_path, stage="A"), rank=0, start=1000, steps=1000,
+                 engineering=False, recipe={"validate_every":100}, evaluate=evaluate,
+                 checkpoint=lambda step:events.append(("checkpoint",step)),
+                 master_action=lambda action, rank:action(), atomic_json_new=atomic_json_new)
+    if evaluation_fails:
+        with pytest.raises(RuntimeError, match="Dev failed"):
+            exec(code, scope)
+        assert not (tmp_path / "completed.json").exists()
+    else:
+        exec(code, scope)
+        assert json.loads((tmp_path / "completed.json").read_text())["stopped"] is False
+    assert events[0] == ("evaluate", 1000)
