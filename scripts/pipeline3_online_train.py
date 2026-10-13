@@ -1,4 +1,4 @@
-"""torchrun online C0/A; explicit stage launch, independent output and strict resume."""
+"""torchrun online P/C0/A; explicit stage launch, independent output and strict resume."""
 import argparse
 from contextlib import nullcontext
 from dataclasses import asdict, replace
@@ -18,7 +18,7 @@ def main():
     p.add_argument("--manifest", type=Path, required=True, help="Existing P3 staged manifest")
     p.add_argument("--integrity-root", type=Path, required=True, help="Existing readouts/inputs directory")
     p.add_argument("--config", type=Path, default=ROOT / "configs/pipeline3_bernini_online.json")
-    p.add_argument("--stage", choices=("C0", "A"), required=True)
+    p.add_argument("--stage", choices=("P", "C0", "A"), required=True)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--control-root", type=Path, required=True, help="NEW online run root, not the old queue root")
     init = p.add_mutually_exclusive_group(required=True)
@@ -28,6 +28,7 @@ def main():
     p.add_argument("--engineering-indices", type=Path, help="Explicit train subset; cannot initialize production A")
     p.add_argument("--engineering-steps", type=int, default=3)
     p.add_argument("--stop-after", type=int, help="Save and stop at this update; does not change resume identity")
+    p.add_argument("--engineering-mask", choices=("beta", "all_mask"), default="beta")
     a = p.parse_args()
     import torch
     import torch.distributed as dist
@@ -40,8 +41,8 @@ def main():
     from omni_av_p3_staged.orchestration import read, write
     from omni_av_p3_online import VERSION
     from omni_av_p3_online.model import sample_mask, OnlineConfig
-    from omni_av_p3_online.data import load_sample, validate_manifest
-    from omni_av_p3_online.checkpoint import checked, initialize, resume, save
+    from omni_av_p3_online.data import load_sample, read_native, validate_manifest
+    from omni_av_p3_online.checkpoint import checked, initialize, initialize_connector, resume, save
     from omni_av_p3_online.runtime import build, update_learning_rates
 
     recipe, manifest = read(a.config), read(a.manifest)
@@ -50,7 +51,9 @@ def main():
     OnlineConfig(**recipe["online"])
     engineering = a.engineering_indices is not None
     world, rank, local = (int(os.environ[k]) for k in ("WORLD_SIZE", "RANK", "LOCAL_RANK"))
-    accumulation = recipe["accumulation"] if not engineering else 1
+    accumulation = recipe["accumulation"]
+    if not engineering and a.engineering_mask != "beta":
+        raise ValueError("Mask override is engineering-only")
     if not engineering and (world != recipe["world_size"] or world * accumulation != recipe["global_batch"]):
         raise ValueError("World/global batch mismatch")
     if (a.control_root / "STOP").exists() or (a.output / "STOP").exists():
@@ -68,10 +71,10 @@ def main():
     steps = a.engineering_steps if engineering else recipe["steps"][a.stage]
     if steps < 1 or accumulation < 1 or recipe["save_every"] < 1 or recipe["validate_every"] < 0:
         raise ValueError("Invalid training intervals")
-    if a.initialize and a.stage == "A":
+    if a.initialize and a.stage in ("C0", "A"):
         source = checked(a.initialize)
         if not engineering and source.get("identity", {}).get("engineering"):
-            raise ValueError("Engineering C0 cannot initialize production A")
+            raise ValueError("Engineering checkpoint cannot initialize production C0/A")
     torch.set_num_threads(2)
     torch.cuda.set_device(local)
     device = torch.device("cuda", local)
@@ -88,7 +91,7 @@ def main():
             planner_sha256=manifest["config"]["planner"]["sha256"],
             planner_config=manifest["native_contract"]["config"], renderer_config=asdict(renderer_config),
             initialization_sha256=a.initialization_sha256, input_seal_sha256=sha(seal) if seal.exists() else None,
-            engineering=engineering, subset_sha256=sha(a.engineering_indices) if engineering else None,
+            engineering=engineering, engineering_mask=a.engineering_mask, subset_sha256=sha(a.engineering_indices) if engineering else None,
             planner_names=raw.planner_names, targets=raw.targets,
             code={str(f.relative_to(ROOT)): sha(f) for f in sorted([
                 *ROOT.glob("src/**/*.py"), ROOT / "scripts/pipeline3_online_train.py"])})
@@ -102,6 +105,9 @@ def main():
             start, saved_rng = data["step"], data["rank_rng"][rank]
         else:
             initialize(a.initialize, raw, digest, a.initialization_sha256, identity["planner_sha256"])
+            if a.stage == "C0":
+                c = recipe["connector_initialization"]
+                initialize_connector(c["path"], raw, c["sha256"])
         if start > steps:
             raise ValueError("Checkpoint exceeds target")
         # Planner parameters are deliberately unused during A warmup. Masks can
@@ -129,6 +135,15 @@ def main():
                 raise RuntimeError("Rank parameters diverged")
             master_action(lambda: save(a.output / f"step_{step:06d}.pt", raw, optimizer, step, identity, rngs), rank)
 
+        def sample(entry):
+            if a.stage == "P":
+                layout, target = read_native(entry, device)
+                return layout, target, None, None
+            return load_sample(entry, a.integrity_root, digest, manifest["config"]["data_root"], device, engineering)
+
+        def prepare(av, text):
+            return None if a.stage == "P" else strategy.prepare_training_inputs(with_text(av, text), sampler)
+
         def evaluate(step):
             rng = capture_rng()
             raw.eval()
@@ -137,14 +152,13 @@ def main():
                 with torch.no_grad(), torch.autocast("cuda", dtype=torch.bfloat16):
                     for i in range(rank, len(manifest["dev"]), world):
                         e = manifest["dev"][i]
-                        layout, target, text, av = load_sample(e, a.integrity_root, digest,
-                            manifest["config"]["data_root"], device)
-                        for mode in ("partial", "all_mask"):
+                        layout, target, text, av = sample(e)
+                        for mode in ("beta", "all_mask"):
                             seed = recipe["seed"] + 100000 + i
                             torch.manual_seed(seed)
                             mask = layout.valid.clone() if mode == "all_mask" else sample_mask(
-                                layout, replace(raw.config, all_mask_probability=0.), seed)
-                            values = raw(layout, target, strategy.prepare_training_inputs(with_text(av, text), sampler),
+                                layout, raw.config, seed)
+                            values = raw(layout, target, prepare(av, text),
                                 seed, step, mask)
                             rows.append(dict(sample_id=e["sample_id"], mode=mode,
                                 values={k: float(v) for k, v in values.items()}))
@@ -153,8 +167,8 @@ def main():
                 def publish():
                     allrows = [row for group in gathered for row in group]
                     atomic_json_new(a.output / f"dev_{step:06d}.json", dict(step=step, rows=allrows,
-                        note="Partial/all-mask training objective diagnostics, not Pred25 video quality"))
-                    for mode in ("partial", "all_mask"):
+                        note="Beta/all-mask objective diagnostics, not Pred25 generation quality"))
+                    for mode in ("beta", "all_mask"):
                         values = [r["values"] for r in allrows if r["mode"] == mode]
                         for k in values[0]:
                             writer.add_scalar(f"dev/{mode}/{k}", sum(v[k] for v in values) / len(values), step)
@@ -163,9 +177,13 @@ def main():
                 restore_rng(rng)
                 raw.train()
 
+        if not engineering and a.stage == "P" and start == 0 and not a.resume:
+            checkpoint(0)
+            evaluate(0)
+
         # A checkpoint is published before Dev evaluation. Recompute the due
         # evaluation on resume, including start == steps, before completion.
-        if not engineering and start > 0 and recipe["validate_every"] and start % recipe["validate_every"] == 0:
+        if not engineering and (start > 0 or (a.stage == "P" and a.resume)) and recipe["validate_every"] and start % recipe["validate_every"] == 0:
             evaluate(start)
 
         last, saved = start, None
@@ -178,7 +196,7 @@ def main():
                     break
                 begin = time.monotonic()
                 optimizer.zero_grad(set_to_none=True)
-                update_learning_rates(optimizer, recipe, step, raw.joint(step))
+                update_learning_rates(optimizer, recipe, step, raw.joint(step), stage=a.stage)
                 sums = {}
                 for micro in range(accumulation):
                     ordinal = assignments[step][micro][rank]
@@ -186,12 +204,12 @@ def main():
                     seed = recipe["seed"] + ordinal
                     write(a.output / f"progress_rank{rank}.json", dict(step=step, micro=micro,
                         phase="load", sample_id=entry["sample_id"], time=time.time()))
-                    layout, target, text, av = load_sample(entry, a.integrity_root, digest,
-                        manifest["config"]["data_root"], device, engineering)
+                    layout, target, text, av = sample(entry)
                     torch.manual_seed(seed)
                     with model.no_sync() if micro < accumulation - 1 else nullcontext():
                         with torch.autocast("cuda", dtype=torch.bfloat16):
-                            values = model(layout, target, strategy.prepare_training_inputs(with_text(av, text), sampler), seed, step)
+                            values = model(layout, target, prepare(av, text), seed, step,
+                                layout.valid.clone() if engineering and a.engineering_mask == "all_mask" else None)
                         if not all(torch.isfinite(v).all() for v in values.values()):
                             raise FloatingPointError("Nonfinite online objective")
                         (values["loss"] / accumulation).backward()

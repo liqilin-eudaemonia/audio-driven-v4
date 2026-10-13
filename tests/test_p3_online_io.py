@@ -7,7 +7,7 @@ import torch
 
 from omni_av_p2.checkpoint import atomic_save, atomic_json_new, capture_rng
 from omni_av_p3.distributed import sha
-from omni_av_p3_online.checkpoint import initialize, resume
+from omni_av_p3_online.checkpoint import initialize, initialize_connector, resume
 from omni_av_p3_online.data import read_native
 from omni_av_p3_online.model import select_contexts
 from omni_av_p3_online.runtime import update_learning_rates
@@ -56,7 +56,9 @@ def test_offline_checkpoint_only_explicit_c0_warm_start(tmp_path):
     offline_save(cp, old, torch.optim.AdamW(old.optimizer_groups(.001, .001)), 100,
                  dict(world_size=1, manifest_sha256="manifest"), [capture_rng()])
     c0, _ = make("C0")
-    assert initialize(cp, c0, "manifest", sha(cp), "planner") == 100
+    with pytest.raises(ValueError, match="Beta P"):
+        initialize(cp, c0, "manifest", sha(cp), "planner")
+    initialize_connector(cp, c0, sha(cp))
     for k, v in c0.connector.state_dict().items():
         torch.testing.assert_close(v, old.connector.state_dict()[k], rtol=0, atol=0)
     with pytest.raises(ValueError, match="identity"):
@@ -96,8 +98,8 @@ def training_entry_ast():
     return next(n for n in main.body if isinstance(n, ast.Try))
 
 
-def test_dev_partial_excludes_all_mask_for_all_fixed_seeds():
-    """Exercise the CLI's actual mask expression, including the eight old failures."""
+def test_dev_beta_follows_training_distribution_and_allmask_is_explicit():
+    """Beta evaluation may legitimately ceil to all-mask, unlike old partial mode."""
     import ast
     from dataclasses import replace
     from types import SimpleNamespace
@@ -111,10 +113,11 @@ def test_dev_partial_excludes_all_mask_for_all_fixed_seeds():
     for i in range(48):
         scope = dict(layout=layout, raw=SimpleNamespace(config=OnlineConfig()), seed=20261012+100000+i,
                      sample_mask=sample_mask, replace=replace)
-        partial = eval(expression, dict(scope, mode="partial"))
+        partial = eval(expression, dict(scope, mode="beta"))
+        assert torch.equal(partial, sample_mask(layout, OnlineConfig(), scope["seed"]))
         for mod in (0, 1):
             selected = layout.valid & (layout.modalities == mod)
-            assert partial[selected].any() and (~partial[selected]).any()
+            assert partial[selected].any()
         assert torch.equal(eval(expression, dict(scope, mode="all_mask")), layout.valid)
 
 

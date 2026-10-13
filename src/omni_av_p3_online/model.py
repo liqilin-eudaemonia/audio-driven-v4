@@ -18,37 +18,33 @@ from omni_av_p3.model import Planner
 
 @dataclass(frozen=True)
 class OnlineConfig:
-    mask_min: float = .5
-    mask_max: float = .95
-    all_mask_probability: float = .2
+    mask_alpha: float = 10.
+    mask_beta: float = 1.
     planner_warmup_steps: int = 100
     feature_video_weight: float = 1.
     feature_audio_weight: float = 1.
 
     def __post_init__(self):
-        if not 0 < self.mask_min <= self.mask_max < 1:
-            raise ValueError("Partial mask ratio must be in (0, 1)")
-        if not 0 <= self.all_mask_probability <= 1 or self.planner_warmup_steps < 0:
-            raise ValueError("Invalid mask probability or warmup")
+        if any(not math.isfinite(x) or x <= 0 for x in (self.mask_alpha, self.mask_beta)):
+            raise ValueError("Beta parameters must be positive and finite")
+        if self.planner_warmup_steps < 0:
+            raise ValueError("Invalid warmup")
         if any(not math.isfinite(x) or x <= 0 for x in
                (self.feature_video_weight, self.feature_audio_weight)):
             raise ValueError("Feature weights must be finite and positive")
 
 
 def sample_mask(layout, config, seed):
-    """CPU RNG independent of model/device; retain visible tokens on partial rows."""
+    """Per-example Beta ratio; random positions per modality, ceil count, no visible floor."""
     rng = np.random.default_rng(seed)
     mask = torch.zeros_like(layout.valid)
     for b in range(len(mask)):
-        if rng.random() < config.all_mask_probability:
-            mask[b] = layout.valid[b]
-            continue
-        ratio = rng.uniform(config.mask_min, config.mask_max)
+        ratio = rng.beta(config.mask_alpha, config.mask_beta)
         for modality in (0, 1):
             ids = torch.where(layout.valid[b] & (layout.modalities[b] == modality))[0]
             if not len(ids):
                 raise ValueError("Each sample requires audio and video targets")
-            count = min(max(1, math.ceil(ratio * len(ids))), max(1, len(ids) - 1))
+            count = min(max(1, math.ceil(ratio * len(ids))), len(ids))
             take = torch.as_tensor(rng.permutation(len(ids))[:count], device=ids.device)
             mask[b, ids[take]] = True
     return mask
@@ -112,8 +108,8 @@ class GenerationConnector(nn.Module):
 class OnlineTraining(nn.Module):
     def __init__(self, planner, renderer, strategy, stage, config=None, connector=None, lora=None):
         super().__init__()
-        if stage not in ("C0", "A") or planner.arm != "lora":
-            raise ValueError("Online C0/A requires the selected LoRA planner")
+        if stage not in ("P", "C0", "A") or planner.arm != "lora":
+            raise ValueError("Online P/C0/A requires the selected LoRA planner")
         self.stage, self.config = stage, config or OnlineConfig()
         # Register adaptation tensors only: frozen base models must not enter DDP/checkpoints.
         self.planner_names = tuple(n for n, p in planner.named_parameters() if p.requires_grad)
@@ -122,8 +118,8 @@ class OnlineTraining(nn.Module):
         params = dict(planner.named_parameters())
         planner.requires_grad_(False)
         self.planner_parameters = nn.ParameterList([params[n] for n in self.planner_names])
-        self.planner_parameters.requires_grad_(stage == "A")
-        self.connector = connector if connector is not None else GenerationConnector()
+        self.planner_parameters.requires_grad_(stage in ("P", "A"))
+        self.connector = nn.Identity() if stage == "P" else (connector if connector is not None else GenerationConnector())
         renderer.requires_grad_(False)
         self.adapters, self.targets = (inject_text_lora(renderer, lora or LoRAConfig())
             if stage == "A" else (nn.ModuleList(), []))
@@ -157,15 +153,19 @@ class OnlineTraining(nn.Module):
             raise ValueError("GT perception targets must be frozen")
         masked = sample_mask(layout, self.config, seed) if masked is None else masked
         joint = self.joint(step)
-        with nullcontext() if joint else torch.no_grad():
+        with nullcontext() if joint or self.stage == "P" else torch.no_grad():
             prefix, hidden = self.planner.readout(layout, masked, targets)
-        context = select_contexts(prefix, hidden, layout, masked)
-        loss_av, parts = av_loss(self.renderer, self.strategy,
-            append_conditions(prepared, self.connector(context)))
+        if self.stage == "P":
+            loss_av = hidden.new_zeros((), dtype=torch.float32)
+            parts = dict(video_loss=loss_av, audio_loss=loss_av)
+        else:
+            context = select_contexts(prefix, hidden, layout, masked)
+            loss_av, parts = av_loss(self.renderer, self.strategy,
+                append_conditions(prepared, self.connector(context)))
         losses = dict(av=loss_av, video=parts["video_loss"], audio=parts["audio_loss"])
         for mod, name in enumerate(("video", "audio")):
             feature = loss_av.new_zeros(())
-            if joint:
+            if joint or self.stage == "P":
                 per_sample = []
                 for b in range(len(layout.valid)):
                     chosen = masked[b] & layout.valid[b] & (layout.modalities[b] == mod)
@@ -185,9 +185,10 @@ class OnlineTraining(nn.Module):
         return losses
 
     def optimizer_groups(self, connector_lr, dit_lr, planner_lr, heads_lr):
-        groups = [dict(params=list(self.connector.parameters()), lr=connector_lr, name="connector")]
+        groups = [] if self.stage == "P" else [dict(params=list(self.connector.parameters()), lr=connector_lr, name="connector")]
         if self.stage == "A":
             groups.append(dict(params=list(self.adapters.parameters()), lr=dit_lr, name="dit_text_lora"))
+        if self.stage in ("P", "A"):
             for name, is_lora, lr in (("omni_lora", True, planner_lr), ("feature_heads", False, heads_lr)):
                 params = [p for n, p in zip(self.planner_names, self.planner_parameters)
                     if n.startswith("thinker.") == is_lora]

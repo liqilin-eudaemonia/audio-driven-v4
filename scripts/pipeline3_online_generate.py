@@ -63,6 +63,8 @@ def main():
     if any(not (ROOT / name).is_file() or sha(ROOT / name) != value
            for name, value in cp["identity"]["code"].items()):
         raise ValueError("Generation must use the checkpoint's bound training source")
+    if cp["stage"] == "P":
+        raise ValueError("P is feature-only; generate with an adapted C0/A checkpoint")
     renderer_settings = cp["identity"]["renderer_config"]
     entry = manifest["dev"][job["index"]]
     meta = entry["metadata"]

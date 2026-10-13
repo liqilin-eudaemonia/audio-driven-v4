@@ -58,17 +58,27 @@ def initialize(path, model, manifest_sha, expected_sha, planner_sha):
     """Explicit hash-bound warm initialization; never carry old optimizer state."""
     if sha(path) != expected_sha:
         raise ValueError("Initialization checkpoint changed")
+    if model.stage == "P":
+        if expected_sha != planner_sha:
+            raise ValueError("P adaptation must start from the manifest's selected planner")
+        from omni_av_p3.diagnostics import restore
+        data = torch.load(path, map_location="cpu", weights_only=True)
+        restore(model.planner, data)
+        return data.get("step", 0)
     data = checked(path)
     if model.stage == "C0":
-        if data.get("version") == "p3.staged-render.v1" and data.get("stage") == "C0":
-            state = {k.removeprefix("connector."): v for k, v in data["model"].items()
-                     if k.startswith("connector.")}
-        elif data.get("identity", {}).get("trainable") == "generation_connector_only":
-            state = data["connector"]
-        else:
-            raise ValueError("C0 warm initialization requires an explicitly selected offline Connector")
-        validate_state(model.connector, state)
-        model.connector.load_state_dict(state, strict=True)
+        if (data.get("version") != VERSION or data.get("stage") != "P"
+                or data["identity"]["manifest_sha256"] != manifest_sha
+                or data["identity"]["planner_sha256"] != planner_sha
+                or tuple(data["planner_names"]) != model.planner_names):
+            raise ValueError("Beta C0 requires the selected Beta P checkpoint")
+        state = data["model"]
+        expected = {k: v for k, v in model.state_dict().items() if k.startswith("planner_parameters.")}
+        if set(state) != set(expected):
+            raise ValueError("P/C0 planner state mismatch")
+        combined = dict(model.state_dict(), **state)
+        validate_state(model, combined)
+        model.load_state_dict(combined, strict=True)
     else:
         if (data.get("version") != VERSION or data.get("stage") != "C0"
                 or data["identity"]["manifest_sha256"] != manifest_sha
@@ -86,3 +96,15 @@ def initialize(path, model, manifest_sha, expected_sha, planner_sha):
         validate_state(model, combined)
         model.load_state_dict(combined, strict=True)
     return data["step"]
+
+
+def initialize_connector(path, model, expected_sha):
+    """Independent generation-connector warm start; never change P-adapted planner."""
+    if model.stage != "C0" or sha(path) != expected_sha:
+        raise ValueError("Invalid explicit C0 connector initialization")
+    data = checked(path)
+    if data.get("version") != "p3.staged-render.v1" or data.get("stage") != "C0":
+        raise ValueError("Expected selected offline C0 generation connector")
+    state = {k.removeprefix("connector."): v for k, v in data["model"].items() if k.startswith("connector.")}
+    validate_state(model.connector, state)
+    model.connector.load_state_dict(state, strict=True)

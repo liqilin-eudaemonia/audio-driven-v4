@@ -31,15 +31,18 @@ def build(manifest, recipe, stage, device):
         if module is not None:
             module.cpu()
     renderer_config = RendererConfig(**recipe.get("renderer", {}))
-    renderer, strategy, sampler = load_renderer(renderer_config, device=device)
-    configure_grouped_checkpointing(renderer, recipe.get("checkpoint_group_size", 1))
+    if stage == "P":
+        renderer, strategy, sampler = torch.nn.Identity(), None, None
+    else:
+        renderer, strategy, sampler = load_renderer(renderer_config, device=device)
+        configure_grouped_checkpointing(renderer, recipe.get("checkpoint_group_size", 1))
     model = OnlineTraining(planner, renderer, strategy, stage,
-        OnlineConfig(**recipe["online"]), GenerationConnector().to(device),
+        OnlineConfig(**recipe["online"]), None if stage == "P" else GenerationConnector().to(device),
         LoRAConfig(rank=recipe["lora_rank"], alpha=recipe["lora_alpha"]))
     return model, strategy, sampler, renderer_config
 
 
-def update_learning_rates(optimizer, recipe, step, joint):
+def update_learning_rates(optimizer, recipe, step, joint, stage="A"):
     mapping = dict(connector="connector_lr", dit_text_lora="dit_lr",
                    omni_lora="planner_lr", feature_heads="heads_lr")
     for group in optimizer.param_groups:
@@ -47,5 +50,5 @@ def update_learning_rates(optimizer, recipe, step, joint):
         if group["name"] == "dit_text_lora":
             lr *= min(1., step / 50)
         elif group["name"] in ("omni_lora", "feature_heads"):
-            lr *= min(1., (step - recipe["online"]["planner_warmup_steps"]) / 50) if joint else 0.
+            lr *= min(1., step / 50) if stage == "P" else (min(1., (step - recipe["online"]["planner_warmup_steps"]) / 50) if joint else 0.)
         group["lr"] = lr

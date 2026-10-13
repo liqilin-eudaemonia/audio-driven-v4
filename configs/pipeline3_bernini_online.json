@@ -1,26 +1,33 @@
 {
-  "version": "p3.bernini-online.v1",
+  "version": "p3.bernini-beta.v2",
   "seed": 20261012,
   "world_size": 24,
   "global_batch": 72,
   "accumulation": 3,
   "save_every": 100,
   "validate_every": 100,
-  "steps": {"C0": 2000, "A": 1000},
-  "connector_lr": 0.00003,
-  "dit_lr": 0.000005,
-  "planner_lr": 0.00001,
-  "heads_lr": 0.00001,
+  "steps": {
+    "P": 500,
+    "C0": 2000,
+    "A": 1000
+  },
+  "connector_lr": 3e-05,
+  "dit_lr": 5e-06,
+  "planner_lr": 1e-05,
+  "heads_lr": 1e-05,
   "lora_rank": 8,
   "lora_alpha": 8,
   "checkpoint_group_size": 1,
   "online": {
-    "mask_min": 0.5,
-    "mask_max": 0.95,
-    "all_mask_probability": 0.2,
     "planner_warmup_steps": 100,
     "feature_video_weight": 1.0,
-    "feature_audio_weight": 1.0
+    "feature_audio_weight": 1.0,
+    "mask_alpha": 10.0,
+    "mask_beta": 1.0
   },
-  "note": "Proposed training recipe; requires real-model GPU gates. Fixed GT reply/timeline; no automatic launch/transition."
+  "note": "Beta(10,1), no extra all-mask atom or visible-token floor. P500 warm adaptation, C02000, A1000 with100 warmup; full91009/48. AV response transfer of Bernini I2V ratio, not an official AV recipe.",
+  "connector_initialization": {
+    "path": "/public/2_CKPT/0_WM/llq/p3_full_connector_then_dit_20261011/C0_attempt1/step_000500.pt",
+    "sha256": "892e4f624e4fa4ca6341df5bf3d00b40e90aa718129ccc50bfc2cca850a7f037"
+  }
 }

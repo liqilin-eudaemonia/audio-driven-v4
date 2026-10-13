@@ -1,3 +1,2 @@
-"""Online masked planning and renderer adaptation, distinct from offline C0/A."""
-
-VERSION = "p3.bernini-online.v1"
+"""Bernini-style online P/C0/A with task-specific Beta masking."""
+VERSION = "p3.bernini-beta.v2"
