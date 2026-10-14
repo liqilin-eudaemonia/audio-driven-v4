@@ -9,7 +9,7 @@ class Controller:
  def __init__(self,root):
   self.r=root;self.plan=read(root/'plan.json');self.cluster=read(root/'cluster.json');self.py=self.cluster['python']
   sys.path.insert(0,str(root/'code'));from online_notify import notify
-  self.notify=notify;self.procs={};self.evals={};self.lease=None;self.last_probe=0;self.last_gallery=0;self.last_notice={};self.low={}
+  self.notify=notify;self.procs={};self.evals={};self.lease=None;self.lease_labels=set();self.last_probe=0;self.last_gallery=0;self.last_notice={};self.low={}
   self.db=read(root/'controller.json') if (root/'controller.json').exists() else dict(stage='C0',routes={n:dict(step=0,attempt=0,retries=0,status='ready') for n in ['warm','fresh']},tasks={},decision=None)
   self.manifest=read(self.plan['manifest']);self.negative=read('/public/2_CKPT/0_WM/llq/p3_a_step700_compare_4gpu_20261013/jobs/pred25_004.json')
   self.external=copy.deepcopy(self.cluster);self.external['nodes']=[dict(name='eval194',host='172.29.104.194',gpus=list(range(8)),control_path='/tmp/p3_eval_194_20261013/control',local=False)]
@@ -27,7 +27,7 @@ class Controller:
   self.notify(self.r,self.plan['thread'],kind,kw)
  def persist(self):
   write(self.r/'controller.json',self.db)
-  write(self.r/'state.json',dict(pid=os.getpid(),time=time.time(),status='training' if self.procs else 'evaluating' if self.evals else 'scheduling',stage=self.db['stage'],routes=self.db['routes'],decision=self.db['decision'],evaluation_active=len(self.evals),evaluation_pending=sum(t['status']=='pending' for t in self.db['tasks'].values()),evaluation_lease=self.lease))
+  write(self.r/'state.json',dict(pid=os.getpid(),time=time.time(),status='training' if self.procs else 'evaluating' if self.evals else 'scheduling',stage=self.db['stage'],routes=self.db['routes'],decision=self.db['decision'],evaluation_active=len(self.evals),evaluation_pending=sum(t['status']=='pending' for t in self.db['tasks'].values()),evaluation_lease=self.lease,evaluation_lease_labels=sorted(self.lease_labels)))
  def checkpoints(self,name):
   found={}
   for p in sorted((self.r/name).glob('attempt*/step_*.complete.json')):
@@ -62,7 +62,7 @@ class Controller:
   guard=[self.py,str(S/'scripts/pipeline3_staged_worker.py'),'guard','--',*cmd]
   log=(folder.with_name(folder.name+'_launcher.log')).open('a');proc=subprocess.Popen(guard,stdin=subprocess.PIPE,stdout=log,stderr=subprocess.STDOUT)
   self.procs[name]=dict(process=proc,log=log,start=time.time(),folder=folder,last_progress=time.time())
-  route.update(status='training',folder=str(folder),started=time.time());write(folder.with_name(folder.name+'_command.json'),dict(command=cmd,pid=proc.pid))
+  route.update(status='training',folder=str(folder),started=time.time(),resume_after_eval=False);write(folder.with_name(folder.name+'_command.json'),dict(command=cmd,pid=proc.pid))
   self.event('train_started',route=name,step=route['step'],folder=str(folder),pid=proc.pid)
  def poll_training(self):
   for name,item in list(self.procs.items()):
@@ -129,7 +129,27 @@ class Controller:
     self.alert('evaluation_retry',task=key,retries=t['retries'],status=t['status'],error=log)
  def pending(self):
   pending=[(k,t) for k,t in self.db['tasks'].items() if t['status']=='pending']
-  return sorted(pending,key=lambda z:(0 if z[1]['step'] in [300,400,500] else 1,z[1]['step'],0 if z[1]['kind']=='speech' else 1,z[0]))
+  def priority(pair):
+   key,t=pair
+   # Start expensive generation first; speech scoring remains short and promptly drained.
+   cost=0
+   if t['kind']=='generate':
+    idx=int(key.split('/')[1]);m=self.manifest['dev'][idx]['metadata']
+    cost=(((m['target_frames']-1)//8+1)*(m['target_height']//32)*(m['target_width']//32))**2
+   return (0 if t['step'] in [300,400,500] else 1,t['step'],0 if t['kind']=='speech' else 1,-cost,key)
+  return sorted(pending,key=priority)
+ def acquire_lease(self,name):
+  # Snapshot at most two already-enqueued checkpoints. Newly arriving labels cannot
+  # prolong this lease; their follow-up speech tasks remain in the same label.
+  labels=[]
+  for _,t in self.pending():
+   if t['label'] not in labels:labels.append(t['label'])
+  if not labels:return False
+  self.lease=name;self.lease_labels=set(labels[:2])
+  self.event('bounded_evaluation_lease',route=name,labels=sorted(self.lease_labels))
+  return True
+ def lease_pending(self):
+  return [(k,t) for k,t in self.pending() if t['label'] in self.lease_labels]
  def slots(self):
   cl=copy.deepcopy(self.external)
   if self.lease:cl['nodes']+=read(self.r/self.lease/'cluster.json')['nodes']
@@ -142,7 +162,10 @@ class Controller:
   self.last_probe=time.time();pending=self.pending()
   if not pending:return
   cl,slots=self.slots()
-  for (key,t),(node,gpu) in zip(pending,slots):
+  for node,gpu in slots:
+   allowed=[pair for pair in pending if node['name']=='eval194' or self.db['stage']=='completed' or pair[1]['label'] in self.lease_labels]
+   if not allowed:continue
+   key,t=allowed[0];pending.remove((key,t))
    jp=Path(t['job']);out=Path(read(jp)['output']);out.mkdir(parents=True,exist_ok=True)
    cmd=[self.py,str(S/('scripts/pipeline3_online_generate.py' if t['kind']=='generate' else 'scripts/pipeline21_residual_eval_metrics.py'))]
    if t['kind']=='speech':cmd+=['--plan',str(self.r/'metric_plan.json')]
@@ -203,7 +226,7 @@ class Controller:
   if not self.db['decision'] or self.db['stage']!='C0' or self.procs:return
   # Drain only in-flight fallback jobs before reclaiming all24 GPUs.
   if any(x['lease'] for x in self.evals.values()):return
-  self.lease=None;name=self.db['decision']['selected']['route'];a=self.r/'A';a.mkdir(exist_ok=True)
+  self.lease=None;self.lease_labels.clear();name=self.db['decision']['selected']['route'];a=self.r/'A';a.mkdir(exist_ok=True)
   cfg=read(self.r/name/'config.json');cfg.update(world_size=24,accumulation=3)
   write(a/'config.json',cfg);write(a/'cluster.json',self.cluster)
   self.db['stage']='A';self.db['routes']['A']=dict(step=0,attempt=0,retries=0,status='ready')
@@ -211,21 +234,22 @@ class Controller:
  def schedule_train(self):
   if self.db['stage']=='completed':return
   if self.db['decision'] and self.db['stage']=='C0':return
-  names=['A'] if self.db['stage'] in ('A','completed') else ['warm','fresh']
-  if self.lease and not any(x['lease']==self.lease for x in self.evals.values()) and not self.pending():self.lease=None
+  names=['A'] if self.db['stage']=='A' else ['warm','fresh']
+  if self.lease and not any(x['lease']==self.lease for x in self.evals.values()) and not self.lease_pending():
+   name=self.lease;self.lease=None;self.lease_labels.clear()
+   self.db['routes'][name]['resume_after_eval']=True
+   self.event('evaluation_lease_released',route=name,reason='Fixed batch complete; unrelated pending jobs do not block training')
   for name in names:
    if name in self.procs or name==self.lease:continue
    route=self.db['routes'][name]
+   if route.get('resume_after_eval'):
+    self.start_train(name);continue
    if name=='A' and self.pending() and route['step']>=100 and self.lease is None:
     external=probe(self.external)
-    if not free_slots(self.external,external):
-     self.lease='A';self.event('A_checkpoint_evaluation_on_owned_gpus');continue
+    if not free_slots(self.external,external) and self.acquire_lease(name):continue
    if name!='A' and self.pending() and self.procs and self.lease is None and route['step']>=100:
-    self.lease=name;self.event('training_gpu_evaluation_lease',route=name);continue
+    if self.acquire_lease(name):continue
    self.start_train(name)
-  # Never leave a group parked waiting on external-only tail jobs.
-  if self.lease and not any(x['lease']==self.lease for x in self.evals.values()) and not self.pending():
-   n=self.lease;self.lease=None;self.start_train(n)
  def gallery(self):
   if time.time()-self.last_gallery<60:return
   self.last_gallery=time.time();cards=[];mapping={}
