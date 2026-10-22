@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "full_decode_files": 10,
+  "source_audio_comparisons": [
+    {
+      "id": "056",
+      "channels": [
+        {
+          "channel": 0,
+          "role": "speaker",
+          "correlation": 0.9998020375546165,
+          "rms_gain": 0.9966905898178089
+        },
+        {
+          "channel": 1,
+          "role": "listener",
+          "correlation": 0.999761247056357,
+          "rms_gain": 0.996569761635289
+        }
+      ]
+    },
+    {
+      "id": "057",
+      "channels": [
+        {
+          "channel": 0,
+          "role": "speaker",
+          "correlation": 0.9998835932160588,
+          "rms_gain": 0.9978005810508653
+        },
+        {
+          "channel": 1,
+          "role": "listener",
+          "correlation": 0.9998850660838507,
+          "rms_gain": 0.9972787288487377
+        }
+      ]
+    }
+  ],
+  "context_times_consistent": true
+}

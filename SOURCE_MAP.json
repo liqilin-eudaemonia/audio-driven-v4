@@ -1,0 +1,330 @@
+{
+  "snapshot": "seamless-listen-response-v3-20261022",
+  "files": [
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/CURRENT_SEGMENTATION_RULES.md",
+      "backup": "docs/CURRENT_SEGMENTATION_RULES.md",
+      "sha256": "64145e7135702962a9d8282534a2efe094e492ad751fe001f8a22cbd349428dd",
+      "size": 8834
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/apply_current_full_rules.py",
+      "backup": "pipeline/apply_current_full_rules.py",
+      "sha256": "7173c8dc1613e55accc9676316bef255d1206306cf9a47f141d4a4f242ecd31f",
+      "size": 19495
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/apply_sentence_windows_v2.py",
+      "backup": "pipeline/apply_sentence_windows_v2.py",
+      "sha256": "722fb82dca16bf9d2a8be86dd854d137a1f8f23da2ee5d398dea9284cf34eca6",
+      "size": 21354
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/build_head_shoulders_preview.py",
+      "backup": "pipeline/build_head_shoulders_preview.py",
+      "sha256": "d659575cbc8f8abe9833adc81b1ec0541918123734b56bf437fe5a167a3b0bab",
+      "size": 12673
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/build_sentence_review_preview.py",
+      "backup": "pipeline/build_sentence_review_preview.py",
+      "sha256": "958b2a6b3de3d1a0ab547933f94a9b4092047b357ebe71c71b057795fb02e02f",
+      "size": 11294
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/check_sentence_review_browser.py",
+      "backup": "pipeline/check_sentence_review_browser.py",
+      "sha256": "66ea7358e93225c9a8529413ebb3c44573ee9195cb037aef2444f95459b44456",
+      "size": 4519
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/check_sentence_start_repair_v3.py",
+      "backup": "pipeline/check_sentence_start_repair_v3.py",
+      "sha256": "2f3381179d65ba4d4785b428ef2de0b5af8d09dc252ef67177b5bd0485325b56",
+      "size": 2868
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/common.py",
+      "backup": "pipeline/common.py",
+      "sha256": "4ec6b176f3fe847715acaf684906025872e6cc3f08ad2fbb9c8357a863ebd2c1",
+      "size": 30221
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_current_full_v1/database_summary.json",
+      "backup": "reports/source_database_summary.json",
+      "sha256": "81dff679a523287de3af44cec4bd88ed13c684a1c16f55f6016f675bdca700bf",
+      "size": 300
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_current_full_v1/environment.json",
+      "backup": "reports/source_environment.json",
+      "sha256": "f4202227da32a38283c02f6ae6ab02fe40650e5ce6de0e131fca30ae61dbc949",
+      "size": 359
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/README.md",
+      "backup": "docs/V3_RUN_RECORD.md",
+      "sha256": "370516708ef2ed7ecee84947a0feeb0c85df105b91ef7b98bcd73a20107cc6a8",
+      "size": 6136
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/apply_summary.json",
+      "backup": "reports/v3_apply_summary.json",
+      "sha256": "5c54548374d0def7fcda46b9a166e4fb4c9bd697898072403238506e9f66bac9",
+      "size": 570
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/audit_summary.json",
+      "backup": "reports/v3_audit_summary.json",
+      "sha256": "a74283d0e6f008728c748eb9a355a37e11ca9b2596a479bf63b25c194637b3e1",
+      "size": 572
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/preview/browser_validation.json",
+      "backup": "reports/v3_browser_validation.json",
+      "sha256": "4a6989c7a1932e1073ead662d45836ea98b9ad106259d405e6b29cde19cdf066",
+      "size": 179
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/preview/media_validation.json",
+      "backup": "reports/v3_sample_media_validation.json",
+      "sha256": "2973f0fbcd7f6bbcfe9a77397361e7cdf5a8707a278fc0230c1637e522fc7581",
+      "size": 877
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/rule_fingerprint.json",
+      "backup": "reports/v3_rule_fingerprint.json",
+      "sha256": "56952bfe278b704693f355c483f9bf37aac7d571ea80aa608f995343488196be",
+      "size": 532
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/summary.json",
+      "backup": "reports/v3_summary.json",
+      "sha256": "ddd9eb260e0088011f821f573375d772de18d83531a61eeb5bd61aace53bb38f",
+      "size": 689
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/unit_validation.json",
+      "backup": "reports/v3_unit_validation.json",
+      "sha256": "ef4ace4fdf11817269a9014d08bed29e43b75c5ba4d84e2713a356d2ee148d5d",
+      "size": 704
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/validation.json",
+      "backup": "reports/v3_full_validation.json",
+      "sha256": "cae79d4c4210ca2836d7eb93c831e1d04ba970de4a309e28cb5adcbf07fff511",
+      "size": 1316
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_windows_v2/review_preview_v1/browser_validation.json",
+      "backup": "reports/v2_browser_validation.json",
+      "sha256": "023b05279bb989737227a10234a3a3a13dc8b48498ee873290c3587d22c661de",
+      "size": 355
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_windows_v2/review_preview_v1/selection_validation.json",
+      "backup": "reports/v2_sample_selection_validation.json",
+      "sha256": "00cb11a059c374f2ed9a60feb5f968707ed1eb4fd48391a4bd30f0a41a5655b4",
+      "size": 1362
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_windows_v2/rule_fingerprint.json",
+      "backup": "reports/v2_rule_fingerprint.json",
+      "sha256": "35e5afbec7c7cad77de7785adf16a7955df3e5d4d77e8da3b419488028259542",
+      "size": 878
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_windows_v2/summary.json",
+      "backup": "reports/v2_summary.json",
+      "sha256": "a69ba49b8da6776bc17194cf4bc87f4c845f0a8e71b5a15af6e14fd38c52ea84",
+      "size": 11075
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_windows_v2/validation.json",
+      "backup": "reports/v2_full_validation.json",
+      "sha256": "be886b857862657880dac6df43c5d7d0bbf536e292e0fe9408e44444511af8ab",
+      "size": 762
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/prepare_seamless_github_backup.py",
+      "backup": "tools/prepare_seamless_github_backup.py",
+      "sha256": "5dcdaa08359e535a6a01c8599147366bc3bdf0bf2509abe2d09500f272845047",
+      "size": 4985
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/preview_duration_v3.py",
+      "backup": "pipeline/preview_duration_v3.py",
+      "sha256": "f0f769e39d1671d41c149d7488325bef0a16219a16322891b63cff3c8f9b008e",
+      "size": 9443
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/preview_listen_response_v3.py",
+      "backup": "pipeline/preview_listen_response_v3.py",
+      "sha256": "ee0686bd1138e194bddc8919cf0ff11d13dfa6aeac35cd233d676ab061f5e946",
+      "size": 11796
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/preview_turn_rules_v2.py",
+      "backup": "pipeline/preview_turn_rules_v2.py",
+      "sha256": "3669ca84b532194283abdef040a03c4784576e93796ae74eb0250b92ac6dbf0f",
+      "size": 16611
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/publish_sentence_start_repair_v3.py",
+      "backup": "pipeline/publish_sentence_start_repair_v3.py",
+      "sha256": "acc554074fa899deea533ef332f661b5b974e0540ed4ca4dfbe3da60acf394f1",
+      "size": 5266
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/refine_preview_boundaries_v2.py",
+      "backup": "pipeline/refine_preview_boundaries_v2.py",
+      "sha256": "8b1c9ea6f050b93e0d0a1813bf3ca8faca176184382cd1835a9593fa7f5de919",
+      "size": 11339
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/repair_sentence_starts_v3.py",
+      "backup": "pipeline/repair_sentence_starts_v3.py",
+      "sha256": "9e85ae3d963d48a4fde17d5a96f9e3e3aa295d3288aaa59872f1e56a0eb17335",
+      "size": 10909
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/scan_alternate_pairs.py",
+      "backup": "pipeline/scan_alternate_pairs.py",
+      "sha256": "f1fa6bce8fb64d9e9b6394de9cfe4a0b5ae867939111fbdb1c4a9ce1f3ad2bfc",
+      "size": 18249
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/scan_current_full.py",
+      "backup": "pipeline/scan_current_full.py",
+      "sha256": "1020c8302ce6e6e3f2c931ac1bc860e6b4402896de18d9272ae5902c43943c92",
+      "size": 9758
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/scan_turn_pairs.py",
+      "backup": "pipeline/scan_turn_pairs.py",
+      "sha256": "43f1ae6a4d3bac61134caca43731ab20effdefc4413846aaf33efb39ada6382b",
+      "size": 13874
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/screen_plain_turns.py",
+      "backup": "pipeline/screen_plain_turns.py",
+      "sha256": "2ab1acc361d5544383cf35e929e94828ed6464300339248e52a6215ff08c100f",
+      "size": 14714
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/sentence_review_preview.html",
+      "backup": "pipeline/sentence_review_preview.html",
+      "sha256": "e02bc848d9f450d77348ef75ac96601b12b1f4fde5a5eaf824e8561ace7f41f5",
+      "size": 18281
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/test_listener_role_switch.py",
+      "backup": "pipeline/test_listener_role_switch.py",
+      "sha256": "7edf33de31ab07d4323fecb6ab81818a5d1b8a6631bd50af18669e9160016ff5",
+      "size": 2593
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/test_sentence_start_repair_v3.py",
+      "backup": "pipeline/test_sentence_start_repair_v3.py",
+      "sha256": "f5696fe1661a180a528178b62da62b049afb569fe2150958d57e7f201c6dcf29",
+      "size": 3786
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/validate_sentence_review_preview.py",
+      "backup": "pipeline/validate_sentence_review_preview.py",
+      "sha256": "1b9a51914820cca1426e3ba662c9e0c9b20e49ed47070d534828792031d5247f",
+      "size": 4955
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/validate_sentence_start_repair_v3.py",
+      "backup": "pipeline/validate_sentence_start_repair_v3.py",
+      "sha256": "ecc2bbd5a2699170a239c716373bb73e2d47b17e8f8be3c0892fe057039cd9be",
+      "size": 3970
+    },
+    {
+      "source": "/private/liqi_workspace/data/pipeline/seamless/validate_sentence_windows_v2.py",
+      "backup": "pipeline/validate_sentence_windows_v2.py",
+      "sha256": "00820ccd9bfbd78ca5b68fc1ca236632c51dcb8bafe179c5ba76c0dc1a01b3cd",
+      "size": 8676
+    }
+  ],
+  "local_imports": {
+    "check_sentence_start_repair_v3.py": [],
+    "publish_sentence_start_repair_v3.py": [
+      "build_sentence_review_preview.py",
+      "repair_sentence_starts_v3.py"
+    ],
+    "repair_sentence_starts_v3.py": [
+      "apply_sentence_windows_v2.py",
+      "preview_listen_response_v3.py",
+      "preview_turn_rules_v2.py"
+    ],
+    "preview_listen_response_v3.py": [
+      "build_head_shoulders_preview.py",
+      "preview_turn_rules_v2.py",
+      "scan_alternate_pairs.py"
+    ],
+    "scan_alternate_pairs.py": [],
+    "build_head_shoulders_preview.py": [],
+    "preview_turn_rules_v2.py": [
+      "build_head_shoulders_preview.py",
+      "scan_alternate_pairs.py",
+      "scan_turn_pairs.py",
+      "screen_plain_turns.py"
+    ],
+    "screen_plain_turns.py": [
+      "common.py",
+      "scan_alternate_pairs.py",
+      "scan_turn_pairs.py"
+    ],
+    "scan_turn_pairs.py": [
+      "scan_alternate_pairs.py"
+    ],
+    "common.py": [],
+    "apply_sentence_windows_v2.py": [
+      "apply_current_full_rules.py",
+      "preview_duration_v3.py",
+      "preview_listen_response_v3.py",
+      "refine_preview_boundaries_v2.py",
+      "scan_current_full.py"
+    ],
+    "refine_preview_boundaries_v2.py": [
+      "build_head_shoulders_preview.py"
+    ],
+    "preview_duration_v3.py": [
+      "build_head_shoulders_preview.py",
+      "refine_preview_boundaries_v2.py"
+    ],
+    "scan_current_full.py": [
+      "scan_alternate_pairs.py"
+    ],
+    "apply_current_full_rules.py": [
+      "preview_duration_v3.py",
+      "preview_listen_response_v3.py",
+      "refine_preview_boundaries_v2.py",
+      "scan_current_full.py"
+    ],
+    "build_sentence_review_preview.py": [
+      "preview_listen_response_v3.py",
+      "preview_turn_rules_v2.py"
+    ],
+    "check_sentence_review_browser.py": [],
+    "validate_sentence_review_preview.py": [
+      "build_sentence_review_preview.py"
+    ],
+    "test_listener_role_switch.py": [
+      "apply_sentence_windows_v2.py",
+      "repair_sentence_starts_v3.py"
+    ],
+    "test_sentence_start_repair_v3.py": [
+      "repair_sentence_starts_v3.py"
+    ],
+    "validate_sentence_start_repair_v3.py": [
+      "repair_sentence_starts_v3.py"
+    ],
+    "validate_sentence_windows_v2.py": [
+      "apply_sentence_windows_v2.py",
+      "scan_current_full.py"
+    ]
+  }
+}

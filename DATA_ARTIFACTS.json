@@ -1,0 +1,40 @@
+{
+  "included_in_git": false,
+  "artifacts": [
+    {
+      "path": "/private/liqi_workspace/data/pipeline/seamless/outputs_current_full_v1/metadata.sqlite",
+      "bytes": 745967616,
+      "sha256": "aace688ecd33420b32002852ff9334e3926f4d066f609e9ee2b108796145babf"
+    },
+    {
+      "path": "/private/liqi_workspace/data/pipeline/seamless/outputs_current_full_v1/conversations.json",
+      "bytes": 14705851,
+      "sha256": "6419104a0c0b140ae4d7ebffb5936bab3deb342b0504d8e842b6e148d335b7d5"
+    },
+    {
+      "path": "/private/liqi_workspace/data/pipeline/seamless/outputs_current_full_v1/source_inventory.json",
+      "bytes": 4862691,
+      "sha256": "2575d773ace28641d0f9235dbde4d497120d5e38f134536b07f61cb1234420c9"
+    },
+    {
+      "path": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/kept.jsonl",
+      "bytes": 1436512048,
+      "sha256": "d0fb50c2aa5bb80077768dede1e2ec90af399e62beba2ad64ab1b1eba083c28d"
+    },
+    {
+      "path": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/clean.jsonl",
+      "bytes": 411678977,
+      "sha256": "e104ea6d103b850c3a6559050727aa7afc7a142e00164353a9d5eb7a553694de"
+    },
+    {
+      "path": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/review.jsonl",
+      "bytes": 1024833071,
+      "sha256": "ee8e51a02b70925267564607401dad17c423090a93f9731afcd1b14a7b0c0de8"
+    },
+    {
+      "path": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_start_repair_v3/unresolved_sentence_start.jsonl",
+      "bytes": 148798072,
+      "sha256": "efa9e852cb911672f51711d52cd876f496f3774b556e3697b5e150d583d0cbe6"
+    }
+  ]
+}

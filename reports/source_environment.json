@@ -1,0 +1,11 @@
+{
+  "python": "3.13.12 | packaged by conda-forge | (main, Feb  5 2026, 05:53:46) [GCC 14.3.0]",
+  "executable": "/private/software/conda/bin/python",
+  "platform": "Linux-5.15.0-119-generic-x86_64-with-glibc2.35",
+  "numpy": "2.4.4",
+  "scipy": "1.15.1",
+  "opencv": "4.11.0",
+  "soundfile": "0.13.1",
+  "metadata_workers": 24,
+  "segmentation_workers": 32
+}

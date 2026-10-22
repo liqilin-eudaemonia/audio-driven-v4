@@ -1,0 +1,21 @@
+{
+  "revision": "sentence-start-repair-v3",
+  "complete": true,
+  "source": "outputs_sentence_windows_v2/kept.jsonl",
+  "counts": {
+    "pairs": 395038,
+    "review": 275249,
+    "over_10s": 2146,
+    "unresolved_sentence_start": 40398,
+    "clean": 119789,
+    "repaired": 8161
+  },
+  "hours": {
+    "review": 538.1479477775678,
+    "clean": 236.5584413888599
+  },
+  "total_hours": 774.7063891664277,
+  "added_hours": 5.381945833333308,
+  "max_duration_s": 11.947,
+  "note": "All original pair identities and response boundaries preserved. Only 8161 confirmed same-sentence prefixes extended. Unchanged rows retain their original row revision; this manifest is the completed V3 stage."
+}

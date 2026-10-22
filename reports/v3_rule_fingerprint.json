@@ -1,0 +1,11 @@
+{
+  "revision": "sentence-start-repair-v3",
+  "sha256": {
+    "repair_sentence_starts_v3.py": "9e85ae3d963d48a4fde17d5a96f9e3e3aa295d3288aaa59872f1e56a0eb17335",
+    "apply_sentence_windows_v2.py": "722fb82dca16bf9d2a8be86dd854d137a1f8f23da2ee5d398dea9284cf34eca6",
+    "preview_listen_response_v3.py": "ee0686bd1138e194bddc8919cf0ff11d13dfa6aeac35cd233d676ab061f5e946",
+    "preview_turn_rules_v2.py": "3669ca84b532194283abdef040a03c4784576e93796ae74eb0250b92ac6dbf0f"
+  },
+  "max_repaired_seconds": 11.95,
+  "max_word_gap": 3.0
+}

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "entries": 105,
+  "clean": 30,
+  "review_groups": 15,
+  "group_sizes": 5,
+  "pair_context_playback": true,
+  "boundary_seek_and_stop": true,
+  "word_seek": true,
+  "audio_routing_and_gain": true,
+  "notes_persist_and_export": true,
+  "progress_filters": true,
+  "mobile_no_overflow": true,
+  "http_range": true,
+  "page_errors": []
+}

@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "kept_pairs": 395038,
+  "clean_pairs": 118991,
+  "review_pairs": 276047,
+  "max_duration_s": 9.95,
+  "audit_counts": {
+    "no_window": 1536422,
+    "review": 276047,
+    "clean": 118991,
+    "no_cut": 3
+  },
+  "comparison": {
+    "old_total": 97830,
+    "shared": 97232,
+    "new_only": 297806,
+    "old_only": 598,
+    "old_only_reasons": {
+      "no_confirmed_listener_sentence_end": 598
+    }
+  },
+  "checks": [
+    "one unique window per pair",
+    "all source conversations and adjacent pairs accounted",
+    "word and media boundaries",
+    "speaker sentence-start evidence and listener sentence terminal",
+    "retained speaker minimum",
+    "clean/review partition",
+    "manifest/subset/hour accounting",
+    "fingerprints"
+  ]
+}

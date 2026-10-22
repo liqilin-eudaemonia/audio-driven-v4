@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "counts": {
+    "pairs": 395038,
+    "review": 275249,
+    "over_10s": 2146,
+    "unresolved_sentence_start": 40398,
+    "clean": 119789,
+    "repaired": 8161
+  },
+  "hours": {
+    "review": 538.1479477775678,
+    "clean": 236.5584413888599
+  },
+  "added_hours": 5.381945833333308,
+  "max_duration_s": 11.947,
+  "review_reasons": {
+    "end_no_quiet_cut": 178787,
+    "speaker_turn_end_unconfirmed": 77818,
+    "start_no_quiet_cut": 133931,
+    "transition_overlap": 29546,
+    "insufficient_tail_room": 146557,
+    "previous_overlap": 19321,
+    "start_crosses_annotated_voice": 12347,
+    "end_crosses_annotated_voice": 18778,
+    "following_overlap": 24135,
+    "speaker_sentence_start_unconfirmed": 40398,
+    "next_voice_guard_too_close": 52578,
+    "start_preroll_tightened_without_quiet_cut": 5396,
+    "word_timestamp_over_1_5s": 12080,
+    "speaker_pause_over_3s": 7382,
+    "listener_pause_over_3s": 918
+  },
+  "checks": [
+    "all original pairs retained once",
+    "only approved prefix fields changed",
+    "listener onset/end unchanged",
+    "prefix exactly matches consecutive source words after sentence boundary",
+    "unrepaired rows exactly unchanged",
+    "12 s limit only for actual repairs",
+    "clean/review partition",
+    "V2 source code fingerprints unchanged"
+  ]
+}

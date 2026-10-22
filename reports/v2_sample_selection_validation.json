@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "source_manifest_exact_match": 105,
+  "unique_pairs": 105,
+  "unique_conversations": 105,
+  "clean": 30,
+  "review_groups": {
+    "end_no_quiet_cut": 5,
+    "insufficient_tail_room": 5,
+    "start_no_quiet_cut": 5,
+    "speaker_turn_end_unconfirmed": 5,
+    "next_voice_guard_too_close": 5,
+    "speaker_sentence_start_unconfirmed": 5,
+    "transition_overlap": 5,
+    "following_overlap": 5,
+    "previous_overlap": 5,
+    "end_crosses_annotated_voice": 5,
+    "start_crosses_annotated_voice": 5,
+    "word_timestamp_over_1_5s": 5,
+    "speaker_pause_over_3s": 5,
+    "start_preroll_tightened_without_quiet_cut": 5,
+    "listener_pause_over_3s": 5
+  },
+  "source_subsets": {
+    "improvised/train": 36,
+    "naturalistic/train": 67,
+    "naturalistic/test": 1,
+    "naturalistic/dev": 1
+  },
+  "with_micro_reactions": 16,
+  "clean_with_micro_reactions": 4,
+  "clean_strata": {
+    "00": 8,
+    "01": 8,
+    "10": 7,
+    "11": 7
+  },
+  "contexts_less_than_5s": [
+    {
+      "id": "032",
+      "before": 0.82,
+      "after": 5.0
+    },
+    {
+      "id": "077",
+      "before": 0.275,
+      "after": 6.349
+    },
+    {
+      "id": "092",
+      "before": 5.0,
+      "after": 0.719
+    },
+    {
+      "id": "100",
+      "before": 6.556,
+      "after": 2.058
+    },
+    {
+      "id": "105",
+      "before": 0.811,
+      "after": 5.0
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "source_hash_entries": 41,
+  "python_dependency_files": 22,
+  "v2_checks": [
+    "long speaker rescued only at a sentence start; removed pause not assessed",
+    "listener prefix recovered before original later substantive overlap",
+    "real retained transition overlap is not admitted",
+    "no arbitrary 10-second or unconfirmed listener sentence cut",
+    "quiet acoustic boundaries preserve first word and listener tail",
+    "crossing micro voice is protected or explicitly flagged"
+  ],
+  "v3_checks": [
+    "complete prefix recovered across old floor boundary; >10 s allowed, end preserved",
+    "12 s repair cap: no partial prefix fallback",
+    "malformed source timestamp cannot be repaired silently",
+    "distant stray pronoun not pulled across a long gap",
+    "substantive interruption blocks recovery",
+    "listening microfeedback preserved in recovered prefix",
+    "earlier formal speech ending before recovered sentence is not an obstacle",
+    "ordinary V2 windows unchanged; no general 12 s relaxation",
+    "terminal punctuation prevents joining previous sentence",
+    "microsecond output rounding tolerates binary float representation at first word"
+  ],
+  "role_switch_checks": [
+    "A-B-A gives two adjacent pairs",
+    "listener becomes next speaker with same person/turn IDs",
+    "listening Yeah retained without becoming a formal turn",
+    "both pairs preserve source split",
+    "V3 non-target pass-through preserves pair identities"
+  ],
+  "production_rule_fingerprints_match": true,
+  "synthetic_tests_only_no_dataset_read": true,
+  "raw_media_or_model_files_included": false
+}

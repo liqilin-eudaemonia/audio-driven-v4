@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+outputs*/
+*.sqlite
+*.sqlite-*
+*.mp4
+*.wav
+*.npz
+*.tar
+*.tar.gz
+*.jsonl
+*.jsonl.gz
+*.log
+*.bundle
+.env
+.venv/

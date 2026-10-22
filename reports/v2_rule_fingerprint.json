@@ -1,0 +1,13 @@
+{
+  "revision": "sentence-windows-10s-raw-v2",
+  "sha256": {
+    "apply_sentence_windows_v2.py": "722fb82dca16bf9d2a8be86dd854d137a1f8f23da2ee5d398dea9284cf34eca6",
+    "apply_current_full_rules.py": "7173c8dc1613e55accc9676316bef255d1206306cf9a47f141d4a4f242ecd31f",
+    "scan_current_full.py": "1020c8302ce6e6e3f2c931ac1bc860e6b4402896de18d9272ae5902c43943c92",
+    "scan_alternate_pairs.py": "f1fa6bce8fb64d9e9b6394de9cfe4a0b5ae867939111fbdb1c4a9ce1f3ad2bfc",
+    "preview_listen_response_v3.py": "ee0686bd1138e194bddc8919cf0ff11d13dfa6aeac35cd233d676ab061f5e946",
+    "preview_turn_rules_v2.py": "3669ca84b532194283abdef040a03c4784576e93796ae74eb0250b92ac6dbf0f",
+    "preview_duration_v3.py": "f0f769e39d1671d41c149d7488325bef0a16219a16322891b63cff3c8f9b008e",
+    "refine_preview_boundaries_v2.py": "8b1c9ea6f050b93e0d0a1813bf3ca8faca176184382cd1835a9593fa7f5de919"
+  }
+}

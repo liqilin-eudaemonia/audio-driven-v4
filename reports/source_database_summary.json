@@ -1,0 +1,14 @@
+{
+  "people": 129560,
+  "duplicate_people": 12,
+  "unpaired_groups": 284,
+  "conversations": 64638,
+  "by_subset": {
+    "improvised/dev": 361,
+    "improvised/test": 232,
+    "improvised/train": 17235,
+    "naturalistic/dev": 748,
+    "naturalistic/test": 823,
+    "naturalistic/train": 45239
+  }
+}

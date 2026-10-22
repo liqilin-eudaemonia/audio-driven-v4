@@ -1,0 +1,18 @@
+{
+  "revision": "sentence-start-repair-v3",
+  "complete": true,
+  "counts": {
+    "source_pairs": 395038,
+    "not_target": 346479,
+    "substantive_voice_in_recovered_prefix": 13583,
+    "discontinuous_previous_words": 13499,
+    "complete_prefix_exceeds_12s": 11809,
+    "repaired": 8161,
+    "over_10s": 2146,
+    "prefix_word_timestamp_over_1_5s": 1384,
+    "complete_prefix_and_preroll_exceed_12s": 123
+  },
+  "added_hours": 5.381945833333308,
+  "mode": "apply",
+  "source": "/private/liqi_workspace/data/pipeline/seamless/outputs_sentence_windows_v2/kept.jsonl"
+}

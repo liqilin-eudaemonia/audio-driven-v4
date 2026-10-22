@@ -1,0 +1,6 @@
+# Versions used by the frozen source; Python 3.13.12 on Linux.
+numpy==2.4.4
+scipy==1.15.1
+opencv-python==4.11.0.86
+soundfile==0.13.1
+fonttools==4.61.1
